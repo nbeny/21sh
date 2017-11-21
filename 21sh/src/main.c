@@ -18,6 +18,7 @@ t_exec	*ft_init_exe(t_exec *exe)
 	exe->i[1] = 0;
 	exe->i[2] = 0;
 	exe->i[3] = 0;
+	exe->red = NULL;
 	return (exe);
 }
 

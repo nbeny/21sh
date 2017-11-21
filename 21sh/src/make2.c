@@ -79,7 +79,11 @@ t_env	*make_redirection(t_exec *exe,t_env *e)
 {
 	t_red	*r;
 
+	ft_putstr("ALLO");
 	r = exe->red;
+	ft_printf(0, "r->mask = %s   r->file = [%s]   fd1-2 = {%i, %i}\n", r->mask, r->file, r->fd1, r->fd2);
+	ft_execute_fd(exe->cmd[0], exe, e);
+/*
 	while (r != NULL && r->mask != NULL)
 	{
 		if (exe->error != NULL)
@@ -93,6 +97,6 @@ t_env	*make_redirection(t_exec *exe,t_env *e)
 		else
 			ft_printf(2, "what");
 		r = r->next;
-	}
+		}*/
 	return (e);
 }

@@ -122,6 +122,10 @@ void			ft_execute(char **cmd, t_env *e);
 void			ft_exit(t_exec *exe, t_env *e);
 t_env			*ft_make_cmd(t_exec *exe, t_env *e);
 /*
+**execute2
+*/
+void    ft_execute_fd(char *str, t_exec *cmd, t_env *e);
+/*
 **bultin
 */
 t_env			*ft_cd(t_exec *exe, t_env *e);

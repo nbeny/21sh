@@ -14,8 +14,8 @@ NAME	=	21sh
 
 N_INC	=	21sh.h
 N_SRC	=	main.c tools.c free.c\
-			execute.c bultin.c cd.c\
-			env.c norme.c maj.c signal.c\
+			execute.c execute2.c bultin.c\
+			cd.c env.c norme.c maj.c signal.c\
 			termcaps.c history.c\
 			arrow_gestion.c tools2.c\
 			termcaps_tools.c line_tools.c\

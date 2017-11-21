@@ -142,7 +142,7 @@ t_exec  *ft_cmd_parcing(t_term *term)
 				r = s->red;
 				while (r != NULL)
 				{
-					ft_printf(0, "%s: [%s] {%i, %i}\n", r->mask, r->file, r->fd1, r->fd2);
+					ft_printf(0, "r->mask = %s   r->file = [%s]   fd1-2 = {%i, %i}\n", r->mask, r->file, r->fd1, r->fd2);
 					r = r->next;
 				}
 				ft_putstr("\\n\n");
