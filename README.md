@@ -23,7 +23,8 @@ shell ref:
 
 gestion couper copier coller:
 
- else if (buff[0] == -62 && buff[1] == -96 && buff[2] == '\0')
+```
+else if (buff[0] == -62 && buff[1] == -96 && buff[2] == '\0')
 
     ft_printf(2, "select\n");//option + space
     
@@ -38,3 +39,4 @@ gestion couper copier coller:
  else if (buff[0] == -30 && buff[1] == -120 && buff[2] == -102 && buff[3] == '\0')
 
     ft_printf(2, "coller\n");//option + v
+```
