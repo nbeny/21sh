@@ -1,5 +1,6 @@
 #include "21sh.h"
 
+/*
 void	make_background(t_exec *exe, t_env *env)
 {
 	t_exec	*s;
@@ -75,3 +76,4 @@ void	make_right_redirection(t_exec *exe, t_env *env)
 	ft_free_tabstr(env);
 	ft_strdel(&str);
 }
+*/

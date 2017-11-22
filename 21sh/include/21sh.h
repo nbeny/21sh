@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   21sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -73,6 +73,11 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+typedef struct	s_fd
+{
+	int				*close;
+	struct s_new	*next;
+}				t_fd;
 typedef struct	s_exec
 {
 	char			**cmd;
@@ -81,7 +86,9 @@ typedef struct	s_exec
 	char			*error;
 	struct s_quot	*quot;
 	struct s_red	*red;
+	struct s_fd		*fd;
 	int				i[4];
+	int				jp_nxt;
 	struct s_exec	*next;
 	struct s_exec	*prev;
 }				t_exec;
@@ -343,4 +350,15 @@ t_red   *make_fdleftaddrfd(t_red *r, t_env *e);
 t_red   *make_fdleftaddrless(t_red *r, t_env *e);
 t_red   *make_fddoubleleft(t_red *r, t_env *e);
 t_red   *make_fdleft(t_red *r, t_env *e);
+/*
+**make_digit
+*/
+t_red   *make_digit_right(t_red *r, t_env *e);
+t_red   *make_digit_left(t_red *r, t_env *e);
+/*
+**tools_mask
+*/
+t_env	*boucle_numeric_and(t_exec *exe, t_env *e);
+t_env	*boucle_numeric_or(t_exec *exe, t_env *e);
+t_env	*boucle_pipe(t_exec *exe, t_env *e);
 #endif

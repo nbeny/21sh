@@ -6,13 +6,16 @@ t_exec	*ft_new_exe(void)
 
 	if (!(e = (t_exec *)malloc(sizeof(t_exec))))
 		return (NULL);
-	e->next = NULL;
-	e->prev = NULL;
 	e->cmd = NULL;
 	e->mask = NULL;
+	e->wait = 0;
+	e->error = NULL;
 	e->quot = NULL;
 	e->red = NULL;
-	e->error = NULL;
+	e->fd = NULL;
+	e->jp_nxt = 0;
+	e->next = NULL;
+	e->prev = NULL;
 	return (e);
 }
 
