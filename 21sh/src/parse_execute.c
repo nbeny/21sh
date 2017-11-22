@@ -79,14 +79,14 @@ t_env	*ft_parse_mask(t_exec *exe, t_env *e)
 		if (s->mask == NULL)
 			e = make_semicolon(s, e);
 		else if (s->mask[0] == '|')
-		{
-			if (s->mask[1] == '|')
-				e = make_numeric_or(s, e);
-			else
-				e = make_pipe(s, e);
-		}
+			{
+				if (s->mask[1] == '|')
+					e = boucle_numeric_or(exe, e);
+				else
+					e = make_pipe(s, e);
+			}
 		else if (s->mask[0] == '&' && s->mask[1] == '&')
-			e = make_numeric_and(s, e);
+			boucle_numeric_and(exe, e);
 		else
 			e = make_semicolon(s, e);
 		s = s->next;

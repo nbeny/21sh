@@ -22,5 +22,6 @@ t_red	*make_fddoubleright(t_red *r, t_env *e)
 
 t_red	*make_fdright(t_red *r, t_env *e)
 {
+//	ft_execute_fd();
 	return (r);
 }

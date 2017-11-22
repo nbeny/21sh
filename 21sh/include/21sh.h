@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   21sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -59,6 +59,7 @@ typedef struct	s_red
 	char			*file;
 	int				fd1;
 	int				fd2;
+	int				fd_open;
 	struct s_red	*next;
 }				t_red;
 typedef struct	s_hty
@@ -73,6 +74,11 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }				t_env;
+typedef struct	s_fd
+{
+	int				*close;
+	struct s_new	*next;
+}				t_fd;
 typedef struct	s_exec
 {
 	char			**cmd;
@@ -81,7 +87,9 @@ typedef struct	s_exec
 	char			*error;
 	struct s_quot	*quot;
 	struct s_red	*red;
+	struct s_fd		*fd;
 	int				i[4];
+	int				jp_nxt;
 	struct s_exec	*next;
 	struct s_exec	*prev;
 }				t_exec;
@@ -124,7 +132,9 @@ t_env			*ft_make_cmd(t_exec *exe, t_env *e);
 /*
 **execute2
 */
-void    ft_execute_fd(char *str, t_exec *cmd, t_env *e);
+void    		ft_execute_fd(t_exec *cmd, t_env *e);
+void    		ft_execute_path_fd(char *str, t_exec *cmd, t_env *e);
+void	   		ft_exe_red(t_exec *exe, t_env *e);
 /*
 **bultin
 */
@@ -347,4 +357,15 @@ t_red   *make_fdleftaddrfd(t_red *r, t_env *e);
 t_red   *make_fdleftaddrless(t_red *r, t_env *e);
 t_red   *make_fddoubleleft(t_red *r, t_env *e);
 t_red   *make_fdleft(t_red *r, t_env *e);
+/*
+**make_digit
+*/
+t_red   *make_digit_right(t_red *r, t_env *e);
+t_red   *make_digit_left(t_red *r, t_env *e);
+/*
+**tools_mask
+*/
+t_env	*boucle_numeric_and(t_exec *exe, t_env *e);
+t_env	*boucle_numeric_or(t_exec *exe, t_env *e);
+t_env	*boucle_pipe(t_exec *exe, t_env *e);
 #endif
