@@ -76,8 +76,9 @@ typedef struct	s_env
 }				t_env;
 typedef struct	s_fd
 {
-	int				*close;
-	struct s_new	*next;
+	int				fd0;
+	int				fd1;
+	int				fd2;
 }				t_fd;
 typedef struct	s_exec
 {
@@ -87,7 +88,7 @@ typedef struct	s_exec
 	char			*error;
 	struct s_quot	*quot;
 	struct s_red	*red;
-	struct s_fd		*fd;
+	struct s_fd		fd;
 	int				i[4];
 	int				jp_nxt;
 	struct s_exec	*next;
@@ -132,9 +133,11 @@ t_env			*ft_make_cmd(t_exec *exe, t_env *e);
 /*
 **execute2
 */
+void	   		ft_exe_red(t_exec *exe, t_env *e);
+t_red			*ft_dup(t_red *red);
+t_red			*ft_close_dup(t_red *red);
 void    		ft_execute_fd(t_exec *cmd, t_env *e);
 void    		ft_execute_path_fd(char *str, t_exec *cmd, t_env *e);
-void	   		ft_exe_red(t_exec *exe, t_env *e);
 /*
 **bultin
 */
@@ -323,45 +326,46 @@ t_env   *make_pipe(t_exec *exe, t_env *e);
 /*
 **make2
 */
-t_red   *make_right_red(t_red *r, t_env *e);
-t_red   *make_left_red(t_red *r, t_env *e);
-t_red   *make_digit(t_red *r, t_env *e);
-t_env   *make_redirection(t_exec *exe,t_env *e);
+t_red   *make_right_red(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_left_red(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_digit(t_exec *exe, t_red *r, t_env *e);
+t_env   *make_redirection(t_exec *exe, t_env *e);
 /*
 **make3
 */
-t_red   *make_rightaddrless(t_red *r, t_env *e);
-t_red   *make_doubleright_redirection(t_red *r, t_env *e);
-t_red   *make_rightpipe(t_red *r, t_env *e);
-t_red   *make_right(t_red *r, t_env *e);
+t_red   *make_rightaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_doubleright_redirection(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_rightpipe(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_right(t_exec *exe, t_red *r, t_env *e);
 /*
 **make4
 */
-t_red   *make_leftaddr(t_red *r, t_env *e);
-t_red   *make_trileft_redirection(t_red *r, t_env *e);
-t_red   *make_doubleleftless(t_red *r, t_env *e);
-t_red   *make_doubleleft(t_red *r, t_env *e);
-t_red   *make_rightpipe(t_red *r, t_env *e);
+t_red   *make_leftaddr(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_trileft_redirection(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_doubleleftless(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_doubleleft(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_rightpipe(t_exec *exe, t_red *r, t_env *e);
 /*
 **make5
 */
-t_red   *make_right(t_red *r, t_env *e);
-t_red   *make_fdrightaddrfd(t_red *r, t_env *e);
-t_red   *make_fdrightaddrless(t_red *r, t_env *e);
-t_red   *make_fddoubleright(t_red *r, t_env *e);
-t_red   *make_fdright(t_red *r, t_env *e);
+t_red   *make_right(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fdrightaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fddoubleright(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fdright(t_exec *exe, t_red *r, t_env *e);
 /*
 **make6
 */
-t_red   *make_fdleftaddrfd(t_red *r, t_env *e);
-t_red   *make_fdleftaddrless(t_red *r, t_env *e);
-t_red   *make_fddoubleleft(t_red *r, t_env *e);
-t_red   *make_fdleft(t_red *r, t_env *e);
+t_red   *make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fddoubleleft(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fdleft(t_exec *exe, t_red *r, t_env *e);
 /*
 **make_digit
 */
-t_red   *make_digit_right(t_red *r, t_env *e);
-t_red   *make_digit_left(t_red *r, t_env *e);
+void	init_redirection(t_exec *exe);
+t_red   *make_digit_right(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_digit_left(t_exec *exe, t_red *r, t_env *e);
 /*
 **tools_mask
 */
