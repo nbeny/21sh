@@ -2,6 +2,7 @@
 
 t_red	*make_right_red(t_exec *exe, t_red *r, t_env *e)
 {
+	ft_printf(2, "::boucle_start_redir\n");
 	if (r->mask[1] == '&')
 	{
 //		if (ft_isdigit(r->mask[2]))
@@ -15,6 +16,7 @@ t_red	*make_right_red(t_exec *exe, t_red *r, t_env *e)
 		make_rightpipe(exe, r, e);
 	else
 		make_right(exe, r, e);
+	ft_printf(2, "::boucle_start_redir\n");
 	return (r);
 }
 

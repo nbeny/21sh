@@ -95,10 +95,10 @@ typedef struct	s_exec
 	struct s_exec	*prev;
 }				t_exec;
 /*
-typedef static struct	s_sign
-{
-	struct t_term	*term;
-}						t_sign;
+**typedef static struct	s_sign
+**{
+**	struct t_term	*term;
+**}						t_sign;
 */
 /*
 **main
@@ -373,4 +373,9 @@ char	*ft_add_path(char *path, char *file);
 t_env	*boucle_numeric_and(t_exec *exe, t_env *e);
 t_env	*boucle_numeric_or(t_exec *exe, t_env *e);
 t_env	*boucle_pipe(t_exec *exe, t_env *e);
+/*
+**tools_fd
+*/
+void	save_fd(t_exec *exe);
+void	reload_fd(t_exec *exe);
 #endif

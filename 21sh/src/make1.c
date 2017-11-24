@@ -45,7 +45,10 @@ t_env	*make_numeric_and(t_exec *exe, t_env *e)
 
 	str = NULL;
 	if (exe->red != NULL)
+	{
+		save_fd(exe);
 		e = make_redirection(exe, e);
+	}
 	if (ft_isbultin(exe, e))
 		e = make_bultin(exe, e);
 	else if (!ft_strncmp(exe->cmd[0], "./", 2) ||	\
@@ -56,7 +59,7 @@ t_env	*make_numeric_and(t_exec *exe, t_env *e)
 	else
 		ft_printf(2, "command not found: %s\n", exe->cmd[0]);
 	if (exe->red != NULL)
-		init_redirection(exe);
+		reload_fd(exe);
 	return (e);
 }
 
@@ -70,7 +73,10 @@ t_env	*make_pipe(t_exec *exe, t_env *e)
 	while (s->mask != NULL && !ft_strncmp(s->mask, "|\0", 2))
 	{
 		if (exe->red != NULL)
+		{
+			save_fd(exe);
 			e = make_redirection(exe, e);
+		}
 		if (ft_isbultin(exe, e))
 			e = make_bultin(exe, e);
 		else if (!ft_strncmp(exe->cmd[0], "./", 2) ||\
@@ -81,7 +87,7 @@ t_env	*make_pipe(t_exec *exe, t_env *e)
 		else
 			ft_printf(2, "command not found: %s\n", exe->cmd[0]);
 		if (exe->red != NULL)
-			init_redirection(exe);
+			reload_fd(exe);
 		s = s->next;
 	}
 	return (e);

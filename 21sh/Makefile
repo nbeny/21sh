@@ -27,7 +27,8 @@ N_SRC	=	main.c tools.c free.c\
 			utils_termcaps.c arrow_opt.c\
 			parse_execute.c make1.c\
 			make2.c make3.c make4.c make5.c\
-			make6.c make_digit.c tools_mask.c
+			make6.c make_digit.c tools_mask.c\
+			tools_fd.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -lncurses #-fsanitize=address -g3
