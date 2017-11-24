@@ -3,6 +3,7 @@
 t_red	*make_rightaddrless(t_exec *exe, t_red *r, t_env *e)
 {
 	dup2(1, 2);
+	close(1);
 	return (r);
 }
 

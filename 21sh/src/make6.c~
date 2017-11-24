@@ -12,14 +12,13 @@ t_red	*make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e)
 
 t_red	*make_fddoubleleft(t_exec *exe, t_red *r, t_env *e)
 {
-	
 	return (r);
 }
 
 t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 {
-	char	*tmp;
-	char	*path;
+	char*tmp;
+	char*path;
 
 	tmp = getcwd(NULL, 1024);
 	path = ft_add_path(tmp, r->file);
