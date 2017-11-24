@@ -9,6 +9,7 @@ void	init_redirection(t_exec *exe)
 	}
 	if (exe->fd.fd1 != -1)
 	{
+		ft_printf(2, "{%i}\n", exe->fd.fd1);
 		dup2(exe->fd.fd1, 1);
 		close(exe->fd.fd1);
 	}
