@@ -12,7 +12,9 @@ t_exec	*ft_new_exe(void)
 	e->error = NULL;
 	e->quot = NULL;
 	e->red = NULL;
-	e->fd = NULL;
+	e->fd.fd0 = -1;
+	e->fd.fd1 = -1;
+	e->fd.fd2 = -1;
 	e->jp_nxt = 0;
 	e->next = NULL;
 	e->prev = NULL;

@@ -1,5 +1,16 @@
 #include "21sh.h"
 
+char	*ft_add_path(char *path, char *file)
+{
+	char	*new;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	new = ft_strjoin(tmp, file);
+	ft_strdel(&tmp);
+	return (new);
+}
+
 t_env	*boucle_numeric_or(t_exec *exe, t_env *e)
 {
 	t_exec	*s;

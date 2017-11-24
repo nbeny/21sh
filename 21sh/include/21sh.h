@@ -369,6 +369,7 @@ t_red   *make_digit_left(t_exec *exe, t_red *r, t_env *e);
 /*
 **tools_mask
 */
+char	*ft_add_path(char *path, char *file);
 t_env	*boucle_numeric_and(t_exec *exe, t_env *e);
 t_env	*boucle_numeric_or(t_exec *exe, t_env *e);
 t_env	*boucle_pipe(t_exec *exe, t_env *e);
