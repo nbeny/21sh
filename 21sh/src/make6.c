@@ -37,14 +37,13 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 		exe->error = ft_strdup("21sh: no such file or directory\n");
 		return (r);
 	}
-    fd = open(r->file, O_WRONLY | O_TRUNC,\
-            S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+    fd = open(r->file, O_RDONLY, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
     if (fd == -1)
     {
         exe->error = ft_strdup("21sh: open failed\n");
         return (r);
     }
-	dup2(fd, 0);
+	dup2(fd, r->fd1);
 	close(fd);
 	ft_strdel(&path);
 	return (r);
