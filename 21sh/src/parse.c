@@ -15,6 +15,9 @@ t_exec	*ft_new_exe(void)
 	e->fd.fd0 = -1;
 	e->fd.fd1 = -1;
 	e->fd.fd2 = -1;
+	e->fd.ffd0 = 0;
+	e->fd.ffd1 = 0;
+	e->fd.ffd2 = 0;
 	e->jp_nxt = 0;
 	e->next = NULL;
 	e->prev = NULL;
@@ -103,6 +106,11 @@ t_exec	*ft_parse_quot(t_term *term)
 			s = ft_get_arg(term, s);
 		else
 			term->i++;
+		if (term->error != NULL)
+		{
+			ft_printf(2, "%s", term->error);
+			return (exe);
+		}
 	}
 	s->cmd = ft_cmd_building(term, s);
 //	ft_free_quote(exe->quot);

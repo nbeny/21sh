@@ -15,6 +15,7 @@
 t_exec	*ft_init_exe(t_exec *exe)
 {
 	exe->cmd = NULL;
+	exe->c = NULL;
 	exe->mask = NULL;
 	exe->wait = 0;
 	exe->error = NULL;
@@ -84,6 +85,7 @@ int		main(int ac, char **av, char **env)
 			return (-1);
 		while (42)
 		{
+			term.error = NULL;
 			signal(SIGINT, sig_init);
 			ft_printf(0, "\033[34;1m$> \033[0m");
 			term.prompt = 4;
@@ -92,7 +94,10 @@ int		main(int ac, char **av, char **env)
 				hty = ft_mem_cmd(&term, hty);
 			term.hty = hty;
 			exec = ft_cmd_parcing(&term);
-			e = ft_parse_mask(exec, e);
+			if (term.error == NULL)
+				e = ft_parse_mask(&term, exec, e);
+			else
+				ft_strdel(&(term.error));
 			ft_free_exe(exec);
 			ft_strdel(&(term.line));
 		}

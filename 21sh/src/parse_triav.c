@@ -11,10 +11,11 @@ static t_exec	*tri_avav_right(t_term *term, t_exec *e)
 		e = ft_push_red_fd12(term, e, s);
 		ft_strdel(&s);
 	}
-	else if (term->line[term->i] == '-')
+	else if (term->line[term->i + 3] == '-')
 	{
 		s = get_mask(term->line[term->i], '>', '&', '-');
 		e = ft_push_red_fd1(term, e, s);
+		ft_putstr(s);
 		ft_strdel(&s);
 	}
 	else

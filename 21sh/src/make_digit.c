@@ -42,7 +42,7 @@ t_red	*make_digit_right(t_exec *exe, t_red *r, t_env *e)
 	return (r);
 }
 
-t_red	*make_digit_left(t_exec *exe, t_red *r, t_env *e)
+t_red	*make_digit_left(t_term *term, t_exec *exe, t_red *r, t_env *e)
 {
 	ft_printf(2, ";;make_digit_left\n");
 	if (r->mask[1] == '<')

@@ -1,0 +1,55 @@
+#include "21sh.h"
+
+int		ft_listsize_cmd(t_cmd *e)
+{
+	t_cmd	*s;
+	int		i;
+
+	i = 0;
+	s = e;
+	if (e != NULL)
+	{
+		while (s != NULL)
+		{
+			i++;
+			s = s->next;
+		}
+	}
+	return (i);
+}
+
+int		ft_cmp_tabstr(char **cmd)
+{
+	int		i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		if (cmd[i][0] != '-')
+			return(1);
+		i++;
+	}
+	return (0);
+}
+
+t_red	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r)
+{
+	int		fd;
+
+	fd = open("/tmp/file_generator",\
+			O_WRONLY | O_TRUNC | O_CREAT,\
+			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+	if (fd == -1)
+	{
+		exe->error = ft_strdup("21sh: open return -1\n");
+		return (r);
+	}
+	ft_putstr_fd(quot, fd);
+	exe->c = ft_tab_to_list_cmd(exe->cmd);
+	exe->c = add_cmd_str(exe->c, "/tmp/file_generator");
+	free_cmd_str(exe->cmd);
+	exe->cmd = ft_list_to_tab_cmd(exe->c);
+	free_list_cmd_str(exe->c);
+	exe->c = NULL;
+	return (r);
+}

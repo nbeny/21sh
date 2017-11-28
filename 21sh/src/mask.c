@@ -1,6 +1,6 @@
 #include "21sh.h"
 
-void	ft_parse_mask(t_exec *exe, t_env *env)
+/*void	ft_parse_mask(t_exec *exe, t_env *env)
 {
 	if (exe->mask == NULL)
 		return ;
@@ -31,3 +31,4 @@ void	ft_parse_mask(t_exec *exe, t_env *env)
 	else
 		ft_printf(2, "mask error");
 }
+*/

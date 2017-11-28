@@ -1,72 +1,42 @@
 #include "21sh.h"
-
-void	ft_exe_red(t_exec *exe, t_env *e)
+/*
+void	ft_execute_pipe(t_exec *exe, t_env *e)
 {
-	char *str;
-
-	//if (ft_isbultin(exe, e))
-	//	e = make_bultin(exe, e);
-	if (!ft_strncmp(exe->cmd[0], "./", 2) ||	\
-			 !ft_strncmp(exe->cmd[0], "/", 1))
-		ft_execute_fd(exe, e);
-	else if ((str = ft_path_istrue(exe->cmd, e)))
-		ft_execute_path_fd(str, exe, e);
-	else
-		ft_printf(2, "command not found: %s\n", exe->cmd[0]);
-}
-t_red	*ft_dup(t_red *red)
-{
-	t_red *r;
-
-	r = red;
-	while (r)
-	{
-		r->fd_open = open(r->file, O_RDWR | O_CREAT, 0644);
-		dup2(r->fd_open, 0);
-		r = r->next;
-	}
-	return (red);
-}
-t_red	*ft_close_dup(t_red *red)
-{
-	t_red *r;
-
-	r = red;
-	while (r)
-	{
-		close(r->fd_open);
-		r = r->next;
-	}
-	return (red);
-}
-void	ft_execute_fd(t_exec *exe, t_env *e)
-{
-	pid_t   pid;
 	pid_t   w;
 	int     status;
 	char    **env;
-	char *s;
+	char	*s;
+	int		pipe[2];
 
-	pid = fork();
+	if (pipe(pipe) == -1)
+	{
+		exe->error = ft_strdup("21sh: pipe return -1\n");
+		return ;
+	}
+	exe->pid = fork();
 	signal(SIGINT, sig_exe);
 	s = ft_string_return(e, exe->cmd);
 	env = ft_list_to_tab(e);
-	if (pid == -1)
+	if (exe->pid == -1)
 		exit(EXIT_FAILURE);
-	else if (pid == 0)
+	else if (exe->pid == 0)
 	{
-//		if (exe->red != NULL)
-//			exe->red = ft_dup(exe->red);
+		close(pipe[1]);
+		while (read(pipe[0], &buf, 1) > 0)
+			write(STDOUT_FILENO, &buf, 1);
+		write(STDOUT_FILENO, "\n", 1);
+		close(pipefd[0]);
 		status = execve(s, exe->cmd, env);
-//		if (exe->red != NULL)
-//			exe->red = ft_close_dup(exe->red);
-		if (kill(pid, SIGINT) == -1)
+		if (kill(exe->pid, SIGINT) == -1)
 			exit(status);
 		exit(status);
 	}
 	else
 	{
-		w = waitpid(pid, &status, WCONTINUED);
+		close(pipe[0]);
+        write(pipe[1], argv[1], ft_strlen(argv[1]));
+        close(pipe[1]);   
+		w = waitpid(exe->pid, &status, WCONTINUED);
 		if (w == -1)
 			exit(EXIT_FAILURE);
     }
@@ -74,31 +44,31 @@ void	ft_execute_fd(t_exec *exe, t_env *e)
 	ft_strdel(&s);
 }
 
-void	ft_execute_path_fd(char *str, t_exec *exe, t_env *e)
+void	ft_execute_path_pipe(char *str, t_exec *exe, t_env *e)
 {
-    pid_t   pid;
-    pid_t   w;
+	pid_t   w;
     int     status;
     char    **env;
-	
-    pid = fork();
+
+    exe->pid = fork();
     signal(SIGINT, sig_exe);
     env = ft_list_to_tab(e);
-    if (pid == -1)
+    if (exe->pid == -1)
         exit(EXIT_FAILURE);
-    else if (pid == 0 && !access(str, X_OK))
+    else if (exe->pid == 0 && !access(str, X_OK))
     {
         status = execve(str, exe->cmd, env);
-        if (kill(pid, SIGINT) == -1)
+        if (kill(exe->pid, SIGINT) == -1)
             exit(status);
         exit(status);
     }
     else
     {
-        w = waitpid(pid, &status, WCONTINUED);
+        w = waitpid(exe->pid, &status, WCONTINUED);
         if (w == -1)
             exit(EXIT_FAILURE);
     }
     ft_free_tabstr(env);
     ft_strdel(&str);
 }
+*/

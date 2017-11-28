@@ -28,10 +28,11 @@ N_SRC	=	main.c tools.c free.c\
 			parse_execute.c make1.c\
 			make2.c make3.c make4.c make5.c\
 			make6.c make_digit.c tools_mask.c\
-			tools_fd.c
+			tools_fd.c execute_fd.c tools_cmd.c\
+			tools_cmd2.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -lncurses #-fsanitize=address -g3
+CC_FLAG	=	-Wall -lncurses -fsanitize=address -g3
 
 T_SRC	=	./src/
 T_INC	=	./include/
