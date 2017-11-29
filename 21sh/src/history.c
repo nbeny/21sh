@@ -62,7 +62,6 @@ t_hty	*ft_up_arrow(t_term *term, t_hty *hty)
 			ft_putstr(hty->cmd);
 			term->mlen = ft_strlen(hty->cmd);
 			term->pos = term->mlen;
-//		ft_putnbr(term->h);
 			return (hty);
 		}
 		else
@@ -73,7 +72,6 @@ t_hty	*ft_up_arrow(t_term *term, t_hty *hty)
 			ft_putstr(hty->cmd);
 			term->mlen = ft_strlen(hty->cmd);
 			term->pos = term->mlen;
-//		ft_putnbr(term->h);
 			return (hty);
 		}
 	}
@@ -93,7 +91,6 @@ t_hty	*ft_down_arrow(t_term *term, t_hty *hty)
 			ft_putstr(hty->cmd);
 			term->mlen = ft_strlen(hty->cmd);
 			term->pos = term->mlen;
-//		ft_putnbr(term->h);
 			return (hty);
 		}
 		else
@@ -104,7 +101,6 @@ t_hty	*ft_down_arrow(t_term *term, t_hty *hty)
 			ft_putstr(hty->cmd);
 			term->mlen = ft_strlen(hty->cmd);
 			term->pos = term->mlen;
-//		ft_putnbr(term->h);
 			return (hty);
 		}
 	}

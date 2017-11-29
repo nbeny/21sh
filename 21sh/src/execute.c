@@ -49,14 +49,12 @@ void	ft_execute_path(char *str, char **cmd, t_env *e)
 	char	**env;
 
 	pid = fork();
-//	ft_printf(2, "exepath %i\n", pid);
 	signal(SIGINT, sig_exe);
 	env = ft_list_to_tab(e);
 	if (pid == -1)
 		exit(EXIT_FAILURE);
 	else if (pid == 0 && !access(str, X_OK))
 	{
-//		ft_printf(2, "%s, %s, %s\n", str, cmd[0], env[0]);
 		status = execve(str, cmd, env);
 		if (kill(pid, SIGINT) == -1)
 			exit(status);
@@ -81,7 +79,6 @@ void	ft_execute(char **cmd, t_env *e)
 	char	*s;
 
 	pid = fork();
-//	ft_printf(2, "execute\n");
 	signal(SIGINT, sig_exe);
 	s = ft_string_return(e, cmd);
 	env = ft_list_to_tab(e);
@@ -89,7 +86,6 @@ void	ft_execute(char **cmd, t_env *e)
 		exit(EXIT_FAILURE);
 	if (pid == 0 && !access(s, X_OK))
 	{
-//		ft_printf(2, "%s, %s, %s\n", s, cmd[0], env[0]);
 		status = execve(s, cmd, env);
 		if (kill(pid, SIGINT) == -1)
 			exit(status);

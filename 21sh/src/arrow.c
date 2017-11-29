@@ -36,19 +36,3 @@ t_term  *ft_right_arrow(t_term *term, char buff[6])
 	return (term);
     }
 }
-/*
-t_term  *ft_mem_cmd()
-{
-
-}
-
-t_term  *ft_up_arrow(t_term *term)
-{
-
-}
-
-t_term  *ft_down_arrow(t_term *term)
-{
-
-}
-*/

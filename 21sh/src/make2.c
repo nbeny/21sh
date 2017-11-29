@@ -66,9 +66,5 @@ t_env	*make_redirection(t_term *term, t_exec *exe,t_env *e)
 			r = make_right_red(exe, r, e);
 		r = r->next;
 	}
-
-//	r = exe->red;
-//	if (r)
-//		ft_exe_red(exe, e);
 	return (e);
 }

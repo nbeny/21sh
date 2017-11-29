@@ -27,7 +27,6 @@ t_exec	*ft_new_exe(void)
 t_exec	*ft_get_arg(t_term *term, t_exec *exe)
 {
 	term->p[0] = term->i;
-//	ft_printf(0, "[%i]", term->p[0]);
 	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
 		term->line[term->i] != 9 && term->line[term->i] != ';' &&\
 		term->line[term->i] != '|' && term->line[term->i] != '&' &&\
@@ -40,7 +39,6 @@ t_exec	*ft_get_arg(t_term *term, t_exec *exe)
 		term->i++;
 	}
 	term->p[1] = term->i;
-//	ft_printf(0, "[%i]\n", term->p[1]);
 	exe = ft_build_quot(term, exe);
 	return (exe);
 }
@@ -50,10 +48,8 @@ t_exec	*ft_quot_separation(t_term *term, t_exec *exe)
 	if (term->line[term->i++] == 34)
 	{
 		term->p[0] = term->i;
-//		ft_printf(0, "[%i]", term->p[0]);
 		while (term->line[term->i] != 34 && term->line[term->i] != 0)
 			term->i++;
-//		ft_printf(0, "[%i]", term->i);
 		if (term->line[term->i] == 0)
 			ft_dquot(term, exe);
 		else
@@ -71,7 +67,6 @@ t_exec	*ft_quot_separation(t_term *term, t_exec *exe)
 	}
 	exe = ft_build_quot(term, exe);
 	term->i++;
-//	ft_printf(0, "[term->]");
 	return (exe);
 }
 
@@ -129,7 +124,6 @@ t_exec  *ft_cmd_parcing(t_term *term)
 	split = NULL;
 	if (term->line != NULL && term->line[0] != '\0')
 	{
-//		if (ft_strchr(term->line, 34) || ft_strchr(term->line, 39))
 			exe = ft_parse_quot(term);
 			i = 0;
 			s = exe;
@@ -162,14 +156,6 @@ t_exec  *ft_cmd_parcing(t_term *term)
 				s = s->next;
 			}
 			ft_printf(0, "}\n");
-//		ft_printf(0, "[%s]", exe->quot->arg);
-/*
-		else
-			split = ft_strsplit(term->line, ';');
-		exe = ft_first_struct_exe(split);
-		exe = ft_all_struct_exe(exe, split);
-		ft_free_tabstr(split);
-*/
 	}
 	return (exe);
 }
