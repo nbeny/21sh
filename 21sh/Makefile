@@ -32,7 +32,8 @@ N_SRC	=	main.c tools.c free.c\
 			tools_cmd2.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -lncurses -fsanitize=address -g3
+CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3
+CURSES	=	-ltermcap
 
 T_SRC	=	./src/
 T_INC	=	./include/
@@ -80,7 +81,7 @@ $(NAME): $(OBJ)
 	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)"
 	@make -C $(T_PTF)
 	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
-	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF)
+	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF) $(CURSES)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
 	@echo ">$(CL_V)Creat: Objects files..$(CL_N)"
