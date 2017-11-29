@@ -50,13 +50,3 @@ void	ft_clear_mlen(t_term *term, t_hty *hty)
 	ft_strdel(&(term->line));
 	term->line = ft_strdup(hty->cmd);
 }
-
-/*
-void	ft_modif_screen(t_term *term, t_hty *hty)
-{
-	ft_clear_mlen(term, hty);
-	ft_putstr(hty->cmd);
-	term->mlen = ft_strlen(hty->cmd);
-	term->pos = term->mlen;	
-}
-*/

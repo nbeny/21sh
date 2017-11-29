@@ -1,27 +1,65 @@
 #include "21sh.h"
-/*
-t_red	*make_right(t_red *r, t_env *e)
+
+t_red	*make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e)
 {
-	return (r);
-}
-*/
-t_red	*make_fdrightaddrfd(t_red *r, t_env *e)
-{
+	if (r->fd1 != -1)
+	{
+		if (r->fd2 == 0 || r->fd2 == 1 || r->fd2 == 2)
+			dup2(r->fd1, r->fd2);
+		else
+			exe->error = ft_strdup("21sh: bad file descriptor\n");
+	}
 	return (r);
 }
 
-t_red	*make_fdrightaddrless(t_red *r, t_env *e)
+t_red	*make_fdrightaddrless(t_exec *exe, t_red *r, t_env *e)
 {
+	if (r->fd1 == 0)
+	{
+		close(exe->fd.fd0);
+		exe->fd.ffd0 = 1;
+	}
+	if (r->fd1 == 1)
+	{
+		exe->fd.ffd1 = 1;
+		close(exe->fd.fd1);
+	}
+	if (r->fd1 == 2)
+	{
+		exe->fd.ffd2 = 1;
+		close(exe->fd.fd2);
+	}
 	return (r);
 }
 
-t_red	*make_fddoubleright(t_red *r, t_env *e)
+t_red	*make_fddoubleright(t_exec *exe, t_red *r, t_env *e)
 {
+	int		fd;
+
+	fd = open(r->file, O_WRONLY | O_APPEND | O_CREAT,\
+			  S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+	if (fd == -1)
+	{
+		exe->error= (ft_strdup("21sh: open failed\n"));
+		return (r);
+	}
+	dup2(fd, r->fd1);
+	close(fd);
 	return (r);
 }
 
-t_red	*make_fdright(t_red *r, t_env *e)
+t_red	*make_fdright(t_exec *exe, t_red *r, t_env *e)
 {
-//	ft_execute_fd();
+    int         fd;
+
+    fd = open(r->file, O_WRONLY | O_TRUNC | O_CREAT,\
+            S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+    if (fd == -1)
+    {
+     	exe->error = ft_strdup("21sh: open return -1\n");
+		return (r);
+    }
+    dup2(fd, r->fd1);
+    close(fd);
 	return (r);
 }

@@ -1,6 +1,6 @@
 #include "21sh.h"
 
-t_red	*creat_redirection()
+t_red	*creat_redirection(void)
 {
 	t_red	*r;
 
@@ -24,12 +24,14 @@ t_exec	*ft_push_red_file(t_term *term, t_exec *e, char	*str)
 		term->i++;
 	term->p[0] = term->i;
 	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
-		term->line[term->i] != '\t' && term->line[term->i] != '\n')
+		term->line[term->i] != '\t' && term->line[term->i] != '\n' &&\
+		term->line[term->i] != '>' && term->line[term->i] != '<' &&\
+		term->line[term->i] != '&' && term->line[term->i] != '|')
 		term->i++;
 	term->p[1] = term->i;
 	if (term->p[0] == term->p[1])
 	{
-		ft_printf(2, "parse error near `\\n`\n");
+		term->error = ft_strdup("parse error near `\\n`\n");
 		return (e);
 	}
 	if (e->red != NULL)
@@ -137,12 +139,14 @@ t_exec	*ft_push_red_fd1file(t_term *term, t_exec *e, char	*str)
 		term->i++;
 	term->p[0] = term->i;
 	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
-		term->line[term->i] != '\t' && term->line[term->i] != '\n')
+		term->line[term->i] != '\t' && term->line[term->i] != '\n' &&\
+		term->line[term->i] != '>' && term->line[term->i] != '<' &&\
+		term->line[term->i] != '&' && term->line[term->i] != '|')
 		term->i++;
 	term->p[1] = term->i;
 	if (term->p[0] == term->p[1])
 	{
-		ft_printf(2, "parse error near `\\n`\n");
+		term->error = ft_strdup("parse error near `\\n`\n");
 		return (e);
 	}
 	if (e->red != NULL)

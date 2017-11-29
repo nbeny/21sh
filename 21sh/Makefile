@@ -14,23 +14,25 @@ NAME	=	21sh
 
 N_INC	=	21sh.h
 N_SRC	=	main.c tools.c free.c\
-			execute.c execute2.c bultin.c\
+			execute.c bultin.c\
 			cd.c env.c norme.c maj.c signal.c\
 			termcaps.c history.c\
 			arrow_gestion.c tools2.c\
 			termcaps_tools.c line_tools.c\
 			parse.c parse_tools.c\
-			tools_redirection.c\
 			parse_mask.c parse_tri.c\
 			parse_triav.c quot.c\
 			parse_redirection.c\
 			utils_termcaps.c arrow_opt.c\
 			parse_execute.c make1.c\
 			make2.c make3.c make4.c make5.c\
-			make6.c make_digit.c tools_mask.c
+			make6.c make_digit.c tools_mask.c\
+			tools_fd.c execute_fd.c tools_cmd.c\
+			tools_cmd2.c free1.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -lncurses #-fsanitize=address -g3
+CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3
+CURSES	=	-ltermcap
 
 T_SRC	=	./src/
 T_INC	=	./include/
@@ -78,7 +80,7 @@ $(NAME): $(OBJ)
 	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)"
 	@make -C $(T_PTF)
 	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
-	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF)
+	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF) $(CURSES)
 
 $(T_OBJ)%.o: $(T_SRC)%.c
 	@echo ">$(CL_V)Creat: Objects files..$(CL_N)"

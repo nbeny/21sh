@@ -1,6 +1,17 @@
 #include "21sh.h"
 
-t_env	*boucle_numeric_or(t_exec *exe, t_env *e)
+char	*ft_add_path(char *path, char *file)
+{
+	char	*new;
+	char	*tmp;
+
+	tmp = ft_strjoin(path, "/");
+	new = ft_strjoin(tmp, file);
+	ft_strdel(&tmp);
+	return (new);
+}
+
+t_env	*boucle_numeric_or(t_term *term, t_exec *exe, t_env *e)
 {
 	t_exec	*s;
 
@@ -10,7 +21,7 @@ t_env	*boucle_numeric_or(t_exec *exe, t_env *e)
 		s->mask[1] == '|')
 	{
 		s->jp_nxt++;
-		e = make_numeric_or(s, e);
+		e = make_numeric_or(term, s, e);
 		if (s->error != NULL)
 			while (s && s->mask && s->mask[0] == '|' && \
 				s->mask[1] == '|')
@@ -22,7 +33,7 @@ t_env	*boucle_numeric_or(t_exec *exe, t_env *e)
 	return (e);
 }
 
-t_env	*boucle_numeric_and(t_exec *exe, t_env *e)
+t_env	*boucle_numeric_and(t_term *term, t_exec *exe, t_env *e)
 {
 	t_exec	*s;
 
@@ -32,7 +43,7 @@ t_env	*boucle_numeric_and(t_exec *exe, t_env *e)
 		s->mask[1] == '&')
 	{
 		s->jp_nxt++;
-		e = make_numeric_or(s, e);
+		e = make_numeric_or(term, s, e);
 		if (s->error == NULL)
 			while (s && s->mask && s->mask[0] == '&' && \
 				s->mask[1] == '&')
@@ -44,7 +55,7 @@ t_env	*boucle_numeric_and(t_exec *exe, t_env *e)
 	return (e);
 }
 
-t_env	*boucle_pipe(t_exec *exe, t_env *e)
+t_env	*boucle_pipe(t_term *term, t_exec *exe, t_env *e)
 {
 	t_exec	*s;
 
@@ -54,7 +65,7 @@ t_env	*boucle_pipe(t_exec *exe, t_env *e)
 		s->mask[1] == '\0')
 	{
 		s->jp_nxt++;
-		e = make_pipe(s, e);
+		e = make_pipe(term, s, e);
 		if (s->error == NULL)
 			while (s && s->mask && s->mask[0] == '|' && \
 				s->mask[1] == '\0')

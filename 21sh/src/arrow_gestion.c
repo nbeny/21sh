@@ -1,21 +1,8 @@
 #include "21sh.h"
-/*
-  t_term	*ft_write_and_position(t_term *term, char buff[6])
-  {
-  term->x += 1;
-  if (term->x == term->ws_x)
-  {
-  term->x = 0;
-  term->pos_y -= 1;
-  }
-  return (term);
-  }
-*/
 
 void	ft_left_arrow(t_term *term)
 {
 	ft_update_window(term);
-//	ft_printf(0, "[%i][%i]", term->x, term->y);
 	if (term->pos > 0)
 	{
 		if (term->x == 1)
@@ -78,10 +65,6 @@ void	ft_delete(t_term *term)
 			{
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
 				tputs(tgetstr("dc", NULL), 1, ft_putchar);
-//				if (term->line[term->pos] == '\t')
-//				{
-//					tputs(tgetstr("", NULL), 1, ft_putchar);
-//				}
 			}
 		}
 		else
@@ -203,14 +186,3 @@ void	ft_move_end(t_term *term)
 	while (term->pos != term->mlen)
 		ft_right_arrow(term);
 }
-/*
-  t_term	*ft_up_arrow(t_term *term, t_hty *hty)
-  {
-  if ()
-  }
-
-  t_term	*ft_down_arrow(t_term *term, t_hty *hty)
-  {
-	
-  }
-*/

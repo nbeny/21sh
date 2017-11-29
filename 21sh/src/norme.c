@@ -31,7 +31,7 @@ char	*ft_string_return(t_env *e, char **cmd)
 	{
 		if (cmd[0][0] != '/')
 		{
-			str = ft_getenv(e, "PWD\0", 4);//getcwd(NULL, 1024);
+			str = ft_getenv(e, "PWD\0", 4);
 			s = ft_strjoin(str, &cmd[0][1]);
 			ft_strdel(&str);
 		}

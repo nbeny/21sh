@@ -18,7 +18,6 @@ t_exec	*ft_init_exe(t_exec *exe)
 	exe->i[1] = 0;
 	exe->i[2] = 0;
 	exe->i[3] = 0;
-	exe->red = NULL;
 	return (exe);
 }
 
@@ -76,15 +75,19 @@ int		main(int ac, char **av, char **env)
 			return (-1);
 		while (42)
 		{
+			term.error = NULL;
 			signal(SIGINT, sig_init);
-			ft_putstr("\033[34;1m$> \033[0m");
+			ft_printf(0, "\033[34;1m$> \033[0m");
 			term.prompt = 4;
 			hty = ft_get_command(&term, hty);
 			if (ft_multi_strchr(term.line))
 				hty = ft_mem_cmd(&term, hty);
 			term.hty = hty;
 			exec = ft_cmd_parcing(&term);
-			e = ft_parse_mask(exec, e);
+			if (term.error == NULL)
+				e = ft_parse_mask(&term, exec, e);
+			else
+				ft_strdel(&(term.error));
 			ft_free_exe(exec);
 			ft_strdel(&(term.line));
 		}

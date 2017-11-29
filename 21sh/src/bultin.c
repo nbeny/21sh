@@ -103,17 +103,17 @@ void	ft_env(t_exec *exe, t_env *e)
 	exe = ft_init_exe(exe);
 	s = e;
 	exe->i[0] = 1;
-	while (e != NULL && exe != NULL && exe->cmd[exe->i[0]])
+	while (e != NULL && exe != NULL && exe->cmd != NULL && exe->cmd[exe->i[0]])
 	{
 		if ((exe->i[1] = ft_equal(exe->cmd[exe->i[0]])))
 			s = ft_add_env(exe, s, exe->i[0], exe->i[1]);
-		else if (!ft_strncmp(exe->cmd[exe->i[0]], "-i\0", 3))
+		else if (!ft_strncmp(exe->cmd[exe->i[0]], "-i", 2))
 		{
 			s = ft_env_opt_i(s, exe->i[2]);
 			exe->i[2] = 0;
 			exe->i[3] = 1;
 		}
-		else if (ft_strncmp(exe->cmd[exe->i[0]], "env\0", 4))
+		else if (ft_strncmp(exe->cmd[exe->i[0]], "env", 3))
 		{
 			ft_env_success(exe, s);
 			return ;
