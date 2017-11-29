@@ -129,9 +129,17 @@ t_env			*ft_tab_to_list(char **env);
 **free
 */
 void			ft_free_exe(t_exec *exe);
+void			ft_free_c(t_cmd *c);
 void			ft_free_env(t_env *e);
 t_env			*ft_free_oneenv(t_env *e, t_env *s, t_env *b);
 void			ft_free_tabstr(char **tstr);
+/*
+**free1
+*/
+void			ft_free_quot(t_quot *quot);
+void			ft_free_red(t_red *r);
+void			ft_free_hty(t_hty *hty);
+void			ft_free_term(t_term *t);
 /*
 **execute
 */

@@ -22,11 +22,37 @@ void	ft_free_exe(t_exec *exe)
 		while (s != NULL)
 		{
 			f = s;
+			if (s->cmd)
+				ft_free_tabstr(s->cmd);
+//			if (s->c)
+//				ft_free_c(s->c);
+			if (s->quot)
+				ft_free_quot(s->quot);
+			if (s->red)
+				ft_free_red(s->red);
 			s = s->next;
-			ft_free_tabstr(f->cmd);
 			free(f);
 			exe = NULL;
 		}
+}
+
+void	ft_free_c(t_cmd *c)
+{
+	t_cmd	*s;
+	t_cmd	*f;
+
+	s = c;
+	if (c != NULL)
+	{
+		while (s != NULL)
+		{
+			f = s;
+			ft_strdel(&(s->str));
+			s = s->next;
+			free(f);
+			f = NULL;
+		}
+	}
 }
 
 void	ft_free_env(t_env *e)
@@ -40,9 +66,9 @@ void	ft_free_env(t_env *e)
 		while (s != NULL)
 		{
 			f = s;
+			ft_strdel(&(s->name));
+			ft_strdel(&(s->value));
 			s = s->next;
-			ft_strdel(&f->name);
-			ft_strdel(&f->value);
 			free(f);
 			f = NULL;
 		}
