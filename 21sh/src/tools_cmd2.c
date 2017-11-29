@@ -44,12 +44,16 @@ t_red	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r)
 		exe->error = ft_strdup("21sh: open return -1\n");
 		return (r);
 	}
-	ft_putstr_fd(quot, fd);
-	exe->c = ft_tab_to_list_cmd(exe->cmd);
-	exe->c = add_cmd_str(exe->c, "/tmp/file_generator");
-	free_cmd_str(exe->cmd);
-	exe->cmd = ft_list_to_tab_cmd(exe->c);
-	free_list_cmd_str(exe->c);
-	exe->c = NULL;
+	if (r->fd1 == 0 || r->fd1 == -1)
+	{
+		ft_putstr_fd(quot, fd);
+		exe->c = ft_tab_to_list_cmd(exe->cmd);
+		exe->c = add_cmd_str(exe->c, "/tmp/file_generator");
+		free_cmd_str(exe->cmd);
+		exe->cmd = ft_list_to_tab_cmd(exe->c);
+		free_list_cmd_str(exe->c);
+		exe->c = NULL;
+	}
+	close(fd);
 	return (r);
 }

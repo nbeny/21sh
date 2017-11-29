@@ -2,17 +2,68 @@
 
 t_red	*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e)
 {
+	if (r->fd1 != -1)
+	{
+		if (r->fd2 == 0 || r->fd2 == 1 || r->fd2 == 2)
+			dup2(r->fd1, r->fd2);
+		else
+			exe->error = ft_strdup("21sh: bad file descriptor\n");
+	}
 	return (r);
 }
 
 t_red	*make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e)
 {
+	if (r->fd1 == 0)
+	{
+		close(exe->fd.fd0);
+		exe->fd.ffd0 = 1;
+	}
+	if (r->fd1 == 1)
+	{
+		exe->fd.ffd1 = 1;
+		close(exe->fd.fd1);
+	}
+	if (r->fd1 == 2)
+	{
+		exe->fd.ffd2 = 1;
+		close(exe->fd.fd2);
+	}
 	return (r);
 }
 
-t_red	*make_fddoubleleft(t_exec *exe, t_red *r, t_env *e)
+t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 {
-	
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	ft_strdel(&(term->line));
+	term->prompt = 9;
+	ft_putstr("heredoc> ");
+	term->hty = ft_get_command(term, term->hty);
+	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+	{
+		if (i == 0)
+			tmp = ft_strdup(term->line);
+		else
+			tmp = ft_strjoin(term->quot, term->line);
+		i++;
+		term->quot = ft_strjoin(tmp, "\n");
+		ft_strdel(&tmp);
+		ft_strdel(&(term->line));
+		ft_putstr("heredoc> ");
+		term->hty = ft_get_command(term, term->hty);
+		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+			tmp = ft_strjoin(term->quot, term->line);
+		else
+			tmp = ft_strdup(term->quot);
+		ft_strdel(&(term->quot));
+		term->quot = tmp;
+	}
+	ft_strdel(&(term->line));
+	r = creat_fd_or_file(term->quot, exe, r);
+	ft_strdel(&(term->quot));
 	return (r);
 }
 

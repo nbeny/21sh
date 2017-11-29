@@ -57,7 +57,7 @@ t_red	*make_digit_left(t_term *term, t_exec *exe, t_red *r, t_env *e)
 				r = make_fdleftaddrless(exe, r, e);
 		}
 		else if (r->mask[2] == '<')
-			r = make_fddoubleleft(exe, r, e);
+			r = make_fddoubleleft(term, exe, r, e);
 		else
 			r = make_fdleft(exe, r, e);
 		ft_printf(2, ";;<3>\n");

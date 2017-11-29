@@ -369,7 +369,7 @@ t_red   *make_fdright(t_exec *exe, t_red *r, t_env *e);
 */
 t_red   *make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e);
 t_red   *make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fddoubleleft(t_exec *exe, t_red *r, t_env *e);
+t_red   *make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
 t_red   *make_fdleft(t_exec *exe, t_red *r, t_env *e);
 t_red   *make_left(t_exec *exe, t_red *r, t_env *e);
 /*

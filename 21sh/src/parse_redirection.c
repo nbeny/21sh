@@ -1,6 +1,6 @@
 #include "21sh.h"
 
-t_red	*creat_redirection()
+t_red	*creat_redirection(void)
 {
 	t_red	*r;
 
