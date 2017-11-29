@@ -103,7 +103,6 @@ void	ft_env(t_exec *exe, t_env *e)
 	exe = ft_init_exe(exe);
 	s = e;
 	exe->i[0] = 1;
-	ft_printf(2, "%s\n", exe->cmd[0]);
 	while (e != NULL && exe != NULL && exe->cmd != NULL && exe->cmd[exe->i[0]])
 	{
 		if ((exe->i[1] = ft_equal(exe->cmd[exe->i[0]])))

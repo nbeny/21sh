@@ -44,7 +44,8 @@ t_red	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r)
 		exe->error = ft_strdup("21sh: open return -1\n");
 		return (r);
 	}
-	if (r->fd1 == 0 || r->fd1 == -1)
+	if ((r->fd1 == 0 || r->fd1 == -1) &&\
+		(!ft_strncmp(exe->cmd[0], "as\0", 3) || !ft_strncmp(exe->cmd[0], "cat\0", 4)))
 	{
 		ft_putstr_fd(quot, fd);
 		exe->c = ft_tab_to_list_cmd(exe->cmd);

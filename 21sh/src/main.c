@@ -14,16 +14,6 @@
 
 t_exec	*ft_init_exe(t_exec *exe)
 {
-	exe->cmd = NULL;
-	exe->c = NULL;
-	exe->mask = NULL;
-	exe->wait = 0;
-	exe->error = NULL;
-	exe->quot = NULL;
-	exe->red = NULL;
-	exe->fd.fd0 = -1;
-	exe->fd.fd1 = -1;
-	exe->fd.fd2 = -1;
 	exe->i[0] = 0;
 	exe->i[1] = 0;
 	exe->i[2] = 0;

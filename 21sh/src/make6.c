@@ -2,7 +2,6 @@
 
 t_red	*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e)
 {
-	ft_printf(2, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
 	if (r->fd1 != -1)
 	{
 		if (r->fd2 == 0 || r->fd2 == 1 || r->fd2 == 2)
@@ -15,7 +14,6 @@ t_red	*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e)
 
 t_red	*make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e)
 {
-	ft_printf(2, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
 	make_fdrightaddrless(exe, r, e);
 	return (r);
 }

@@ -43,7 +43,6 @@ t_env	*make_semicolon(t_term *term, t_exec *exe, t_env *e)
 	}
 	if (exe->error != NULL)
 		return (e);
-	ft_printf(2, "end_save_fd: DONE\n");
 	if (ft_isbultin(exe, e))
 		e = make_bultin(exe, e);
 	else if (!ft_strncmp(exe->cmd[0], "./", 2) ||\
@@ -53,7 +52,6 @@ t_env	*make_semicolon(t_term *term, t_exec *exe, t_env *e)
 		ft_execute_path_fd(str, exe, e);
 	else
 		ft_printf(2, "command not found: %s\n", exe->cmd[0]);
-	ft_printf(2, "end_make_semicolon: DONE\n");
 	if (exe->red != NULL)
 		reload_fd(exe);
 	return (e);
