@@ -72,7 +72,7 @@ t_env	*make_numeric_or(t_term *term, t_exec *exe,t_env *e)
 	if (ft_isbultin(exe, e))
 		e = make_bultin(exe, e);
 	else if (!ft_strncmp(exe->cmd[0], "./", 2) ||\
-		!ft_strncmp(exe->cmd[0], "/", 1))
+			 !ft_strncmp(exe->cmd[0], "/", 1))
 		ft_execute_fd(exe, e);
 	else if ((str = ft_path_istrue(exe->cmd, e)))
 		ft_execute_path_fd(str, exe, e);
@@ -85,11 +85,12 @@ t_env	*make_numeric_or(t_term *term, t_exec *exe,t_env *e)
 
 t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 {
-	t_exec *s;
+	t_exec	*s;
 
 	s = exe;
 	if (exe == NULL)
-		return(e);
+		return (e);
+//	term->flash = 0;
 	while (s != NULL && s->cmd[0] != NULL && s->error == NULL)
 	{
 		if (s->mask == NULL)
@@ -102,15 +103,22 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 				e = make_pipe(term, s, e);
 		}
 		else if (s->mask[0] == '&' && s->mask[1] == '&')
-			boucle_numeric_and(term, s, e);
+		{
+			e = boucle_numeric_and(term, s, e);
+//			while (term->flash-- > 0)
+//				s = s->next;
+		}
 		else
 			e = make_semicolon(term, s, e);
-		if (exe->error != NULL)
+		if (s && s->error != NULL)
 		{
-			ft_printf(2, "%s", exe->error);
-			ft_strdel(&(exe->error));
+			ft_printf(2, "%s", s->error);
+			ft_strdel(&(s->error));
 		}
-		s = s->next;
+		if (s != NULL)
+			ft_printf(2, "%s\n", s->mask);		
+		if (s != NULL)
+			s = s->next;
 	}
 	return (e);
 }

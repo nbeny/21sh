@@ -48,6 +48,7 @@ typedef struct	s_term
 	char			*shadow;
 	char			*mask;
 	char			*error;
+	int				flash;
 }				t_term;
 typedef struct	s_quot
 {
@@ -100,9 +101,9 @@ typedef struct	s_exec
 	struct s_red	*red;
 	struct s_fd		fd;
 	int				i[4];
-	int				jp_nxt;
 	struct s_exec	*next;
 	struct s_exec	*prev;
+	int				first;
 }				t_exec;
 /*
 **typedef static struct	s_sign

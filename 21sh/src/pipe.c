@@ -76,7 +76,7 @@ int ft_do_pipe(t_gg *toto, t_nb *nb)
 	if (pid1 == 0) 
 	{
 		close(pipefd[0]);
-		dup2(pipefd[1], 1);                   //   fd[1] = STDOUT
+		dup2(pipefd[1], nb->sout);                   //   fd[1] = STDOUT
 		close(pipefd[1]);
 		status = execvp(toto->str[0], toto->str);
 		perror("exec");

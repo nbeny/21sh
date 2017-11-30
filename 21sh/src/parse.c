@@ -18,9 +18,9 @@ t_exec	*ft_new_exe(void)
 	e->fd.ffd0 = 0;
 	e->fd.ffd1 = 0;
 	e->fd.ffd2 = 0;
-	e->jp_nxt = 0;
 	e->next = NULL;
 	e->prev = NULL;
+	e->first = 0;
 	return (e);
 }
 
@@ -76,6 +76,7 @@ t_exec	*ft_parse_quot(t_term *term)
 	t_exec	*s;
 
 	exe = ft_new_exe();
+	exe->first = 1;
 	s = exe;
 	term->i = 0;
 	exe->quot = NULL;
