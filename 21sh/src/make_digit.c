@@ -21,13 +21,10 @@ void	init_redirection(t_exec *exe)
 
 t_red	*make_digit_right(t_exec *exe, t_red *r, t_env *e)
 {
-	ft_printf(2, ";;make_digit_right\n");
 	if (r->mask[1] == '>')
 	{
-		ft_printf(2, ";;<1>\n");
 		if (r->mask[2] == '&')
 		{
-			ft_printf(2, ";;<2>\n");
 			if (ft_isdigit(r->mask[3]))
 				r = make_fdrightaddrfd(exe, r, e);
 			else if (r->mask[3] == '-')
@@ -37,7 +34,6 @@ t_red	*make_digit_right(t_exec *exe, t_red *r, t_env *e)
 			r = make_fddoubleright(exe, r, e);
 		else
 			r = make_fdright(exe, r, e);
-		ft_printf(2, ";;<3>\n");
 	}
 	return (r);
 }

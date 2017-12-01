@@ -2,22 +2,36 @@
 
 t_exec	*tri_and(t_term *term, t_exec *e)
 {
-	if (term->line[term->i] == '&' && term->line[term->i + 1] == '&')
+	if (term->line[term->i] == '&' && term->line[term->i + 1] == '&' &&\
+		term->line[term->i + 2] != '&' && term->line[term->i + 2] != '|' &&\
+		term->line[term->i + 2] != '>' && term->line[term->i + 2] != '<' &&\
+		term->line[term->i + 2] != ';')
 		e = ft_push_mask_v2(term, e, "&&");
-	else
+	else if (term->line[term->i] == '&' && term->line[term->i + 1] != '&' &&\
+		term->line[term->i + 1] != '|' && term->line[term->i + 1] != '<' &&\
+		term->line[term->i + 1] != '>' && term->line[term->i + 1] != ';')
 	{
 		term->i = 1;
 		e->wait = 1;
 	}
+	else
+		term->error = ft_strdup("21sh: parse error near `&`\n");
 	return (e);
 }
 
 t_exec	*tri_pipe(t_term *term, t_exec *e)
 {
-	if (term->line[term->i] == '|' && term->line[term->i + 1] == '|')
+	if (term->line[term->i] == '|' && term->line[term->i + 1] == '|' &&\
+		term->line[term->i + 2] != '|' && term->line[term->i + 2] != '&' &&\
+		term->line[term->i + 2] != '<' && term->line[term->i + 2] != '>' &&\
+		term->line[term->i + 2] != ';')
 		e = ft_push_mask_v2(term, e, "||");
-	else
+	else if (term->line[term->i] == '|' && term->line[term->i + 1] != '|' &&\
+		term->line[term->i + 1] != '&' && term->line[term->i + 1] != ';' &&\
+		term->line[term->i + 1] != '>' && term->line[term->i + 1] != '<')
 		e = ft_push_mask_v1(term, e, "|");
+	else
+		term->error = ft_strdup("21sh: parse error near `|`\n");
 	return (e);
 }
 
@@ -38,7 +52,7 @@ t_exec	*tri_right_redirection(t_term *term, t_exec *e)
 		else
 		{
 			term->i += 2;
-			e->error = ft_strdup("sh: parse error near `>&`\n");
+			term->error = ft_strdup("21sh: parse error near `>&`\n");
 		}
 	}
 	else if (term->line[term->i] == '>' && term->line[term->i + 1] == '>')

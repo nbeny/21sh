@@ -21,7 +21,7 @@ static t_exec	*tri_avav_right(t_term *term, t_exec *e)
 	else
 	{
 		term->i += 3;
-		e->error = ft_strdup("sh: parse error near `>&`\n");
+		term->error = ft_strdup("sh: parse error near `>&`\n");
 	}
 	return (e);
 }
@@ -46,7 +46,7 @@ static t_exec	*tri_avav_left(t_term *term, t_exec *e)
 	else
 	{
 		term->i += 3;
-		e->error = ft_strdup("sh: parse error near `>&`\n");
+		term->error = ft_strdup("sh: parse error near `>&`\n");
 	}
 	return (e);
 }

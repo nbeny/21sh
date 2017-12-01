@@ -90,7 +90,8 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 	s = exe;
 	if (exe == NULL)
 		return (e);
-//	term->flash = 0;
+	term->flash = 1;
+	ft_putnbr(term->flash);
 	while (s != NULL && s->cmd[0] != NULL && s->error == NULL)
 	{
 		if (s->mask == NULL)

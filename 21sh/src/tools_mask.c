@@ -38,16 +38,11 @@ t_env	*boucle_numeric_and(t_term *term, t_exec *exe, t_env *e)
 	while ((s && !ft_strncmp(s->mask, "&&\0", 3)))
 	{
 		e = make_numeric_and(term, s, e);
-		s = s->next;
-		ft_printf(2, "qwer qwer qwer");
-		if (exe->error != NULL)
+		if (s->error != NULL)
 		{
-			ft_strdel(&(exe->error));
+			ft_strdel(&(s->error));
 			while (s && !ft_strncmp(s->mask, "&&\0", 3))
-			{
-//				term->flash++;
 				s = s->next;
-			}
 		}
 	}
 	return (e);
@@ -62,6 +57,7 @@ t_env	*boucle_pipe(t_term *term, t_exec *exe, t_env *e)
 		s->mask[1] == '\0')
 	{
 		e = make_pipe(term, s, e);
+		ft_printf(2, "%s\n", s->error);
 		if (s->error == NULL)
 			while (s && s->mask && s->mask[0] == '|' && \
 				s->mask[1] == '\0')
