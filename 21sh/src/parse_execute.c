@@ -77,7 +77,10 @@ t_env	*make_numeric_or(t_term *term, t_exec *exe,t_env *e)
 	else if ((str = ft_path_istrue(exe->cmd, e)))
 		ft_execute_path_fd(str, exe, e);
 	else
+	{
 		ft_printf(2, "command not found: %s\n", exe->cmd[0]);
+		exe->error = ft_strdup("0");
+	}
 	if (exe->red != NULL)
 		reload_fd(exe);
 	return (e);
@@ -90,8 +93,7 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 	s = exe;
 	if (exe == NULL)
 		return (e);
-	term->flash = 1;
-	ft_putnbr(term->flash);
+	term->flash = 0;
 	while (s != NULL && s->cmd[0] != NULL && s->error == NULL)
 	{
 		if (s->mask == NULL)
@@ -99,15 +101,23 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 		else if (s->mask[0] == '|')
 		{
 			if (s->mask[1] == '|')
+			{
 				e = boucle_numeric_or(term, s, e);
+				while (term->flash > 0 && s != NULL)
+					s = s->next;
+			}
 			else
+			{
 				e = make_pipe(term, s, e);
+				while (term->flash > 0 && s != NULL)
+					s = s->next;
+			}
 		}
 		else if (s->mask[0] == '&' && s->mask[1] == '&')
 		{
 			e = boucle_numeric_and(term, s, e);
-//			while (term->flash-- > 0)
-//				s = s->next;
+			while (term->flash > 0 && s != NULL)
+				s = s->next;
 		}
 		else
 			e = make_semicolon(term, s, e);
@@ -117,7 +127,7 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 			ft_strdel(&(s->error));
 		}
 		if (s != NULL)
-			ft_printf(2, "%s\n", s->mask);		
+			ft_printf(2, "%s\n", s->mask);
 		if (s != NULL)
 			s = s->next;
 	}

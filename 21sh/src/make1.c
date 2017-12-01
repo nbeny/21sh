@@ -38,8 +38,10 @@ t_env	*make_pipe(t_term *term, t_exec *exe, t_env *e)
 	str = NULL;
 	i = 0;
 	s = exe;
-	while (s->mask != NULL && !ft_strncmp(s->mask, "|\0", 2))
+	ft_printf(2, "je ss la !\n");
+	while (s && s->mask != NULL && !ft_strncmp(s->mask, "|\0", 2))
 	{
+		ft_printf(2, "je ss dans la boucle !\n");
 		if (s->red != NULL)
 		{
 			save_fd(s);
@@ -53,7 +55,10 @@ t_env	*make_pipe(t_term *term, t_exec *exe, t_env *e)
 		else if ((str = ft_path_istrue(s->cmd, e)))
 			ft_execute_path_fd(str, s, e);
 		else
+		{
 			ft_printf(2, "command not found: %s\n", s->cmd[0]);
+			s->error = ft_strdup("0");
+		}
 		if (s->red != NULL)
 			reload_fd(s);
 		s = s->next;

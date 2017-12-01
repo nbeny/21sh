@@ -43,7 +43,6 @@ char	**ft_cmd_building(t_term *term, t_exec *exe)
 	if (s != NULL)
 	{
 		i = ft_listsize_quot(s);
-//		ft_printf(0, "{bob%ibob}", i);fflush(stdout);
 		if (!(tstr = (char **)malloc(sizeof(char *) * (i + 1))))
 			return (NULL);
 		i = 0;
@@ -61,7 +60,6 @@ char	**ft_cmd_building(t_term *term, t_exec *exe)
 			return (NULL);
 		tstr[0] = NULL;
 	}
-//	ft_printf(0, "{%s}", tstr[0]);
 	return (tstr);
 }
 

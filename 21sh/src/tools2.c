@@ -28,9 +28,6 @@ void	ft_multiligne_insert_char(t_term *term)
 	tmp = ft_strdup(term->line);
 	tputs(tgetstr("sc", NULL), 1, ft_putchar);
 	ft_putstr(&tmp[i]);
-//	while (tmp[i] != '\0')
-//		ft_putchar(tmp[i++]);
-//	tputs(tgetstr("sf", NULL), 1, ft_putchar);
 	tputs(tgetstr("rc", NULL), 1, ft_putchar);
 	if (term->x >= term->ws_x)
 		ft_right_arrow(term);
@@ -47,11 +44,5 @@ void	ft_multiligne_insert(t_term *term, int c)
 		ft_multiligne_insert_char(term);
 		if (term->y == term->ws_y)
 			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_y - 1), 1, ft_putchar);
-//		ft_move_end(term);
-//		if (term->x == term->ws_x && term->y == term->ws_y)
-//			term->last++;
-//		tputs(tgetstr("rc", NULL), 1, ft_putchar);
-//		if (term->last >= 2)
-//			tputs(tgetstr("up", NULL), 1, ft_putchar);
 	}
 }
