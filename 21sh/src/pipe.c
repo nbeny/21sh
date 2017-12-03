@@ -1,161 +1,183 @@
+#include "21sh.h"
 
-#include <errno.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-
-typedef struct s_gg
+static t_exec *ft_close_fd(t_exec *e)
 {
-	char **str;
-	struct s_gg *next;
-}   t_gg;
+/*    if (e->fd.ffd0)
+	  close(0);
+	  if (e->fd.ffd1)
+	  close(1);
+	  if (e->fd.ffd2)
+	  close(2);*/
+	(void)e;
+    return (e);
 
-typedef struct s_nb
-{
-	int sin;
-	int sout;
-} t_nb;
-
-char    *ft_strdup(const char *s1)
-{
-    char            *s2;
-    unsigned int    i;
-
-    i = 0;
-    if (s1 == NULL)
-        return (NULL);
-    while (s1[i])
-        i++;
-    if (!(s2 = (char *)malloc(sizeof(char) * (i + 1))))
-        return (NULL);
-    i = 0;
-    while (s1[i])
-    {
-        s2[i] = s1[i];
-        i++;
-    }
-    s2[i] = '\0';
-    return (s2);
 }
-
-int  ft_do_last_pipe(t_gg *toto, t_nb *nb)
+int  ft_do_last_pipe(t_exec *toto, t_nb *nb, t_env *e)
 {
 	int pid3;
 	int status;
+    char *s;
+    char **env;
 
-	printf("ft_do_last_pipee\n");
+	ft_putendl("last");
+	status = 0;
+	s = ft_path_istrue(toto->cmd, e);
+    env = ft_list_to_tab(e);
 	pid3 = fork();
 	if (pid3 == 0)
 	{
+		
 		close(nb->sout);
 		dup2(nb->sin, 0);
 		close(nb->sin);
-
-		status = execvp(toto->str[0],toto->str);
+		status = execve(s, toto->cmd, env);
 		perror("exec");
         return 1;
 	}
-
-    close(nb->sin);
-    close(nb->sout);
+	close(nb->sout);
+	close(nb->sin);
 	return (status);
 }
-int ft_do_pipe(t_gg *toto, t_nb *nb)
+
+t_nb *ft_do_first_pipe(t_exec *toto, t_nb *nb, t_env *e)
 {
-	pid_t pid1, pid2, pid3;
-    int pipefd[2];
-    int status;
-    int pipefd2[2];
-	printf("ft_do_pipee\n");
+	int status;
+	pid_t pid1;
+	int pipefd[2];
+    char *s;
+    char **env;
+
+	s = ft_path_istrue(toto->cmd, e);
+//	s = toto->cmd[0];
+//    s =ft_string_return(e, toto->cmd);
+    env = ft_list_to_tab(e);
+	status = 0;
 	pipe(pipefd);
+	ft_putendl(s);
 	pid1 = fork();
 	nb->sin = 0;
 	nb->sout = 1;
-
-	if (pid1 == 0) 
+	if (pid1 == 0)
 	{
+		toto = ft_close_fd(toto);
 		close(pipefd[0]);
-		dup2(pipefd[1], nb->sout);                   //   fd[1] = STDOUT
+		dup2(pipefd[1], 1);
 		close(pipefd[1]);
-		status = execvp(toto->str[0], toto->str);
+		status = execve(s, toto->cmd, env);
 		perror("exec");
-		return 1;
+		return 0;
 	}
-	nb->sin = pipefd[0];
 	nb->sout = pipefd[1];
+	nb->sin = pipefd[0];
+//	wait(NULL);
+	return (nb);
+}
+
+t_exec *ft_do_pipe(t_exec *toto, t_nb *nb, t_env *e)
+{
+	pid_t  pid2;
+    int status;
+    int pipefd2[2];
+	char *s;
+	char **env;
+
+//	s = toto->cmd[0];
+//	s = ft_path_istrue(toto->cmd, e);
+	s = NULL;
+	env = ft_list_to_tab(e);
+	nb = ft_do_first_pipe(toto, nb, e);
+	ft_putendl("bmid");
 	toto = toto->next;
-	while (toto)
+
+	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
+			s = ft_path_istrue(toto->cmd, e);
+		ft_putendl("mid");
 		if (toto->next == NULL)
+			ft_putendl("toto next null");
+		else
+		
 		{
-			status = ft_do_last_pipe(toto, nb);
+			ft_putendl("toto next non null");
+			if (toto->next->mask == NULL)
+				ft_putendl("toto next mask null");
+			else
+				ft_putendl(toto->next->mask);
+			
+		}
+		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2))
+		{
+			status = ft_do_last_pipe(toto, nb, e);
+			return 0;
 		}
 		else
 		{
-			printf("elese\n");
 			pipe(pipefd2);
-			nb->sin = pipefd2[0];
-			nb->sout = pipefd2[1];
-		
 			pid2 = fork();
-
-			if (pid2 == 0) 
+			if (pid2 == 0)
 			{
-				close(pipefd[1]);                    //   fd[1] = close
-				dup2(pipefd[0], STDIN_FILENO);       // fd[0] = stdin
-				close(pipefd[0]);
-			
+				toto = ft_close_fd(toto);
+				
+				close(nb->sout);
+				dup2(nb->sin, 0);
+				close(nb->sin);
+
 				close(pipefd2[0]);
 				dup2(pipefd2[1], 1);
-				close(pipefd[1]);
-			
-			
-				status = execvp(toto->str[0],toto->str);
+				close(pipefd2[1]);
+
+				status = execve(s, toto->cmd, env);
 				perror("exec");
-				return 1;
+				return 0;
 			}
-		
-			close(pipefd[0]);
-			close(pipefd[1]);
-		
 		}
+		ft_putendl("bclose");
+		ft_putchar('\t');
+		ft_putnbr(nb->sout);
+		ft_putnbr(nb->sin);
+		close(nb->sout);
+		close(nb->sin);
+		nb->sin = pipefd2[0];
+		nb->sout = pipefd2[1];
 		toto = toto->next;
 	}
+	ft_putendl("bwait");
 	wait(NULL);
-	
-	return (0);
+
+	return (toto);
 }
 
-int main(int argc, char** av) 
-{
-	pid_t pid1, pid2;
-	int pipefd[2];
-	int status;
+/*int main(int argc, char** av)
+  {
+  pid_t pid1, pid2;
+  int pipefd[2];
+  int status;
 
-	t_gg *toto;
-	t_gg *save;
-	
-	t_nb *f_d;
+  t_gg *toto;
+  t_gg *save;
 
-	f_d =  malloc(sizeof(t_nb));
-	toto = malloc(sizeof(t_gg));
-	save = toto;
+  t_nb *nb;
 
-	f_d->sin = 0;
-	f_d->sout = 1;
+  nb =  malloc(sizeof(t_nb));
+  toto = malloc(sizeof(t_gg));
+  save = toto;
 
-	char *argv1[] = {"ls", "-l", "-h", NULL};
-	char *argv2[] = {"wc", "-l", NULL};
-	char *argv3[] = {"wc", "-c", NULL};
+  nb->sin = 0;
+  nb->sout = 1;
 
 
+  char *argv1[] = {"base64", "/dev/urandom", NULL};
+  char *argv2[] = {"head", "-c", "10000", NULL};
+  char *argv3[] = {"grep", "42", NULL};
+  char *argv4[] = {"wc", "-c", NULL};
 
-	toto->str = argv1;
-	toto->next = malloc(sizeof(t_gg));
-	toto = toto->next;
 
-	toto->str = argv2;
+  toto->str = argv1;
+  toto->next = malloc(sizeof(t_gg));
+  toto = toto->next;
+
+  toto->str = argv2;
+
 //	toto->next =  malloc(sizeof(t_gg));
 //	toto = toto->next;
 
@@ -163,9 +185,13 @@ int main(int argc, char** av)
 //	toto->next =  malloc(sizeof(t_gg));
 //	toto = toto->next;
 
-	toto->next = NULL;
+//toto->str = argv4;
+toto->next = NULL;
 
-	ft_do_pipe(save, f_d);
 
-	return 0;
+
+ft_do_pipe(save, nb);
+
+return 0;
 }
+*/

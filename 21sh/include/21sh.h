@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -105,6 +106,11 @@ typedef struct	s_exec
 	struct s_exec	*prev;
 	int				first;
 }				t_exec;
+typedef struct	s_nb
+{
+    int	sin;
+    int	sout;
+}				t_nb;
 /*
 **typedef static struct	s_sign
 **{
@@ -421,4 +427,8 @@ t_cmd   *add_cmd_str(t_cmd *c, char *str);
 int     ft_listsize_cmd(t_cmd *e);
 int     ft_cmp_tabstr(char **cmd);
 t_red  	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
+// pipe.c
+t_exec *ft_do_pipe(t_exec *toto, t_nb *nb, t_env *e);
+t_nb *ft_do_first_pipe(t_exec *toto, t_nb *nb, t_env *e);
+int  ft_do_last_pipe(t_exec *toto, t_nb *nb, t_env *e);
 #endif

@@ -109,6 +109,7 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 			else
 			{
 				e = make_pipe(term, s, e);
+				term->flash = 1;
 				while (term->flash > 0 && s != NULL)
 					s = s->next;
 			}

@@ -33,7 +33,7 @@ char	*ft_string_return(t_env *e, char **cmd)
 		{
 			str = ft_getenv(e, "PWD\0", 4);
 			s = ft_strjoin(str, &cmd[0][1]);
-			ft_strdel(&str);
+//			ft_strdel(&str);
 		}
 		else
 			s = ft_strdup(cmd[0]);
