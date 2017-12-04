@@ -9,6 +9,8 @@ t_red	*make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e)
 		else
 			exe->error = ft_strdup("21sh: bad file descriptor\n");
 	}
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	return (r);
 }
 
@@ -29,6 +31,8 @@ t_red	*make_fdrightaddrless(t_exec *exe, t_red *r, t_env *e)
 		exe->fd.ffd2 = 1;
 		close(exe->fd.fd2);
 	}
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	return (r);
 }
 
@@ -45,6 +49,8 @@ t_red	*make_fddoubleright(t_exec *exe, t_red *r, t_env *e)
 	}
 	dup2(fd, r->fd1);
 	close(fd);
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	return (r);
 }
 
@@ -61,5 +67,7 @@ t_red	*make_fdright(t_exec *exe, t_red *r, t_env *e)
     }
     dup2(fd, r->fd1);
     close(fd);
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	return (r);
 }

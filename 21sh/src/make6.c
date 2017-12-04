@@ -9,6 +9,8 @@ t_red	*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e)
 		else
 			exe->error = ft_strdup("21sh: bad file descriptor\n");
 	}
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	return (r);
 }
 
@@ -82,6 +84,8 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
     }
 	dup2(fd, r->fd1);
 	close(fd);
+	if (r->fd1 == 1)
+		exe->pipe = 1;
 	ft_strdel(&path);
 	return (r);
 }

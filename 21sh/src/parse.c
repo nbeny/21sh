@@ -21,6 +21,7 @@ t_exec	*ft_new_exe(void)
 	e->next = NULL;
 	e->prev = NULL;
 	e->first = 0;
+	e->pipe = 0;
 	return (e);
 }
 

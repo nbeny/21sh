@@ -21,6 +21,8 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct	s_term
 {
@@ -105,6 +107,7 @@ typedef struct	s_exec
 	struct s_exec	*next;
 	struct s_exec	*prev;
 	int				first;
+	int				pipe;
 }				t_exec;
 typedef struct	s_nb
 {
@@ -428,7 +431,7 @@ int     ft_listsize_cmd(t_cmd *e);
 int     ft_cmp_tabstr(char **cmd);
 t_red  	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
 // pipe.c
-t_exec *ft_do_pipe(t_exec *toto, t_nb *nb, t_env *e);
-t_nb *ft_do_first_pipe(t_exec *toto, t_nb *nb, t_env *e);
-int  ft_do_last_pipe(t_exec *toto, t_nb *nb, t_env *e);
+t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 #endif
