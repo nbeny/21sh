@@ -2,10 +2,15 @@
 
 void	ft_make_ctrl_d(t_term *term)
 {
-	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
-		return ;
-	ft_putstr("exit\n");
-	exit(EXIT_SUCCESS);
+	if (!ft_strncmp(term->line, "\0", 1))
+	{
+		if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
+			return ;
+		ft_putstr("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	else
+		;
 }
 
 int		block_ctrl(char *buff)
