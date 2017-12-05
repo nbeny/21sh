@@ -117,6 +117,8 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 			return (hty);
 		if (buff[0] == 127 && buff[1] == '\0')
 			ft_delete(term);
+		else if (block_ctrl(buff))
+			;
 		else if (buff[0] == 27)
 		{
 			if (buff[0] == 27 && buff[1] == 91 &&\

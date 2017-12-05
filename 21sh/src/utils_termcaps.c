@@ -1,5 +1,23 @@
 #include "21sh.h"
 
+int		block_ctrl(char *buff)
+{
+	if ((buff[0] == 4 && buff[1] == '\0') ||\
+		(buff[0] == 8 && buff[1] == '\0') ||\
+		(buff[0] == 21 && buff[1] == '\0') ||\
+		(buff[0] == 1 && buff[1] == '\0') ||\
+		(buff[0] == 11 && buff[1] == '\0') ||\
+		(buff[0] == 7 && buff[1] == '\0') ||\
+		(buff[0] == 6 && buff[1] == '\0') ||\
+		(buff[0] == 16 && buff[1] == '\0') ||\
+		(buff[0] == 20 && buff[1] == '\0') ||\
+		(buff[0] == 18 && buff[1] == '\0') ||\
+		(buff[0] == 5 && buff[1] == '\0') ||\
+		(buff[0] == 23 && buff[1] == '\0'))
+		return (1);
+	return (0);
+}
+
 void	ft_tabulation(t_term *term)
 {
 	int	pull;

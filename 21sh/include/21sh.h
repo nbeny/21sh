@@ -245,6 +245,7 @@ void			ft_modif_screen(t_term *term, t_hty *hty);
 **utils_termcaps
 */
 void			ft_tabulation(t_term *term);
+int				block_ctrl(char *buff);
 /*
 **line_tools
 */
