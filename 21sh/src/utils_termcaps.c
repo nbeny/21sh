@@ -1,9 +1,16 @@
 #include "21sh.h"
 
+void	ft_make_ctrl_d(t_term *term)
+{
+	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
+		return ;
+	ft_putstr("exit\n");
+	exit(EXIT_SUCCESS);
+}
+
 int		block_ctrl(char *buff)
 {
-	if ((buff[0] == 4 && buff[1] == '\0') ||\
-		(buff[0] == 8 && buff[1] == '\0') ||\
+	if ((buff[0] == 8 && buff[1] == '\0') ||\
 		(buff[0] == 21 && buff[1] == '\0') ||\
 		(buff[0] == 1 && buff[1] == '\0') ||\
 		(buff[0] == 11 && buff[1] == '\0') ||\

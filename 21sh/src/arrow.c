@@ -19,7 +19,7 @@ t_term  *ft_left_arrow(t_term *term)
 	return (term);
 }
 
-t_term  *ft_right_arrow(t_term *term, char buff[6])
+t_term  *ft_right_arrow(t_term *term, char *buff)
 {
     if (term->x > term->pos_x && term->y == term->pos_y)
     {

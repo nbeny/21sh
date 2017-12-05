@@ -24,8 +24,6 @@ void	ft_free_exe(t_exec *exe)
 			f = s;
 			if (s->cmd)
 				ft_free_tabstr(s->cmd);
-//			if (s->c)
-//				ft_free_c(s->c);
 			if (s->quot)
 				ft_free_quot(s->quot);
 			if (s->red)

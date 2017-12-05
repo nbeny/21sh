@@ -119,6 +119,9 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 			ft_delete(term);
 		else if (block_ctrl(buff))
 			;
+		else if (buff[0] == 4 && buff[1] == '\0' &&\
+			!ft_strncmp(term->line, "\0", 1))
+			ft_make_ctrl_d(term);
 		else if (buff[0] == 27)
 		{
 			if (buff[0] == 27 && buff[1] == 91 &&\

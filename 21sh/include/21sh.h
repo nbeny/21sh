@@ -115,12 +115,6 @@ typedef struct	s_nb
     int	sout;
 }				t_nb;
 /*
-**typedef static struct	s_sign
-**{
-**	struct t_term	*term;
-**}						t_sign;
-*/
-/*
 **main
 */
 t_exec			*ft_init_exe(t_exec *exe);
@@ -246,6 +240,7 @@ void			ft_modif_screen(t_term *term, t_hty *hty);
 */
 void			ft_tabulation(t_term *term);
 int				block_ctrl(char *buff);
+void			ft_make_ctrl_d(t_term *term);
 /*
 **line_tools
 */
