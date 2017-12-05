@@ -104,6 +104,5 @@ t_hty	*ft_down_arrow(t_term *term, t_hty *hty)
 			return (hty);
 		}
 	}
-	else
-		return (NULL);
+	return (NULL);
 }

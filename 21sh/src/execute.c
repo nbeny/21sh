@@ -99,37 +99,8 @@ void	ft_execute(char **cmd, t_env *e)
 
 void	ft_exit(t_exec *exe, t_env *e)
 {
-//	ft_free_env(e);
 	ft_free_tabstr(exe->cmd);
 	free(exe);
 	exe = NULL;
  	exit(EXIT_SUCCESS);
-}
-
-t_env	*ft_make_cmd(t_exec *exe, t_env *e)
-{
-	t_exec	*s;
-
-	s = exe;
-	while (s != NULL && s->cmd[0] != NULL)
-	{
-		if (s->cmd[0] == NULL)
-			return (e);
-		if (!ft_strncmp(s->cmd[0], "exit\0", 5))
-			ft_exit(s, e);
-		else if (!ft_strncmp(s->cmd[0], "env\0", 4))
-			ft_env(s, e);
-		else if (!ft_strncmp(s->cmd[0], "setenv\0", 7))
-			e = ft_setenv(s, e);
-		else if (!ft_strncmp(s->cmd[0], "unsetenv\0", 9))
-			e = ft_unsetenv(s, e);
-		else if (!ft_strncmp(s->cmd[0], "cd\0", 3))
-			e = ft_cd(s, e);
-		else if (!ft_strncmp(s->cmd[0], "echo\0", 5))
-			ft_echo(s, e);
-		else
-			ft_error_and_make_exe(s, e);
-		s = s->next;
-	}
-	return (e);
 }

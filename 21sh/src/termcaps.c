@@ -10,9 +10,6 @@ int		ft_init_term(t_term *term)
 		return (0);
 	if (tcgetattr(0, &(term->term)) == -1)
 		return (0);
-	term->clear = tgetstr("cl", NULL);
-	term->cursor = tgetstr("cm", NULL);
-	term->shadow = tgetstr("vi", NULL);
 	term->term.c_lflag &= ~(ICANON);
 	term->term.c_lflag &= ~(ECHO);
 	term->term.c_cc[VMIN] = 1;

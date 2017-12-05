@@ -32,10 +32,7 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	int		i;
 
 	i = 0;
-	ft_strdel(&(term->line));
-	term->prompt = 9;
-	ft_putstr("heredoc> ");
-	term->hty = ft_get_command(term, term->hty);
+	start_heredoc(term);
 	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 	{
 		if (i == 0)
@@ -55,10 +52,7 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 		ft_strdel(&(term->quot));
 		term->quot = tmp;
 	}
-	ft_strdel(&(term->line));
-	if (!ft_strncmp(exe->mask, "|\0", 2))
-		r = creat_fd_or_file(term->quot, exe, r);
-	ft_strdel(&(term->quot));
+	r = clear_creat(term, exe, r);
 	return (r);
 }
 

@@ -46,13 +46,18 @@ typedef struct	s_term
 	char			*cmstr;
 	int				ws_y;
 	int				ws_x;
-	char			*clear;
-	char			*cursor;
-	char			*shadow;
 	char			*mask;
 	char			*error;
 	int				flash;
 }				t_term;
+typedef struct	s_del
+{
+	int				i;
+	int				c;
+	int				add;
+	int				end;
+	int				count;
+}				t_del;
 typedef struct	s_quot
 {
 	char			*arg;
@@ -111,8 +116,8 @@ typedef struct	s_exec
 }				t_exec;
 typedef struct	s_nb
 {
-    int	sin;
-    int	sout;
+    int				sin;
+    int				sout;
 }				t_nb;
 /*
 **main
@@ -212,7 +217,6 @@ t_env			*ft_path_pwd(t_env *pwd, char *str3, t_env *e);
 int				ft_init_term(t_term *term);
 void			ft_update_window(t_term *term);
 void			ft_edit_line(t_term *term);
-//void			ft_creatline(t_term *term, t_hty *hty);
 t_hty			*ft_get_command(t_term *term, t_hty *hty);
 /*
 **arrow_gestion
@@ -226,8 +230,8 @@ void			ft_optup_arrow(t_term *term);
 void			ft_optdown_arrow(t_term *term);
 void			ft_move_home(t_term *term);
 void			ft_move_end(t_term *term);
-t_hty   *next_check_buff(t_term *term, t_hty *hty, char *buff);
-t_hty   *check_buff_twentyseven(t_term *term, t_hty *hty, char *buff);
+t_hty			*next_check_buff(t_term *term, t_hty *hty, char *buff);
+t_hty			*check_buff_twentyseven(t_term *term, t_hty *hty, char *buff);
 /*
 **termcaps_tools.c
 */
@@ -245,7 +249,7 @@ void			ft_make_ctrl_d(t_term *term);
 /*
 **line_tools
 */
-char            *ft_multi_strchr(const char *line);
+char			*ft_multi_strchr(const char *line);
 /*
 **tools2
 */
@@ -258,181 +262,207 @@ void			ft_multiligne_insert(t_term *term, int c);
 t_hty			*ft_add_history(t_term *term);
 t_hty			*ft_mem_cmd(t_term *term, t_hty *hty);
 t_hty			*ft_rollback_history(t_term *term,t_hty *hty);
-t_hty           *ft_up_arrow(t_term *term, t_hty *hty);
-t_hty           *ft_down_arrow(t_term *term, t_hty *hty);
+t_hty			*ft_up_arrow(t_term *term, t_hty *hty);
+t_hty			*ft_down_arrow(t_term *term, t_hty *hty);
 /*
 **parse
 */
-t_exec          *ft_new_exe(void);
-t_exec          *ft_get_arg(t_term *term, t_exec *exe);
-t_exec          *ft_quot_separation(t_term *term, t_exec *exe);
-t_exec          *ft_num_redirection(t_term *term, t_exec *exe);
-t_exec          *ft_parse_quot(t_term *term);
+t_exec			*ft_new_exe(void);
+t_exec			*ft_get_arg(t_term *term, t_exec *exe);
+t_exec			*ft_quot_separation(t_term *term, t_exec *exe);
+t_exec			*ft_num_redirection(t_term *term, t_exec *exe);
+t_exec			*ft_parse_quot(t_term *term);
 t_exec			*ft_cmd_parcing(t_term *term);
 /*
 **parse_tools
 */
 char			*get_mask(int a, int b, int c, int d);
-int             ft_listsize_quot(t_quot *quot);
-char            **ft_cmd_building(t_term *term, t_exec *exe);
-t_quot          *ft_add_arg(t_term *term);
+int				ft_listsize_quot(t_quot *quot);
+char			**ft_cmd_building(t_term *term, t_exec *exe);
+t_quot			*ft_add_arg(t_term *term);
 t_exec			*ft_build_quot(t_term *term, t_exec *exe);
 /*
 **parse_mask
 */
 t_exec			*ft_push_mask(t_term *term, t_exec *exe, char *str);
-t_exec          *ft_push_mask_v1(t_term *term, t_exec *exe, char *str);
-t_exec          *ft_push_mask_v2(t_term *term, t_exec *exe, char *str);
-t_exec          *ft_push_mask_v3(t_term *term, t_exec *exe, char *str);
-t_exec          *ft_push_mask_v4(t_term *term, t_exec *exe, char *str);
+t_exec			*ft_push_mask_v1(t_term *term, t_exec *exe, char *str);
+t_exec			*ft_push_mask_v2(t_term *term, t_exec *exe, char *str);
+t_exec			*ft_push_mask_v3(t_term *term, t_exec *exe, char *str);
+t_exec			*ft_push_mask_v4(t_term *term, t_exec *exe, char *str);
 /*
 **parse_tri
 */
-t_exec  *tri_and(t_term *term, t_exec *e);
-t_exec  *tri_pipe(t_term *term, t_exec *e);
-t_exec  *tri_right_redirection(t_term *term, t_exec *e);
-t_exec  *tri_left_redirection(t_term *term, t_exec *e);
+t_exec			*tri_and(t_term *term, t_exec *e);
+t_exec			*tri_pipe(t_term *term, t_exec *e);
+t_exec			*tri_right_redirection(t_term *term, t_exec *e);
+t_exec			*tri_left_redirection(t_term *term, t_exec *e);
 /*
 **parse_triav
 */
-t_exec          *tri_av_redirection(t_term *term, t_exec *e);
+t_exec			*tri_av_redirection(t_term *term, t_exec *e);
 /*
 **parse_redirection
 */
-t_red   *creat_redirection();
-t_exec  *ft_push_red_file(t_term *term, t_exec *e, char *str);
-t_exec  *ft_push_red_fd12(t_term *term, t_exec *e, char *str);
-t_exec  *ft_push_red_fd1(t_term *term, t_exec *e, char *str);
-t_exec  *ft_push_red_error(t_term *term, t_exec *e, char *str);
-t_exec  *ft_push_red_fd1file(t_term *term, t_exec *e, char  *str);
+t_red			*creat_redirection();
+t_exec			*ft_push_red_file(t_term *term, t_exec *e, char *str);
+t_exec			*ft_push_red_fd12(t_term *term, t_exec *e, char *str);
+t_exec			*ft_push_red_fd1(t_term *term, t_exec *e, char *str);
+t_exec			*ft_push_red_error(t_term *term, t_exec *e, char *str);
+t_exec			*ft_push_red_fd1file(t_term *term, t_exec *e, char  *str);
 /*
 **quot
 */
-void	ft_dquot(t_term *term, t_exec *exe);
-void	ft_quot(t_term *term, t_exec *exe);
+void			ft_dquot(t_term *term, t_exec *exe);
+void			ft_quot(t_term *term, t_exec *exe);
 /*
 **creat_new_exe
 */
-t_exec          *ft_background(t_term *term, t_exec *exe);
-t_exec          *ft_new_semicolon(t_term *term, t_exec *exe);
-t_exec          *ft_pipe(t_term *term, t_exec *exe);
-t_exec          *ft_right_redirection(t_term *term, t_exec *exe);
-t_exec          *ft_left_redirection(t_term *term, t_exec *exe);
+t_exec			*ft_background(t_term *term, t_exec *exe);
+t_exec			*ft_new_semicolon(t_term *term, t_exec *exe);
+t_exec			*ft_pipe(t_term *term, t_exec *exe);
+t_exec			*ft_right_redirection(t_term *term, t_exec *exe);
+t_exec			*ft_left_redirection(t_term *term, t_exec *exe);
 /*
 **tools_redirection
 */
-t_exec  *ft_double_right(t_term *term, t_exec *exe);
-t_exec  *ft_double_left(t_term *term, t_exec *exe);
-t_exec  *ft_merge_output(t_term *term, t_exec *exe);
-t_exec  *ft_merge_input(t_term *term, t_exec *exe);
+t_exec			*ft_double_right(t_term *term, t_exec *exe);
+t_exec			*ft_double_left(t_term *term, t_exec *exe);
+t_exec			*ft_merge_output(t_term *term, t_exec *exe);
+t_exec			*ft_merge_input(t_term *term, t_exec *exe);
 /*
 **arrow_opt
 */
-void    ft_optup_arrow(t_term *term);
-void    ft_optdown_arrow(t_term *term);
-void    ft_optright_arrow(t_term *term);
-void    ft_optleft_arrow(t_term *term);
-void	ft_supp(t_term *term);
+void			ft_optup_arrow(t_term *term);
+void			ft_optdown_arrow(t_term *term);
+void			ft_optright_arrow(t_term *term);
+void			ft_optleft_arrow(t_term *term);
+void			ft_supp(t_term *term);
 /*
 **parse_execute
 */
-int		ft_isbultin(t_exec *exe, t_env *e);
-t_env	*make_bultin(t_exec *exe, t_env *e);
-t_env   *ft_right_red(t_exec *exe, t_env *e);
-t_env   *ft_left_red(t_term *term, t_exec *exe, t_env *e);
-t_env   *ft_parse_mask(t_term *term, t_exec *exe, t_env *e);
+int				ft_isbultin(t_exec *exe, t_env *e);
+t_env			*make_bultin(t_exec *exe, t_env *e);
+t_env			*ft_right_red(t_exec *exe, t_env *e);
+t_env			*ft_left_red(t_term *term, t_exec *exe, t_env *e);
+t_env			*ft_parse_mask(t_term *term, t_exec *exe, t_env *e);
+/*
+**parse_execute1
+*/
+t_red			*creat_redirection(void);
+int				check_start_red_file(t_term *term, char *str);
 /*
 **make1
 */
-t_env   *make_semicolon(t_term *term, t_exec *exe, t_env *e);
-t_env   *make_numeric_or(t_term *term, t_exec *exe,t_env *e);
-t_env   *make_numeric_and(t_term *term, t_exec *exe, t_env *e);
-t_env   *make_pipe(t_term *term, t_exec *exe, t_env *e);
+t_env			*make_semicolon(t_term *term, t_exec *exe, t_env *e);
+t_env			*make_numeric_or(t_term *term, t_exec *exe,t_env *e);
+t_env			*make_numeric_and(t_term *term, t_exec *exe, t_env *e);
+t_env			*make_pipe(t_term *term, t_exec *exe, t_env *e);
 /*
 **make2
 */
-t_red   *make_right_red(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e);
-t_env   *make_redirection_right(t_term * term, t_exec *exe, t_env *e);
-t_env   *make_redirection_left(t_term *term, t_exec *exe, t_env *e);
-t_red   *make_digit(t_exec *exe, t_red *r, t_env *e);
-t_env   *make_redirection(t_term *term, t_exec *exe, t_env *e);
+t_red			*make_right_red(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_env			*make_redirection_right(t_term * term, t_exec *exe, t_env *e);
+t_env			*make_redirection_left(t_term *term, t_exec *exe, t_env *e);
+t_red			*make_digit(t_exec *exe, t_red *r, t_env *e);
+t_env			*make_redirection(t_term *term, t_exec *exe, t_env *e);
 /*
 **make3
 */
-t_red   *make_rightaddrless(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_doubleright_redirection(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_rightpipe(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_right(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_rightaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_doubleright_redirection(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_rightpipe(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_right(t_exec *exe, t_red *r, t_env *e);
 /*
 **make4
 */
-t_red   *make_leftaddr(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_trileft_redirection(\
-								t_exec *exe, t_red *r, t_env *e);
-t_red   *make_doubleleftless(t_term *term, t_exec *exe, t_red *r, t_env *e);
-t_red   *make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
-t_red   *make_leftpipe(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_leftaddr(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_trileft_redirection(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_doubleleftless(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_red			*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_red			*make_leftpipe(t_exec *exe, t_red *r, t_env *e);
 /*
 **make5
 */
-t_red   *make_right(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fdrightaddrless(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fddoubleright(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fdright(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_right(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdrightaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fddoubleright(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdright(t_exec *exe, t_red *r, t_env *e);
 /*
 **make6
 */
-t_red   *make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
-t_red   *make_fdleft(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_left(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fdleft(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_left(t_exec *exe, t_red *r, t_env *e);
 /*
 **make_digit
 */
-void	init_redirection(t_exec *exe);
-t_red   *make_digit_right(t_exec *exe, t_red *r, t_env *e);
-t_red   *make_digit_left(t_term *term, t_exec *exe, t_red *r, t_env *e);
+void			init_redirection(t_exec *exe);
+t_red			*make_digit_right(t_exec *exe, t_red *r, t_env *e);
+t_red			*make_digit_left(t_term *term, t_exec *exe, t_red *r, t_env *e);
 /*
 **tools_mask
 */
-char	*ft_add_path(char *path, char *file);
-t_env	*boucle_numeric_and(t_term *term, t_exec *exe, t_env *e);
-t_env	*boucle_numeric_or(t_term *term, t_exec *exe, t_env *e);
-t_env	*boucle_pipe(t_term *term, t_exec *exe, t_env *e);
+char			*ft_add_path(char *path, char *file);
+t_env			*boucle_numeric_and(t_term *term, t_exec *exe, t_env *e);
+t_env			*boucle_numeric_or(t_term *term, t_exec *exe, t_env *e);
+t_env			*boucle_pipe(t_term *term, t_exec *exe, t_env *e);
 /*
 **tools_fd
 */
-void	save_fd(t_exec *exe);
-void	reload_fd(t_exec *exe);
+void			save_fd(t_exec *exe);
+void			reload_fd(t_exec *exe);
 /*
 **execute_fd
 */
-void ft_exe_red(t_exec *exe, t_env *e);
-t_red *ft_dup(t_red *red);
-t_red *ft_close_dup(t_red *red);
-void    ft_execute_fd(t_exec *exe, t_env *e);
-void    ft_execute_path_fd(char *str, t_exec *exe, t_env *e);
+void			ft_exe_red(t_exec *exe, t_env *e);
+t_red			*ft_dup(t_red *red);
+t_red			*ft_close_dup(t_red *red);
+void			ft_execute_fd(t_exec *exe, t_env *e);
+void			ft_execute_path_fd(char *str, t_exec *exe, t_env *e);
 /*
 **tools_cmd
 */
-char    **ft_list_to_tab_cmd(t_cmd *e);
-t_cmd   *ft_tab_to_list_cmd(char **env);
-void    free_cmd_str(char **cmd);
-void    free_list_cmd_str(t_cmd *c);
-t_cmd   *add_cmd_str(t_cmd *c, char *str);
+char			**ft_list_to_tab_cmd(t_cmd *e);
+t_cmd			*ft_tab_to_list_cmd(char **env);
+void			free_cmd_str(char **cmd);
+void			free_list_cmd_str(t_cmd *c);
+t_cmd			*add_cmd_str(t_cmd *c, char *str);
 /*
 **tools_cmd2
 */
-int     ft_listsize_cmd(t_cmd *e);
-int     ft_cmp_tabstr(char **cmd);
-t_red  	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
+int				ft_listsize_cmd(t_cmd *e);
+int				ft_cmp_tabstr(char **cmd);
+t_red			*clear_creat(t_term *term, t_exec *exe, t_red *r);
+void			start_heredoc(t_term *term);
+t_red			*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
 /*
 **pipe
 */
-t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
-t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
-int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+/*
+**ter_delete
+*/
+void			init_del(t_del *del);
+void			delete_end_line(t_term *term);
+void			delete_caractere(t_term *term);
+void			delete_bcl(t_term *term, t_del *del);
+void			delete_core(t_term *term, t_del *del);
+/*
+**ter1delete
+*/
+void			ft_delete(t_term *term);
+void			ft_multiline_supp(t_term *term, t_del *del);
+void			ft_supp(t_term *term);
+/*
+**heredoc_norm
+*/
+void			start_here(t_term *term);
+t_red			*end_here(t_term *term, t_exec *exe, t_red *r);
+t_red			*modfd_leftred(t_exec *exe, t_red *r, t_env *e);
 #endif

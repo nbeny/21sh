@@ -15,7 +15,6 @@ t_exec	*ft_right_redirection(t_term *term, t_exec *exe)
 		else
 		{
 			exe->next = ft_new_exe();
-//		ft_free_quot(exe->quot);
 			exe = exe->next;
 		}
 		term->i++;
@@ -38,7 +37,6 @@ t_exec	*ft_left_redirection(t_term *term, t_exec *exe)
 		else
 		{
 			exe->next = ft_new_exe();
-//		ft_free_quot(exe->quot);
 			exe = exe->next;
 		}
 		term->i++;

@@ -26,10 +26,7 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	int		i;
 
 	i = 0;
-	ft_strdel(&(term->line));
-	term->prompt = 9;
-	ft_putstr("heredoc> ");
-	term->hty = ft_get_command(term, term->hty);
+	start_here(term);
 	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 	{
 		if (i == 0)
@@ -49,10 +46,7 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 		ft_strdel(&(term->quot));
 		term->quot = tmp;
 	}
-	ft_strdel(&(term->line));
-	if (!ft_strncmp(exe->mask, "|\0", 2))
-		r = creat_fd_or_file(term->quot, exe, r);
-	ft_strdel(&(term->quot));
+	r = end_here(term, exe, r);
 	return (r);
 }
 
@@ -60,7 +54,6 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 {
 	char	*tmp;
 	char	*path;
-	int     fd;
 		
 	if (r->fd1 == 0)
 		return(r = make_left(exe, r, e));
@@ -77,16 +70,7 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 		exe->error = ft_strdup("21sh: no such file or directory\n");
 		return (r);
 	}
-    fd = open(r->file, O_RDONLY, S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-    if (fd == -1)
-    {
-        exe->error = ft_strdup("21sh: open failed\n");
-        return (r);
-    }
-	dup2(fd, r->fd1);
-	close(fd);
-	if (r->fd1 == 1)
-		exe->pipe = 1;
+	r = modfd_leftred(exe, r, e);
 	ft_strdel(&path);
 	return (r);
 }

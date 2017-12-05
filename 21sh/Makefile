@@ -24,12 +24,13 @@ N_SRC	=	main.c tools.c free.c\
 			parse_triav.c quot.c\
 			parse_redirection.c\
 			utils_termcaps.c arrow_opt.c\
-			parse_execute.c make1.c\
+			parse_execute.c parse_execute1.c make1.c\
 			make2.c make3.c make4.c make5.c\
 			make6.c make_digit.c tools_mask.c\
 			tools_fd.c execute_fd.c tools_cmd.c\
 			tools_cmd2.c free1.c pipe.c\
-			buff_term.c
+			buff_term.c ter_delete.c ter1delete.c\
+			heredoc_norm.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3
