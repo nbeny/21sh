@@ -4,8 +4,6 @@ t_red	*make_right_red(t_exec *exe, t_red *r, t_env *e)
 {
 	if (r->mask[1] == '&')
 	{
-//		if (ft_isdigit(r->mask[2]))
-//			make_rightaddrfd(r, e);
 		if (r->mask[2] == '-')
 			make_rightaddrless(exe, r, e);
 	}
@@ -22,8 +20,6 @@ t_red	*make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e)
 {
 	if (r->mask[1] == '&')
 	{
-//		if (ft_isdigit(r->mask[2]))
-//			make_rightaddrfd(r, e);
 		r = make_leftaddr(exe, r, e);
 	}
 	else if (r->mask[1] == '<')
