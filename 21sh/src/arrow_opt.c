@@ -36,15 +36,9 @@ void	ft_optleft_arrow(t_term *term)
 {
 	if (term->line && term->pos > 0)
 	{
-		if ((term->line[term->pos - 1] == ' ' || term->line[term->i - 1] == '\t') && \
-			term->pos > 0)
-			ft_left_arrow(term);
 		while (term->line[term->pos] == ' ' || term->line[term->pos] == '\t')
 			ft_left_arrow(term);
-		while (term->line[term->pos] != ' ' && term->line[term->pos] != '\t' &&	\
-			   term->pos > 0)
+		while (term->pos > 0 && term->line[term->pos] != ' ' && term->line[term->pos] != '\t')
 			ft_left_arrow(term);
-		if (term->pos > 0)
-			ft_right_arrow(term);
 	}
 }

@@ -28,7 +28,8 @@ N_SRC	=	main.c tools.c free.c\
 			make2.c make3.c make4.c make5.c\
 			make6.c make_digit.c tools_mask.c\
 			tools_fd.c execute_fd.c tools_cmd.c\
-			tools_cmd2.c free1.c pipe.c
+			tools_cmd2.c free1.c pipe.c\
+			buff_term.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3

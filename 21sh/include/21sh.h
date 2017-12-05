@@ -217,7 +217,6 @@ t_hty			*ft_get_command(t_term *term, t_hty *hty);
 /*
 **arrow_gestion
 */
-//t_term			*ft_write_and_position(t_term *term, char buff[6]);
 void			ft_left_arrow(t_term *term);
 void			ft_right_arrow(t_term *term);
 void			ft_delete(t_term *term);
@@ -227,6 +226,8 @@ void			ft_optup_arrow(t_term *term);
 void			ft_optdown_arrow(t_term *term);
 void			ft_move_home(t_term *term);
 void			ft_move_end(t_term *term);
+t_hty   *next_check_buff(t_term *term, t_hty *hty, char *buff);
+t_hty   *check_buff_twentyseven(t_term *term, t_hty *hty, char *buff);
 /*
 **termcaps_tools.c
 */
@@ -428,7 +429,9 @@ t_cmd   *add_cmd_str(t_cmd *c, char *str);
 int     ft_listsize_cmd(t_cmd *e);
 int     ft_cmp_tabstr(char **cmd);
 t_red  	*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
-// pipe.c
+/*
+**pipe
+*/
 t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);

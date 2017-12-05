@@ -29,9 +29,12 @@ void	ft_update_window(t_term *term)
 	char			*buff;
 	char			*tmp;
 
-	ansi = ft_strnew(1);
-	buff = ft_strnew(10);
-	ioctl(0, TIOCGWINSZ, &ws);
+	if ((ansi = ft_strnew(10)) == NULL)
+		return ;
+	if ((buff = ft_strnew(50)) == NULL)
+		return ;
+	if ((ioctl(0, TIOCGWINSZ, &ws) == -1))
+		return ;
 	term->ws_y = ws.ws_row;
 	term->ws_x = ws.ws_col;
 	ft_printf(0, "\E[6n");
@@ -122,47 +125,7 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 		else if (buff[0] == 4 && buff[1] == '\0')
 			ft_make_ctrl_d(term);
 		else if (buff[0] == 27)
-		{
-			if (buff[0] == 27 && buff[1] == 91 &&\
-				buff[2] == 'A' && buff[3] == '\0')
-				hty = ft_up_arrow(term, hty);
-			else if (buff[0] == 27 && buff[1] == 91 &&\
-					 buff[2] == 'B' && buff[3] == '\0')
-				hty = ft_down_arrow(term, hty);
-			else
-				ft_rollback_history(term, hty);
-			if (buff[0] == 27 && buff[1] == 91 &&\
-				buff[2] == 'C' && buff[3] == '\0')
-				ft_right_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 91 &&	\
-					 buff[2] == 'D' && buff[3] == '\0')
-				ft_left_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 27 &&	\
-				buff[2] == 91 && buff[3] == 'A' &&	\
-					 buff[4] == '\0')
-				ft_optup_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 27 &&	\
-				buff[2] == 91 && buff[3] == 'B' &&	\
-					 buff[4] == '\0')
-				ft_optdown_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 27 &&\
-					 buff[2] == 91 && buff[3] == 'C' &&\
-					 buff[4] == '\0')
-				ft_optright_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 27 &&\
-					 buff[2] == 91 && buff[3] == 'D' &&\
-					 buff[4] == '\0')
-				ft_optleft_arrow(term);
-			else if (buff[0] == 27 && buff[1] == 91 &&\
-					 buff[2] == 'H' && buff[3] == '\0')
-				ft_move_home(term);
-			else if (buff[0] == 27 && buff[1] == 91 &&\
-					 buff[2] == 'F' && buff[3] == '\0')
-				ft_move_end(term);
-			else if (buff[0] == 27 && buff[1] == 91 &&\
-				buff[2] == 51 && buff[3] == 126 && buff[4] == '\0')
-				ft_supp(term);
-		}
+			hty = check_buff_twentyseven(term, hty, buff);
 		else
 		{
 			ft_update_window(term);
