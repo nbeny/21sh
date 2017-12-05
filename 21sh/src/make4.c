@@ -56,7 +56,8 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 		term->quot = tmp;
 	}
 	ft_strdel(&(term->line));
-	r = creat_fd_or_file(term->quot, exe, r);
+	if (!ft_strncmp(exe->mask, "|\0", 2))
+		r = creat_fd_or_file(term->quot, exe, r);
 	ft_strdel(&(term->quot));
 	return (r);
 }

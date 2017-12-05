@@ -29,7 +29,7 @@ int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		close(nb->sout);
         reload_fd(toto);//    <--- ici tu reset les redirection pour que le dup2 se fasse sur la vrai sortie 1 
 		dup2(nb->sin, 0);
-        e = make_redirection(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
+        e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
 		toto = ft_close_fd(toto);
 		close(nb->sin);
 		if ((status = execve(s, toto->cmd, env)) == -1)
@@ -46,7 +46,7 @@ int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	return (status);
 }
 
-t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+t_nb	*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
 	int status;
 	pid_t pid1;
@@ -55,6 +55,7 @@ t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char **env;
 
 	term->flash++;
+	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
     env = ft_list_to_tab(e);
 	status = 0;
@@ -68,7 +69,7 @@ t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
         close(pipefd[0]);
         reload_fd(toto);//    <--- ici tu reset les redirection pour que le dup2 se fasse sur la vrai sortie 1
         dup2(pipefd[1], 1);
-        e = make_redirection(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
+        e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
         toto = ft_close_fd(toto);
         close(pipefd[1]);
 		if ((status = execve(s, toto->cmd, env)) == -1)
@@ -80,6 +81,7 @@ t_nb *ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	nb->sout = pipefd[1];
 	nb->sin = pipefd[0];
 	wait(NULL);
+	ft_printf(2, "I am here !!!!\n");
 	return (nb);
 }
 
@@ -99,6 +101,7 @@ t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
+		e = make_redirection_left(term, toto, e);
 		s = ft_path_istrue(toto->cmd, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)
@@ -119,9 +122,8 @@ t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 				close(nb->sin);
 
 				close(pipefd2[0]);
-//				if (toto->pipe != 1)
 				dup2(pipefd2[1], 1);
-				e = make_redirection(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
+				e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
 				toto = ft_close_fd(toto);
 				close(pipefd2[1]);
 

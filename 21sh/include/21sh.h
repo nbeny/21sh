@@ -356,6 +356,8 @@ t_env   *make_pipe(t_term *term, t_exec *exe, t_env *e);
 */
 t_red   *make_right_red(t_exec *exe, t_red *r, t_env *e);
 t_red   *make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_env   *make_redirection_right(t_term * term, t_exec *exe, t_env *e);
+t_env   *make_redirection_left(t_term *term, t_exec *exe, t_env *e);
 t_red   *make_digit(t_exec *exe, t_red *r, t_env *e);
 t_env   *make_redirection(t_term *term, t_exec *exe, t_env *e);
 /*

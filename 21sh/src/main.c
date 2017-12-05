@@ -71,8 +71,6 @@ int		main(int ac, char **av, char **env)
 	{
 		e = ft_tab_to_list(env);
 		e = ft_shlvl(e);
-		if (!ft_init_term(&term))
-			return (-1);
 		while (42)
 		{
 			term.error = NULL;

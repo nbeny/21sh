@@ -97,6 +97,8 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 	char	buff[6];
 	int		pull;
 
+	if (!ft_init_term(term))
+		return (hty);
 	ft_update_window(term);
 	term->pos = 0;
 	term->mlen = 0;
@@ -188,5 +190,7 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 			}
 		}
 	}
+	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
+		return (0);
 	return (hty);
 }
