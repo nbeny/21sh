@@ -58,6 +58,14 @@ void	ft_print_env(t_env *e, int nb, int i, int free)
 	}
 }
 
+void	prompt_gestionn(t_term *term)
+{
+	term->error = NULL;
+	signal(SIGINT, sig_init);
+	ft_printf(0, "\033[34;1m$> \033[0m");
+	term->prompt = 4;
+}
+
 int		main(int ac, char **av, char **env)
 {
 	t_env	*e;
@@ -73,10 +81,8 @@ int		main(int ac, char **av, char **env)
 		e = ft_shlvl(e);
 		while (42)
 		{
-			term.error = NULL;
 			signal(SIGINT, sig_init);
-			ft_printf(0, "\033[34;1m$> \033[0m");
-			term.prompt = 4;
+			prompt_gestionn(&term);
 			hty = ft_get_command(&term, hty);
 			if (ft_multi_strchr(term.line))
 				hty = ft_mem_cmd(&term, hty);

@@ -47,7 +47,7 @@ void			ft_execute_fd(t_exec *exe, t_env *e)
 	}
 	if ((w = waitpid(pid, &status, WCONTINUED)) == -1)
 		exit(EXIT_FAILURE);
-    ft_free_tabstr(env);
+	ft_free_tabstr(env);
 	ft_strdel(&s);
 }
 
@@ -57,7 +57,7 @@ void			ft_execute_path_fd(char *str, t_exec *exe, t_env *e)
 	pid_t		w;
 	int			status;
 	char		**env;
-	
+
 	pid = fork();
 	signal(SIGINT, sig_exe);
 	env = ft_list_to_tab(e);

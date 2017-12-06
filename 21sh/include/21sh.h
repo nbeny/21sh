@@ -124,6 +124,7 @@ typedef struct	s_nb
 t_exec			*ft_init_exe(t_exec *exe);
 t_env			*ft_shlvl(t_env *e);
 void			ft_print_env(t_env *e, int nb, int i, int free);
+void			prompt_gestionn(t_term *term);
 int				main(int ac, char **av, char **env);
 /*
 **tools
