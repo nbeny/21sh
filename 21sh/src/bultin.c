@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/20 10:11:03 by nbeny             #+#    #+#             */
-/*   Updated: 2017/05/20 10:11:05 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/06 15:13:35 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*ft_setenv(t_exec *exe, t_env *e)
 		else
 		{
 			s = ft_moove_env(e, exe->cmd[exe->i[0]],\
-							 (ft_strlen(exe->cmd[exe->i[0]]) + 1));
+								(ft_strlen(exe->cmd[exe->i[0]]) + 1));
 			if (s == NULL)
 				e = ft_list_push_back(e, exe->cmd[exe->i[0]], NULL);
 			else
@@ -81,7 +81,7 @@ t_env	*ft_unsetenv(t_exec *exe, t_env *e)
 		while (exe->cmd[exe->i[0]])
 		{
 			s = ft_moove_env(e, exe->cmd[exe->i[0]],\
-							 (ft_strlen(exe->cmd[exe->i[0]]) + 1));
+								(ft_strlen(exe->cmd[exe->i[0]]) + 1));
 			if (s != NULL)
 			{
 				b = e;
@@ -114,10 +114,7 @@ void	ft_env(t_exec *exe, t_env *e)
 			exe->i[3] = 1;
 		}
 		else if (ft_strncmp(exe->cmd[exe->i[0]], "env", 3))
-		{
-			ft_env_success(exe, s);
-			return ;
-		}
+			return (ft_env_success(exe, s));
 		exe->i[0] += 1;
 	}
 	ft_print_env(s, exe->i[2], exe->i[3], 1);
@@ -136,7 +133,7 @@ void	ft_echo(t_exec *exe, t_env *e)
 			if (exe->cmd[i] && exe->cmd[i][0] == '$' && exe->cmd[i][1] != '\0')
 			{
 				s = ft_moove_env(e, &(exe->cmd)[i][1],\
-								 ft_strlen(exe->cmd[i]));
+										ft_strlen(exe->cmd[i]));
 				if (s != NULL)
 					ft_putecho(s->value, exe->cmd, i);
 				else

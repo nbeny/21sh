@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make2.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:15:12 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:15:14 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 t_red	*make_right_red(t_exec *exe, t_red *r, t_env *e)
@@ -38,7 +50,7 @@ t_red	*make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	return (r);
 }
 
-t_env	*make_redirection_right(t_term * term, t_exec *exe, t_env *e)
+t_env	*make_redirection_right(t_term *term, t_exec *exe, t_env *e)
 {
 	t_red	*r;
 
@@ -74,7 +86,7 @@ t_env	*make_redirection_left(t_term *term, t_exec *exe, t_env *e)
 	return (e);
 }
 
-t_env	*make_redirection(t_term *term, t_exec *exe,t_env *e)
+t_env	*make_redirection(t_term *term, t_exec *exe, t_env *e)
 {
 	t_red	*r;
 

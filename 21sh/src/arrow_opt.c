@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arrow_opt.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:13:12 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:13:22 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 void	ft_optup_arrow(t_term *term)
@@ -27,8 +39,8 @@ void	ft_optright_arrow(t_term *term)
 {
 	while (term->line[term->pos] == ' ' || term->line[term->pos] == '\t')
 		ft_right_arrow(term);
-	while (term->line[term->pos] != ' ' && term->line[term->pos] != '\t' &&	\
-		   term->line[term->pos] != '\0')
+	while (term->line[term->pos] != ' ' && term->line[term->pos] != '\t' &&\
+		term->line[term->pos] != '\0')
 		ft_right_arrow(term);
 }
 
@@ -39,7 +51,8 @@ void	ft_optleft_arrow(t_term *term)
 		while (term->pos > 0 && (term->line[term->pos] == ' ' ||\
 			term->line[term->pos] == '\t' || term->line[term->pos] == '\0'))
 			ft_left_arrow(term);
-		while (term->pos > 0 && term->line[term->pos] != ' ' && term->line[term->pos] != '\t')
+		while (term->pos > 0 && term->line[term->pos] != ' ' &&\
+			term->line[term->pos] != '\t')
 			ft_left_arrow(term);
 	}
 }

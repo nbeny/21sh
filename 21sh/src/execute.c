@@ -102,5 +102,5 @@ void	ft_exit(t_exec *exe, t_env *e)
 	ft_free_tabstr(exe->cmd);
 	free(exe);
 	exe = NULL;
- 	exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }

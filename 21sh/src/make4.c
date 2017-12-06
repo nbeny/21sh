@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make4.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:15:23 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:15:25 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 t_red	*make_leftaddr(t_exec *exe, t_red *r, t_env *e)
@@ -22,7 +34,7 @@ t_red	*make_trileft_redirection(t_exec *exe, t_red *r, t_env *e)
 
 t_red	*make_doubleleftless(t_term *term, t_exec *exe, t_red *r, t_env *e)
 {
- 	 r = make_doubleleft(term, exe, r, e);	
+	r = make_doubleleft(term, exe, r, e);
 	return (r);
 }
 
@@ -39,11 +51,11 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 			tmp = ft_strdup(term->line);
 		else
 			tmp = ft_strjoin(term->quot, term->line);
-		i++;
 		term->quot = ft_strjoin(tmp, "\n");
 		ft_strdel(&tmp);
 		ft_strdel(&(term->line));
 		ft_putstr("heredoc> ");
+		i++;
 		term->hty = ft_get_command(term, term->hty);
 		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 			tmp = ft_strjoin(term->quot, term->line);

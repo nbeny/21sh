@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:14:44 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:14:46 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 t_hty	*ft_add_history(t_term *term)
@@ -12,23 +24,23 @@ t_hty	*ft_add_history(t_term *term)
 	return (new);
 }
 
-t_hty  *ft_mem_cmd(t_term *term, t_hty *hty)
+t_hty	*ft_mem_cmd(t_term *term, t_hty *hty)
 {
-    t_hty   *p;
+	t_hty	*p;
 	t_hty	*s;
 
-    p = hty;
-    if (hty != NULL)
-    {
+	p = hty;
+	if (hty != NULL)
+	{
 		while (p->next != NULL)
 			p = p->next;
 		s = p;
-    	s->next = ft_add_history(term);
-        s = s->next;
+		s->next = ft_add_history(term);
+		s = s->next;
 		s->prev = p;
-    }
-    else
-    	hty = ft_add_history(term);
+	}
+	else
+		hty = ft_add_history(term);
 	return (hty);
 }
 

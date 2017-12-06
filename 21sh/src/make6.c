@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make6.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:15:34 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:15:35 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 t_red	*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e)
@@ -33,11 +45,11 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 			tmp = ft_strdup(term->line);
 		else
 			tmp = ft_strjoin(term->quot, term->line);
-		i++;
 		term->quot = ft_strjoin(tmp, "\n");
 		ft_strdel(&tmp);
 		ft_strdel(&(term->line));
 		ft_putstr("heredoc> ");
+		i++;
 		term->hty = ft_get_command(term, term->hty);
 		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 			tmp = ft_strjoin(term->quot, term->line);

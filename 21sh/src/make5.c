@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make5.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/06 15:15:29 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/06 15:15:30 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "21sh.h"
 
 t_red	*make_fdrightaddrfd(t_exec *exe, t_red *r, t_env *e)
@@ -41,7 +53,7 @@ t_red	*make_fddoubleright(t_exec *exe, t_red *r, t_env *e)
 	int		fd;
 
 	fd = open(r->file, O_WRONLY | O_APPEND | O_CREAT,\
-			  S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
 		exe->error= (ft_strdup("21sh: open failed\n"));
@@ -56,17 +68,17 @@ t_red	*make_fddoubleright(t_exec *exe, t_red *r, t_env *e)
 
 t_red	*make_fdright(t_exec *exe, t_red *r, t_env *e)
 {
-    int         fd;
+	int		fd;
 
-    fd = open(r->file, O_WRONLY | O_TRUNC | O_CREAT,\
-            S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
-    if (fd == -1)
-    {
-     	exe->error = ft_strdup("21sh: open return -1\n");
+	fd = open(r->file, O_WRONLY | O_TRUNC | O_CREAT,\
+				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
+	if (fd == -1)
+	{
+		exe->error = ft_strdup("21sh: open return -1\n");
 		return (r);
-    }
-    dup2(fd, r->fd1);
-    close(fd);
+	}
+	dup2(fd, r->fd1);
+	close(fd);
 	if (r->fd1 == 1)
 		exe->pipe = 1;
 	return (r);
