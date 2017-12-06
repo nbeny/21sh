@@ -134,47 +134,11 @@ t_exec			*ft_parse_quot(t_term *term)
 t_exec			*ft_cmd_parcing(t_term *term)
 {
 	t_exec  *exe;
-	t_exec	*s;
-	t_red	*r;
-	int		i;
 	char    **split;
 
 	exe = NULL;
 	split = NULL;
 	if (term->line != NULL && term->line[0] != '\0')
-	{
 		exe = ft_parse_quot(term);
-		i = 0;
-		s = exe;
-		ft_printf(0, "command:\n{\n");
-		while (s != NULL)
-		{
-			i = 0;
-			if (s->cmd != NULL)
-				while (s->cmd[i] != NULL)
-				{
-					if (s->mask != NULL)
-						ft_printf(0, "{%s}", s->mask);
-					ft_printf(0, "[%i:%s]", i, s->cmd[i]);
-					i++;
-				}
-			ft_putstr("\\n\n");
-			s = s->next;
-		}
-		ft_printf(0, "}\nredirection:\n{\n");
-		s = exe;
-		while (s != NULL)
-		{
-			r = s->red;
-			while (r != NULL)
-			{
-				ft_printf(0, "r->mask = %s   r->file = [%s]   fd1-2 = {%i, %i}\n", r->mask, r->file, r->fd1, r->fd2);
-				r = r->next;
-			}
-			ft_putstr("\\n\n");
-			s = s->next;
-		}
-		ft_printf(0, "}\n");
-	}
 	return (exe);
 }

@@ -216,6 +216,7 @@ t_env			*ft_path_pwd(t_env *pwd, char *str3, t_env *e);
 int				ft_init_term(t_term *term);
 void			ft_update_window(t_term *term);
 void			ft_edit_line(t_term *term);
+void			get_char(t_term *term, char *buff, int *pull);
 t_hty			*ft_get_command(t_term *term, t_hty *hty);
 /*
 **arrow_gestion
@@ -466,4 +467,18 @@ void			ft_supp(t_term *term);
 void			start_here(t_term *term);
 t_red			*end_here(t_term *term, t_exec *exe, t_red *r);
 t_red			*modfd_leftred(t_exec *exe, t_red *r, t_env *e);
+/*
+**cd1
+*/
+t_env			*gestion_oldpwd(t_env *e, char *str, t_env *oldpwd);
+/*
+**bultin1
+*/
+void			del_and_creat(t_env *s);
+/*
+**termcaps1
+*/
+void			init_tt(t_term *term);
+//t_hty			*regroupe_parse_buffer(t_term *term, char *str, t_hty *hty);
+void			edit_line_ml(t_term *term, t_del *del);
 #endif

@@ -45,7 +45,6 @@ void	ft_multiligne_insert_char(t_term *term)
 		ft_right_arrow(term);
 }
 
-
 void	ft_multiligne_insert(t_term *term, int c)
 {
 	if ((term->x + (term->mlen - term->pos)) < term->ws_x &&\

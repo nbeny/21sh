@@ -30,7 +30,8 @@ N_SRC	=	main.c tools.c free.c\
 			tools_fd.c execute_fd.c tools_cmd.c\
 			tools_cmd2.c free1.c pipe.c\
 			buff_term.c ter_delete.c ter1delete.c\
-			heredoc_norm.c
+			heredoc_norm.c cd1.c bultin1.c\
+			termcaps1.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3

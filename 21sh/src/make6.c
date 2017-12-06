@@ -66,7 +66,7 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 {
 	char	*tmp;
 	char	*path;
-		
+
 	if (r->fd1 == 0)
 		return(r = make_left(exe, r, e));
 	if (r->file[0] == '/')

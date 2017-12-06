@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-void	ft_make_ctrl_d(t_term *term)
+void			ft_make_ctrl_d(t_term *term)
 {
 	if (!ft_strncmp(term->line, "\0", 1))
 	{
@@ -25,7 +25,7 @@ void	ft_make_ctrl_d(t_term *term)
 		;
 }
 
-int		block_ctrl(char *buff)
+int				block_ctrl(char *buff)
 {
 	if ((buff[0] == 8 && buff[1] == '\0') ||\
 		(buff[0] == 21 && buff[1] == '\0') ||\
@@ -42,7 +42,14 @@ int		block_ctrl(char *buff)
 	return (0);
 }
 
-void	ft_tabulation(t_term *term)
+static void		tabulation_norme(t_term *term)
+{
+	ft_update_window(term);
+	ft_edit_line(term);
+	ft_update_window(term);
+}
+
+void			ft_tabulation(t_term *term)
 {
 	int	pull;
 	int	i;
@@ -51,9 +58,7 @@ void	ft_tabulation(t_term *term)
 	pull = 0;
 	while (i != 3)
 	{
-		ft_update_window(term);
-		ft_edit_line(term);
-		ft_update_window(term);
+		tabulation_norme(term);
 		if (term->x == term->ws_x && term->pos != term->mlen)
 			pull = 1;
 		ft_putchar(' ');

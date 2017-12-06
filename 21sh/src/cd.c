@@ -64,18 +64,6 @@ t_env			*ft_null(t_env *pwd, t_env *oldpwd, t_env *home, t_env *e)
 	return (e);
 }
 
-static t_env	*gestion_oldpwd(t_env *e, char *str, t_env *oldpwd)
-{
-	if (oldpwd != NULL)
-	{
-		ft_strdel(&(oldpwd->value));
-		oldpwd->value = ft_strdup(str);
-	}
-	else
-		e = ft_list_push_back(e, "OLDPWD", str);
-	return (e);
-}
-
 t_env			*ft_slash(t_exec *exe, t_env *pwd, t_env *oldpwd, t_env *e)
 {
 	char	*str;

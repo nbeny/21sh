@@ -59,10 +59,7 @@ t_env	*ft_setenv(t_exec *exe, t_env *e)
 			if (s == NULL)
 				e = ft_list_push_back(e, exe->cmd[exe->i[0]], NULL);
 			else
-			{
-				ft_strdel(&(s->value));
-				s->value = ft_strdup("\0");
-			}
+				del_and_creat(s);
 		}
 	}
 	return (e);

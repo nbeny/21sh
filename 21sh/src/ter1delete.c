@@ -14,21 +14,21 @@
 
 void	ft_delete(t_term *term)
 {
-    t_del   del;
+	t_del	del;
 
-    init_del(&del);
-    tputs(tgetstr("ei", NULL), 1, ft_putchar);
-    ft_update_window(term);
-    if (term->pos > 0)
-    {
-        if (term->pos == term->mlen)
-            delete_end_line(term);
-        else
-            delete_core(term, &del);
-        term->pos--;
-        term->mlen--;
-        ft_rotchar(term);
-    }
+	init_del(&del);
+	tputs(tgetstr("ei", NULL), 1, ft_putchar);
+	ft_update_window(term);
+	if (term->pos > 0)
+	{
+		if (term->pos == term->mlen)
+			delete_end_line(term);
+		else
+			delete_core(term, &del);
+		term->pos--;
+		term->mlen--;
+		ft_rotchar(term);
+	}
 }
 
 void	ft_multiline_supp(t_term *term, t_del *del)
@@ -58,19 +58,19 @@ void	ft_multiline_supp(t_term *term, t_del *del)
 
 void	ft_supp(t_term *term)
 {
-    t_del	del;
+	t_del	del;
 
-    tputs(tgetstr("ei", NULL), 1, ft_putchar);
-    del.count = 0;
-    ft_update_window(term);
-    if (term->pos != term->mlen)
-    {
-        del.end = term->mlen - term->pos;
-        del.i = term->ws_x - term->x;
-        del.add = del.i;
-        if (term->x + del.end > term->ws_x)
+	tputs(tgetstr("ei", NULL), 1, ft_putchar);
+	del.count = 0;
+	ft_update_window(term);
+	if (term->pos != term->mlen)
+	{
+		del.end = term->mlen - term->pos;
+		del.i = term->ws_x - term->x;
+		del.add = del.i;
+		if (term->x + del.end > term->ws_x)
 			ft_multiline_supp(term, &del);
-        else
+		else
 			tputs(tgetstr("dc", NULL), 1, ft_putchar);
 		term->mlen--;
 		ft_rotchar(term);

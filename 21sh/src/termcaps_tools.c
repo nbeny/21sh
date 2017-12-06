@@ -37,7 +37,6 @@ void	ft_strjoin_v2(t_term *term, int c)
 	new = ft_strjoin(term->line, buff);
 	ft_strdel(&(term->line));
 	term->line = ft_strdup(new);
-//	ft_printf(2, "[%s]", new);
 	ft_strdel(&new);
 }
 

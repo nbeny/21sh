@@ -45,21 +45,21 @@ int		ft_equal(char *s)
 	return (0);
 }
 
-char    *ft_getenv(t_env *e, char *str, int i)
+char	*ft_getenv(t_env *e, char *str, int i)
 {
-    t_env   *s;
+	t_env	*s;
 
-    s = e;
-    if (e != NULL)
-    {
-        while (s != NULL)
-        {
-            if (!ft_strncmp(s->name, str, i))
-                return (s->value);
-            s = s->next;
-        }
-    }
-    return (NULL);
+	s = e;
+	if (e != NULL)
+	{
+		while (s != NULL)
+		{
+			if (!ft_strncmp(s->name, str, i))
+				return (s->value);
+			s = s->next;
+		}
+	}
+	return (NULL);
 }
 
 char	**ft_list_to_tab(t_env *e)

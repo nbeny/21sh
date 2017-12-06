@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-static t_exec *ft_close_fd(t_exec *e)
+static t_exec	*ft_close_fd(t_exec *e)
 {
 	if (e->fd.ffd0)
 		close(0);
@@ -23,12 +23,12 @@ static t_exec *ft_close_fd(t_exec *e)
 	return (e);
 }
 
-int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	int pid3;
-	int status;
-    char *s;
-    char **env;
+	int		pid3;
+	int		status;
+    char	*s;
+    char	**env;
 
 	term->flash++;
 	status = 0;
@@ -38,9 +38,9 @@ int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	if (pid3 == 0)
 	{
 		close(nb->sout);
-        reload_fd(toto);//    <--- ici tu reset les redirection pour que le dup2 se fasse sur la vrai sortie 1 
+		reload_fd(toto);
 		dup2(nb->sin, 0);
-        e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
+        e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
 		close(nb->sin);
 		if ((status = execve(s, toto->cmd, env)) == -1)
@@ -59,37 +59,37 @@ int  ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	return (status);
 }
 
-t_nb	*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	int status;
-	pid_t pid1;
-	int pipefd[2];
-    char *s;
-    char **env;
+	int		status;
+	pid_t	pid1;
+	int		pipefd[2];
+    char	*s;
+    char	**env;
 
 	term->flash++;
 	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
-    env = ft_list_to_tab(e);
+	env = ft_list_to_tab(e);
 	status = 0;
 	pipe(pipefd);
 	pid1 = fork();
 	nb->sin = 0;
 	nb->sout = 1;
-    if (pid1 == 0)
-    {
-        close(pipefd[0]);
-        reload_fd(toto);//    <--- ici tu reset les redirection pour que le dup2 se fasse sur la vrai sortie 1
-        dup2(pipefd[1], 1);
-        e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
-        toto = ft_close_fd(toto);
-        close(pipefd[1]);
+	if (pid1 == 0)
+	{
+		close(pipefd[0]);
+		reload_fd(toto);
+		dup2(pipefd[1], 1);
+		e = make_redirection_right(term, toto, e);
+		toto = ft_close_fd(toto);
+		close(pipefd[1]);
 		if ((status = execve(s, toto->cmd, env)) == -1)
 			toto->error = ft_strdup("21sh: execve failed\n");
 		if (kill(pid1, SIGINT) == -1)
 			exit(status);
 		exit(status);
-    }
+	}
 	ft_strdel(&s);
 	ft_free_tabstr(env);
 	nb->sout = pipefd[1];
@@ -98,20 +98,19 @@ t_nb	*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	return (nb);
 }
 
-t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	pid_t  pid2;
-    int status;
-    int pipefd2[2];
-	char *s;
-	char **env;
+	pid_t	pid2;
+	int		status;
+	int		pipefd2[2];
+	char	*s;
+	char	**env;
 
 	s = NULL;
 	env = ft_list_to_tab(e);
 	term->flash++;
 	nb = ft_do_first_pipe(term, toto, nb, e);
 	toto = toto->next;
-
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
 		e = make_redirection_left(term, toto, e);
@@ -130,16 +129,14 @@ t_exec *ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 			if (pid2 == 0)
 			{
 				close(nb->sout);
-				reload_fd(toto);//    <--- ici tu reset les redirection pour que le dup2 se fasse sur la vrai sortie 1
+				reload_fd(toto);
 				dup2(nb->sin, 0);
 				close(nb->sin);
-
 				close(pipefd2[0]);
 				dup2(pipefd2[1], 1);
-				e = make_redirection_right(term, toto, e);// <--- ici tu remet les redirections pour que execve se fasse sur le fichier 
+				e = make_redirection_right(term, toto, e);
 				toto = ft_close_fd(toto);
 				close(pipefd2[1]);
-
 				if ((status = execve(s, toto->cmd, env)) == -1)
 				{
 					toto->error = ft_strdup("21sh: execve failed\n");

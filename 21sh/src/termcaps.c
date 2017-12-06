@@ -42,8 +42,7 @@ void	ft_update_window(t_term *term)
 		return ;
 	if ((buff = ft_strnew(50)) == NULL)
 		return ;
-	if ((ioctl(0, TIOCGWINSZ, &ws) == -1))
-		return ;
+	ioctl(0, TIOCGWINSZ, &ws);
 	term->ws_y = ws.ws_row;
 	term->ws_x = ws.ws_col;
 	ft_printf(0, "\E[6n");
@@ -63,48 +62,52 @@ void	ft_update_window(t_term *term)
 
 void	ft_edit_line(t_term *term)
 {
-	int		i;
-	int		c;
-	int		end;
-	int		add;
-	int		count;
+	t_del	del;
 
-	count = 0;
+	del.count = 0;
 	if (term->pos != term->mlen)
 	{
 		tputs(tgetstr("im", NULL), 1, ft_putchar);
 		tputs(tgetstr("ic", NULL), 1, ft_putchar);
-		end = term->mlen - term->pos;
-		i = term->ws_x - term->x;
-		if ((term->x + end) >= term->ws_x)
-		{
-			end = end - i;
-			add = i;
-			while (end > 0)
-			{
-				c = term->line[term->pos + add];
-				tputs(tgetstr("cr", NULL), 1, ft_putchar);
-				tputs(tgetstr("do", NULL), 1, ft_putchar);
-				ft_putchar(c);
-				tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 2), 1, ft_putchar);
-				i = term->ws_x;
-				add += i;
-				end = end - i;
-				count++;
-			}
-			while (count > 0)
-			{
-				count--;
-				tputs(tgetstr("up", NULL), 1, ft_putchar);
-				tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 1), 1, ft_putchar);
-			}
-		}
+		del.end = term->mlen - term->pos;
+		del.i = term->ws_x - term->x;
+		if ((term->x + del.end) >= term->ws_x)
+			edit_line_ml(term, &del);
 	}
 	else
 		tputs(tgetstr("ei", NULL), 1, ft_putchar);
 }
 
-t_hty		*ft_get_command(t_term *term, t_hty *hty)
+void	get_char(t_term *term, char *buff, int *pull)
+{
+	ft_update_window(term);
+	if (buff[0] != '\t')
+	{
+		ft_edit_line(term);
+		ft_update_window(term);
+		if (term->x == term->ws_x && term->pos != term->mlen)
+			*pull = 1;
+		write(0, buff, 6);
+		if (*pull == 1)
+		{
+			tputs(tgetstr("do", NULL), 1, ft_putchar);
+			*pull = 0;
+		}
+	}
+	if (buff[0] == '\t')
+		ft_tabulation(term);
+	else
+	{
+		if (term->pos != term->mlen)
+			ft_insert_char(term, buff[0]);
+		else
+			ft_strjoin_v2(term, buff[0]);
+		term->pos++;
+		term->mlen++;
+	}
+}
+
+t_hty	*ft_get_command(t_term *term, t_hty *hty)
 {
 	char	buff[6];
 	int		pull;
@@ -112,16 +115,12 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 	if (!ft_init_term(term))
 		return (hty);
 	ft_update_window(term);
-	term->pos = 0;
-	term->mlen = 0;
-	term->h = 0;
-	term->last = 0;
+	init_tt(term);
 	pull = 0;
 	hty = ft_rollback_history(term, hty);
-	term->line = ft_strdup("\0");
 	while (42)
 	{
-//		ft_printf(0, "[%i,%i,%i,%i,%i,%i]", buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
+//		ft_printf(0, "[%i, %i, %i, %i, %i, %i]", buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
 //		tputs(tgetstr("st", NULL), 1, ft_putchar);
 		ft_update_window(term);
 		ft_bzero(buff, 6);
@@ -137,36 +136,13 @@ t_hty		*ft_get_command(t_term *term, t_hty *hty)
 			hty = check_buff_twentyseven(term, hty, buff);
 		else
 		{
-			ft_update_window(term);
-			if (buff[0] != '\t')
-			{
-				ft_edit_line(term);
-				ft_update_window(term);
-				if (term->x == term->ws_x && term->pos != term->mlen)
-					pull = 1;
-				write(0, buff, 6);
-				if (pull == 1)
-				{
-					tputs(tgetstr("do", NULL), 1, ft_putchar);
-					pull = 0;
-				}
-			}
-			if (buff[0] == '\t')
-				ft_tabulation(term);
-			else if (buff[0] == '\n')
+			if (buff[0] == '\n')
 				break ;
-			else
-			{
-				if (term->pos != term->mlen)
-					ft_insert_char(term, buff[0]);
-				else
-					ft_strjoin_v2(term, buff[0]);
-				term->pos++;
-				term->mlen++;
-			}
+			get_char(term, buff, &pull);
 		}
 	}
 	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
-		return (0);
+		return (hty);
+	ft_putchar('\n');
 	return (hty);
 }

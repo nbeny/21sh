@@ -33,7 +33,7 @@ void			ft_execute_fd(t_exec *exe, t_env *e)
 
 	pid = fork();
 	signal(SIGINT, sig_exe);
-	s =ft_string_return(e, exe->cmd);
+	s = ft_string_return(e, exe->cmd);
 	env = ft_list_to_tab(e);
 	if (pid == -1)
 		exit(EXIT_FAILURE);
@@ -45,12 +45,8 @@ void			ft_execute_fd(t_exec *exe, t_env *e)
 			exit(status);
 		exit(status);
 	}
-	else
-	{
-		w = waitpid(pid, &status, WCONTINUED);
-		if (w == -1)
-			exit(EXIT_FAILURE);
-	}
+	if ((w = waitpid(pid, &status, WCONTINUED)) == -1)
+		exit(EXIT_FAILURE);
     ft_free_tabstr(env);
 	ft_strdel(&s);
 }
@@ -75,12 +71,8 @@ void			ft_execute_path_fd(char *str, t_exec *exe, t_env *e)
 			exit(status);
 		exit(status);
 	}
-	else
-	{
-		w = waitpid(pid, &status, WCONTINUED);
-		if (w == -1)
-			exit(EXIT_FAILURE);
-	}
+	if ((w = waitpid(pid, &status, WCONTINUED)) == -1)
+		exit(EXIT_FAILURE);
 	ft_free_tabstr(env);
 	ft_strdel(&str);
 }
