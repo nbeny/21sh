@@ -33,11 +33,10 @@ t_env	*make_pipe(t_term *term, t_exec *exe, t_env *e)
 {
 	t_exec	*s;
 	char	*str;
-	t_nb *nb;
+	t_nb	nb;
 
-	nb = malloc(sizeof(t_nb ));
 	str = NULL;
 	s = exe;
-	s = ft_do_pipe(term, s, nb, e);
+	s = ft_do_pipe(term, s, &nb, e);
 	return (e);
 }

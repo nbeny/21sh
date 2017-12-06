@@ -57,7 +57,7 @@ t_env	*make_semicolon(t_term *term, t_exec *exe, t_env *e)
 	return (e);
 }
 
-t_env	*make_numeric_or(t_term *term, t_exec *exe,t_env *e)
+t_env	*make_numeric_or(t_term *term, t_exec *exe, t_env *e)
 {
 	char	*str;
 
@@ -103,33 +103,22 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 			if (s->mask[1] == '|')
 			{
 				e = boucle_numeric_or(term, s, e);
-				while (term->flash > 0 && s != NULL)
-					s = s->next;
+				s = term_flash_bcl(term, s);
 			}
 			else
 			{
 				e = make_pipe(term, s, e);
-				while (term->flash > 0 && s != NULL)
-					s = s->next;
+				s = term_flash_bcl(term, s);
 			}
 		}
 		else if (s->mask[0] == '&' && s->mask[1] == '&')
 		{
 			e = boucle_numeric_and(term, s, e);
-			while (term->flash > 0 && s != NULL)
-				s = s->next;
+			s = term_flash_bcl(term, s);
 		}
 		else
 			e = make_semicolon(term, s, e);
-		if (s && s->error != NULL)
-		{
-			ft_printf(2, "%s", s->error);
-			ft_strdel(&(s->error));
-		}
-		if (s != NULL)
-			ft_printf(2, "%s\n", s->mask);
-		if (s != NULL)
-			s = s->next;
+		s = parse_mask_error(s);
 	}
 	return (e);
 }

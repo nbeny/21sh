@@ -35,3 +35,24 @@ int		check_start_red_file(t_term *term, char *str)
 	return (1);
 }
 
+t_exec	*term_flash_bcl(t_term *term, t_exec *s)
+{
+	while (term->flash > 0 && s != NULL)
+	{
+		term->flash--;
+		s = s->next;
+	}
+	return (s);
+}
+
+t_exec	*parse_mask_error(t_exec *s)
+{
+	if (s && s->error != NULL)
+	{
+		ft_printf(2, "%s", s->error);
+		ft_strdel(&(s->error));
+	}
+	if (s != NULL)
+		s = s->next;
+	return (s);
+}

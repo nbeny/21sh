@@ -350,6 +350,8 @@ t_env			*ft_parse_mask(t_term *term, t_exec *exe, t_env *e);
 */
 t_red			*creat_redirection(void);
 int				check_start_red_file(t_term *term, char *str);
+t_exec			*term_flash_bcl(t_term *term, t_exec *s);
+t_exec			*parse_mask_error(t_exec *s);
 /*
 **make1
 */
