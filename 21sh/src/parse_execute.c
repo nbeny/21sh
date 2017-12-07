@@ -110,8 +110,10 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 	{
 		if (s->mask == NULL)
 			e = make_semicolon(term, s, e);
-		else if (s->mask[0] == '|')
+		else if (s->mask[0] == '|' ||\
+				 (s->next && s->next->mask[0] == '|'))
 		{
+			s->mask[0] = '|';
 			if (s->mask[1] == '|')
 			{
 				e = boucle_numeric_or(term, s, e);

@@ -45,10 +45,13 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		close(nb->sin);
 		if ((status = execve(s, toto->cmd, env)) == -1)
 			toto->error = ft_strdup("21sh: execve failed\n");
-		if (kill(pid3, SIGINT) == -1)
-			exit(status);
+//		if (kill(pid3, SIGINT) == -1)
+//			exit(status);
+//		signal(SIGINT, ft_sigint_noprompt);
 		exit(status);
 	}
+//	ft_putnbr(nb->sout);
+//	ft_putnbr(nb->sin);
 	close(nb->sout);
 	close(nb->sin);
 	ft_free_tabstr(env);
@@ -88,11 +91,11 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		if ((status = execve(s, toto->cmd, env)) == -1)
 		{
 			toto->error = ft_strdup("21sh: execve failed\n");
-			nb->sin = -42;
-			return (nb);
+//			nb->sin = -42;
+//			return (nb);
 		}
-		if (kill(pid1, SIGINT) == -1)
-			exit(status);
+//		if (kill(pid1, SIGINT) == -1)
+//			exit(status);
 		exit(status);
 	}
 	ft_strdel(&s);
@@ -120,6 +123,8 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
+		if (toto->error)
+			break;
 		term->flash++;
 		e = make_redirection_left(term, toto, e);
 		s = ft_path_istrue(toto->cmd, e);
@@ -127,6 +132,7 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 			toto->pipe == 1)
 		{
 			status = ft_do_last_pipe(term, toto, nb, e);
+			
 			return (toto);
 		}
 		else
@@ -148,10 +154,10 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 				if ((status = execve(s, toto->cmd, env)) == -1)
 				{
 					toto->error = ft_strdup("21sh: execve failed\n");
-					return (toto);
+//					return (toto);
 				}
-				if (kill(pid2, SIGINT) == -1)
-					exit(status);
+//				if (kill(pid2, SIGINT) == -1)
+//					exit(status);
 				exit(status);
 			}
 		}

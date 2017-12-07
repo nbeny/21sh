@@ -49,6 +49,9 @@ t_env	*make_pipe(t_term *term, t_exec *exe, t_env *e)
 
 	str = NULL;
 	s = exe;
+//	save_fd(s);
+
 	s = ft_do_pipe(term, s, &nb, e);
+//	reload_fd(s);
 	return (e);
 }
