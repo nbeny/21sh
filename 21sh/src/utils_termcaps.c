@@ -37,7 +37,8 @@ int				block_ctrl(char *buff)
 		(buff[0] == 20 && buff[1] == '\0') ||\
 		(buff[0] == 18 && buff[1] == '\0') ||\
 		(buff[0] == 5 && buff[1] == '\0') ||\
-		(buff[0] == 23 && buff[1] == '\0'))
+		(buff[0] == 23 && buff[1] == '\0') ||\
+		(buff[0] == 12 && buff[1] == '\0'))
 		return (1);
 	return (0);
 }
