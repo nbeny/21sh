@@ -1,0 +1,333 @@
+src/arrow_gestion.c:	if (term->pos > 0)
+src/arrow_gestion.c:		if (term->x == 1)
+src/arrow_gestion.c:			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/arrow_gestion.c:			if (term->line[term->pos - 1] == '\t')
+src/arrow_gestion.c:		term->pos--;
+src/arrow_gestion.c:	if (term->pos < term->mlen)
+src/arrow_gestion.c:		if (term->x == term->ws_x)
+src/arrow_gestion.c:			if (term->line[term->pos] == '\t')
+src/arrow_gestion.c:		term->pos++;
+src/arrow_gestion.c:	while (term->pos != 0)
+src/arrow_gestion.c:	while (term->pos != term->mlen)
+src/arrow_opt.c:	if (term->pos - term->ws_x >= 0)
+src/arrow_opt.c:		term->pos -= term->ws_x;
+src/arrow_opt.c:	if (term->pos + term->ws_x <= term->mlen)
+src/arrow_opt.c:		term->pos += term->ws_x;
+src/arrow_opt.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 1), 1, ft_putchar);
+src/arrow_opt.c:	while (term->line[term->pos] == ' ' || term->line[term->pos] == '\t')
+src/arrow_opt.c:	while (term->line[term->pos] != ' ' && term->line[term->pos] != '\t' &&\
+src/arrow_opt.c:		term->line[term->pos] != '\0')
+src/arrow_opt.c:	if (term->line && term->pos > 0)
+src/arrow_opt.c:		while (term->pos > 0 && (term->line[term->pos] == ' ' ||\
+src/arrow_opt.c:			term->line[term->pos] == '\t' || term->line[term->pos] == '\0'))
+src/arrow_opt.c:		while (term->pos > 0 && term->line[term->pos] != ' ' &&\
+src/arrow_opt.c:			term->line[term->pos] != '\t')
+src/creat_new_exe.c:	if (term->line[term->i + 1] == '>')
+src/creat_new_exe.c:	else if (term->line[term->i + 1] == '&')
+src/creat_new_exe.c:		term->i++;
+src/creat_new_exe.c:	if (term->line[term->i + 1] == '<')
+src/creat_new_exe.c:	else if (term->line[term->i + 1] == '&')
+src/creat_new_exe.c:		term->i++;
+src/heredoc_norm.c:	ft_strdel(&(term->line));
+src/heredoc_norm.c:	term->prompt = 9;
+src/heredoc_norm.c:	term->hty = ft_get_command(term, term->hty);
+src/heredoc_norm.c:	ft_strdel(&(term->line));
+src/heredoc_norm.c:		r = creat_fd_or_file(term->quot, exe, r);
+src/heredoc_norm.c:	ft_strdel(&(term->quot));
+src/history.c:	new->cmd = ft_strdup(term->line);
+src/history.c:	term->hmax = 1;
+src/history.c:			term->hmax++;
+src/history.c:	term->h = 0;
+src/history.c:		if (term->h <= term->hmax)
+src/history.c:			term->h++;
+src/history.c:		if (term->h == 1)
+src/history.c:			term->mlen = ft_strlen(hty->cmd);
+src/history.c:			term->pos = term->mlen;
+src/history.c:			term->mlen = ft_strlen(hty->cmd);
+src/history.c:			term->pos = term->mlen;
+src/history.c:		if (term->h >= 1)
+src/history.c:			term->h--;
+src/history.c:		if (term->h == 1)
+src/history.c:			term->mlen = ft_strlen(hty->cmd);
+src/history.c:			term->pos = term->mlen;
+src/history.c:			term->mlen = ft_strlen(hty->cmd);
+src/history.c:			term->pos = term->mlen;
+src/main.c:	term->error = NULL;
+src/main.c:	term->prompt = 4;
+src/make4.c:	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+src/make4.c:			tmp = ft_strdup(term->line);
+src/make4.c:			tmp = ft_strjoin(term->quot, term->line);
+src/make4.c:		term->quot = ft_strjoin(tmp, "\n");
+src/make4.c:		ft_strdel(&(term->line));
+src/make4.c:		term->hty = ft_get_command(term, term->hty);
+src/make4.c:		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+src/make4.c:			tmp = ft_strjoin(term->quot, term->line);
+src/make4.c:			tmp = ft_strdup(term->quot);
+src/make4.c:		ft_strdel(&(term->quot));
+src/make4.c:		term->quot = tmp;
+src/make6.c:	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+src/make6.c:			tmp = ft_strdup(term->line);
+src/make6.c:			tmp = ft_strjoin(term->quot, term->line);
+src/make6.c:		term->quot = ft_strjoin(tmp, "\n");
+src/make6.c:		ft_strdel(&(term->line));
+src/make6.c:		term->hty = ft_get_command(term, term->hty);
+src/make6.c:		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+src/make6.c:			tmp = ft_strjoin(term->quot, term->line);
+src/make6.c:			tmp = ft_strdup(term->quot);
+src/make6.c:		ft_strdel(&(term->quot));
+src/make6.c:		term->quot = tmp;
+src/parse.c:	term->p[0] = term->i;
+src/parse.c:	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
+src/parse.c:		   term->line[term->i] != 9 && term->line[term->i] != ';' &&\
+src/parse.c:		   term->line[term->i] != '|' && term->line[term->i] != '&' &&\
+src/parse.c:		   term->line[term->i] != '>' && term->line[term->i] != '<' &&\
+src/parse.c:		   term->line[term->i] != 34 && term->line[term->i] != 39 &&\
+src/parse.c:		   term->line[term->i] != 0)
+src/parse.c:		if (term->line[term->i] == '\\' && term->line[term->i + 1] != 0)
+src/parse.c:			term->i++;
+src/parse.c:		term->i++;
+src/parse.c:	term->p[1] = term->i;
+src/parse.c:	if (term->line[term->i++] == 34)
+src/parse.c:		term->p[0] = term->i;
+src/parse.c:		while (term->line[term->i] != 34 && term->line[term->i] != 0)
+src/parse.c:			term->i++;
+src/parse.c:		if (term->line[term->i] == 0)
+src/parse.c:			term->p[1] = term->i;
+src/parse.c:		term->p[0] = term->i;
+src/parse.c:		while (term->line[term->i] != 39 && term->line[term->i] != 0)
+src/parse.c:			term->i++;
+src/parse.c:		if (term->line[term->i] == 0)
+src/parse.c:			term->p[1] = term->i;
+src/parse.c:	term->i++;
+src/parse.c:	if (term->line[term->i] == 34 || term->line[term->i] == 39)
+src/parse.c:	else if (term->line[term->i] == ';')
+src/parse.c:	else if (term->line[term->i] == '&')
+src/parse.c:	else if (term->line[term->i] == '|')
+src/parse.c:	else if (term->line[term->i] == '>')
+src/parse.c:	else if (term->line[term->i] == '<')
+src/parse.c:	else if (ft_isdigit(term->line[term->i]) &&\
+src/parse.c:			 (term->line[term->i + 1] == '<' || term->line[term->i + 1] == '>'))
+src/parse.c:	else if (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
+src/parse.c:			 term->line[term->i] != '\t')
+src/parse.c:		term->i++;
+src/parse.c:	term->i = 0;
+src/parse.c:	while (term->line[term->i] != 0)
+src/parse.c:		if (term->error != NULL)
+src/parse.c:			ft_printf(2, "%s", term->error);
+src/parse.c:	if (term->line != NULL && term->line[0] != '\0')
+src/parse_execute.c:	term->flash = 0;
+src/parse_execute.c:				term->flash = 1;
+src/parse_execute1.c:	term->i += ft_strlen(str);
+src/parse_execute1.c:	while (term->line[term->i] != '\0' &&\
+src/parse_execute1.c:		   (term->line[term->i] == ' ' || term->line[term->i] == '\t'))
+src/parse_execute1.c:		term->i++;
+src/parse_execute1.c:	term->p[0] = term->i;
+src/parse_execute1.c:	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
+src/parse_execute1.c:		   term->line[term->i] != '\t' && term->line[term->i] != '\n' &&\
+src/parse_execute1.c:		   term->line[term->i] != '>' && term->line[term->i] != '<' &&\
+src/parse_execute1.c:		   term->line[term->i] != '&' && term->line[term->i] != '|')
+src/parse_execute1.c:		term->i++;
+src/parse_execute1.c:	term->p[1] = term->i;
+src/parse_execute1.c:	if (term->p[0] == term->p[1])
+src/parse_execute1.c:		term->error = ft_strdup("parse error near `\\n`\n");
+src/parse_execute1.c:	while (term->flash > 0 && s != NULL)
+src/parse_execute1.c:		term->flash--;
+src/parse_mask.c:	term->i++;
+src/parse_mask.c:	term->i += 2;
+src/parse_mask.c:	term->i += 3;
+src/parse_mask.c:	term->i += 4;
+src/parse_redirection.c:		r->file = ft_strsub(term->line, term->p[0], term->p[1]);
+src/parse_redirection.c:		r->file = ft_strsub(term->line, term->p[0], term->p[1]);
+src/parse_redirection.c:	term->i += ft_strlen(str);
+src/parse_redirection.c:	term->i += ft_strlen(str);
+src/parse_redirection.c:	term->i += ft_strlen(str);
+src/parse_redirection.c:		r->file = ft_strsub(term->line, term->p[0], term->p[1]);
+src/parse_redirection.c:		r->file = ft_strsub(term->line, term->p[0], term->p[1]);
+src/parse_tools.c:	new->arg = ft_strsub(term->line, term->p[0], term->p[1]);
+src/parse_tri.c:	if (term->line[term->i] == '&' && term->line[term->i + 1] == '&' &&\
+src/parse_tri.c:		term->line[term->i + 2] != '&' && term->line[term->i + 2] != '|' &&\
+src/parse_tri.c:		term->line[term->i + 2] != '>' && term->line[term->i + 2] != '<' &&\
+src/parse_tri.c:		term->line[term->i + 2] != ';')
+src/parse_tri.c:		term->error = ft_strdup("21sh: parse error near `&`\n");
+src/parse_tri.c:	if (term->line[term->i] == '|' && term->line[term->i + 1] == '|' &&\
+src/parse_tri.c:		term->line[term->i + 2] != '|' && term->line[term->i + 2] != '&' &&\
+src/parse_tri.c:		term->line[term->i + 2] != '<' && term->line[term->i + 2] != '>' &&\
+src/parse_tri.c:		term->line[term->i + 2] != ';')
+src/parse_tri.c:	else if (term->line[term->i] == '|' && term->line[term->i + 1] != '|' &&\
+src/parse_tri.c:		term->line[term->i + 1] != '&' && term->line[term->i + 1] != ';' &&\
+src/parse_tri.c:		term->line[term->i + 1] != '>' && term->line[term->i + 1] != '<')
+src/parse_tri.c:		term->error = ft_strdup("21sh: parse error near `|`\n");
+src/parse_tri.c:	if (term->line[term->i] == '>' && term->line[term->i + 1] == '&')
+src/parse_tri.c:		if (ft_isdigit(term->line[term->i + 2]))
+src/parse_tri.c:			s = get_mask('0', '>', '&', term->line[term->i + 2]);
+src/parse_tri.c:		else if (term->line[term->i + 2] == '-')
+src/parse_tri.c:			term->i += 2;
+src/parse_tri.c:			term->error = ft_strdup("21sh: parse error near `>&`\n");
+src/parse_tri.c:	else if (term->line[term->i] == '>' && term->line[term->i + 1] == '>')
+src/parse_tri.c:	else if (term->line[term->i] == '>' && term->line[term->i + 1] == '|')
+src/parse_tri.c:	if (term->line[term->i] == '<' && term->line[term->i + 1] == '&')
+src/parse_tri.c:		if (ft_isdigit(term->line[term->i + 2]))
+src/parse_tri.c:			s = get_mask('0', '<', '&', term->line[term->i + 2]);
+src/parse_tri.c:	else if (term->line[term->i] == '<' && term->line[term->i + 1] == '<')
+src/parse_tri.c:		if (term->line[term->i + 2] == '<')
+src/parse_tri.c:		else if (term->line[term->i + 2] == '-')
+src/parse_triav.c:	if (ft_isdigit(term->line[term->i + 3]))
+src/parse_triav.c:		s = get_mask(term->line[term->i], '>',\
+src/parse_triav.c:				'&', term->line[term->i + 3]);
+src/parse_triav.c:	else if (term->line[term->i + 3] == '-')
+src/parse_triav.c:		s = get_mask(term->line[term->i], '>', '&', '-');
+src/parse_triav.c:		term->i += 3;
+src/parse_triav.c:		term->error = ft_strdup("sh: parse error near `>&`\n");
+src/parse_triav.c:	if (ft_isdigit(term->line[term->i + 3]))
+src/parse_triav.c:		s = get_mask(term->line[term->i], '<',\
+src/parse_triav.c:				'&', term->line[term->i + 3]);
+src/parse_triav.c:	else if (term->line[term->i + 3] == '-')
+src/parse_triav.c:		s = get_mask(term->line[term->i], '<', '&', '-');
+src/parse_triav.c:		term->i += 3;
+src/parse_triav.c:		term->error = ft_strdup("sh: parse error near `>&`\n");
+src/parse_triav.c:	if (term->line[term->i + 2] == '&')
+src/parse_triav.c:	else if (term->line[term->i + 2] == '>')
+src/parse_triav.c:		s = get_mask(term->line[term->i], '>', '>', '\0');
+src/parse_triav.c:		s = get_mask(term->line[term->i], '>', '\0', '\0');
+src/parse_triav.c:	if (term->line[term->i + 2] == '&')
+src/parse_triav.c:	else if (term->line[term->i + 2] == '<')
+src/parse_triav.c:		s = get_mask(term->line[term->i], '<', '<', '\0');
+src/parse_triav.c:		s = get_mask(term->line[term->i], '<', '\0', '\0');
+src/parse_triav.c:	if (ft_isdigit(term->line[term->i]) && term->line[term->i + 1] == '>')
+src/pipe.c://	term->flash++;
+src/pipe.c://	term->flash++;
+src/pipe.c://	term->flash++;
+src/pipe.c:			term->flash++;
+src/quot.c:	term->quot = ft_strjoin(term->line, "\n");
+src/quot.c:	ft_strdel(&(term->line));
+src/quot.c:	term->prompt = 8;
+src/quot.c:	while (!ft_strchr(&term->quot[term->i], 34))
+src/quot.c:		term->hty = ft_get_command(term, term->hty);
+src/quot.c:		tmp = ft_strjoin(term->quot, term->line);
+src/quot.c:		ft_strdel(&(term->quot));
+src/quot.c:		ft_strdel(&(term->line));
+src/quot.c:		if (!ft_strchr(&tmp[term->i], 34))
+src/quot.c:			term->quot = ft_strjoin(tmp, "\n");
+src/quot.c:			while (tmp[term->i] != 34 && tmp[term->i] != 0)
+src/quot.c:				term->i++;
+src/quot.c:			if (tmp[term->i] == 0)
+src/quot.c:				term->quot = ft_strjoin(tmp, "\n");
+src/quot.c:				term->p[1] = term->i;
+src/quot.c:				term->quot = ft_strdup(tmp);
+src/quot.c:				term->line = ft_strdup(tmp);
+src/quot.c:	ft_strdel(&(term->quot));
+src/quot.c:	term->quot = ft_strjoin(term->line, "\n");
+src/quot.c:	ft_strdel(&(term->line));
+src/quot.c:	term->prompt = 7;
+src/quot.c:	while (!ft_strchr(&term->quot[term->i], 39))
+src/quot.c:		term->hty = ft_get_command(term, term->hty);
+src/quot.c:		tmp = ft_strjoin(term->quot, term->line);
+src/quot.c:		ft_strdel(&(term->quot));
+src/quot.c:		ft_strdel(&(term->line));
+src/quot.c:		if (!ft_strchr(&tmp[term->i], 39))
+src/quot.c:			term->quot = ft_strjoin(tmp, "\n");
+src/quot.c:			while (tmp[term->i] != 39 && tmp[term->i] != 0)
+src/quot.c:				term->i++;
+src/quot.c:			if (tmp[term->i] == 0)
+src/quot.c:				term->quot = ft_strjoin(tmp, "\n");
+src/quot.c:				term->p[1] = term->i;
+src/quot.c:				term->quot = ft_strdup(tmp);
+src/quot.c:				term->line = ft_strdup(tmp);
+src/quot.c:	ft_strdel(&(term->quot));
+src/ter1delete.c:	if (term->pos > 0)
+src/ter1delete.c:		if (term->pos == term->mlen)
+src/ter1delete.c:		term->pos--;
+src/ter1delete.c:		term->mlen--;
+src/ter1delete.c:		del->i = term->ws_x;
+src/ter1delete.c:		del->c = term->line[term->pos + del->add + 1];
+src/ter1delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter1delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 1), 1, ft_putchar);
+src/ter1delete.c:	if (term->pos != term->mlen)
+src/ter1delete.c:		del.end = term->mlen - term->pos;
+src/ter1delete.c:		del.i = term->ws_x - term->x;
+src/ter1delete.c:		if (term->x + del.end > term->ws_x)
+src/ter1delete.c:		term->mlen--;
+src/ter_delete.c:	if (term->x == 1)
+src/ter_delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter_delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter_delete.c:	if (term->x == 1)
+src/ter_delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter_delete.c:		del->c = term->line[term->pos + del->add + 1];
+src/ter_delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter_delete.c:		del->add += term->ws_x;
+src/ter_delete.c:		del->i = term->ws_x;
+src/ter_delete.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 2), 1, ft_putchar);
+src/ter_delete.c:	del->end = term->mlen - term->pos;
+src/ter_delete.c:	del->i = term->ws_x - term->x;
+src/ter_delete.c:	if ((term->x + del->end) >= term->ws_x)
+src/ter_delete.c:		if (term->x == 1)
+src/ter_delete.c:			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/ter_delete.c:			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
+src/termcaps.c:	if ((term->name = getenv("TERM")) == NULL)
+src/termcaps.c:	if (tgetent(NULL, term->name) == -1)
+src/termcaps.c:	if (tcgetattr(0, &(term->term_clean)) == -1)
+src/termcaps.c:	if (tcgetattr(0, &(term->term)) == -1)
+src/termcaps.c:	term->term.c_lflag &= ~(ICANON);
+src/termcaps.c:	term->term.c_lflag &= ~(ECHO);
+src/termcaps.c:	term->term.c_cc[VMIN] = 1;
+src/termcaps.c:	term->term.c_cc[VTIME] = 0;
+src/termcaps.c:	if (tcsetattr(0, TCSADRAIN, &(term->term)) == -1)
+src/termcaps.c:	term->ws_y = ws.ws_row;
+src/termcaps.c:	term->ws_x = ws.ws_col;
+src/termcaps.c:	term->y = ft_atoi(&ansi[2]);
+src/termcaps.c:	term->x = ft_atoi(&ft_strchr(&ansi[2], ';')[1]);
+src/termcaps.c:	if (term->pos != term->mlen)
+src/termcaps.c:		del.end = term->mlen - term->pos;
+src/termcaps.c:		del.i = term->ws_x - term->x;
+src/termcaps.c:		if ((term->x + del.end) >= term->ws_x)
+src/termcaps.c:		if (term->x == term->ws_x && term->pos != term->mlen)
+src/termcaps.c:		if (term->pos != term->mlen)
+src/termcaps.c:		term->pos++;
+src/termcaps.c:		term->mlen++;
+src/termcaps.c:	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
+src/termcaps1.c:	term->pos = 0;
+src/termcaps1.c:	term->mlen = 0;
+src/termcaps1.c:	term->h = 0;
+src/termcaps1.c:	term->last = 0;
+src/termcaps1.c:	term->line = ft_strdup("\0");
+src/termcaps1.c:		del->c = term->line[term->pos + del->add];
+src/termcaps1.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 2), 1, ft_putchar);
+src/termcaps1.c:		del->i = term->ws_x;
+src/termcaps1.c:		tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 1), 1, ft_putchar);
+src/termcaps_tools.c:	i = ft_strlen(term->line);
+src/termcaps_tools.c:	p2 = ft_strsub(term->line, (term->pos + 1), i);
+src/termcaps_tools.c:	p1 = ft_strsub(term->line, 0, term->pos);
+src/termcaps_tools.c:	ft_strdel(&(term->line));
+src/termcaps_tools.c:	term->line = ft_strjoin(p1, p2);
+src/termcaps_tools.c:	new = ft_strjoin(term->line, buff);
+src/termcaps_tools.c:	ft_strdel(&(term->line));
+src/termcaps_tools.c:	term->line = ft_strdup(new);
+src/termcaps_tools.c:	ft_putnchar(' ', term->mlen);
+src/termcaps_tools.c:	ft_strdel(&(term->line));
+src/termcaps_tools.c:	term->line = ft_strdup(hty->cmd);
+src/tools2.c:	swap = ft_strsub(term->line, 0, term->pos);
+src/tools2.c:	p2 = ft_strsub(term->line, term->pos, ft_strlen(term->line));
+src/tools2.c:	ft_strdel(&(term->line));
+src/tools2.c:	term->line = ft_strjoin(p1, p2);
+src/tools2.c:	i = term->pos - 1;
+src/tools2.c:	tmp = ft_strdup(term->line);
+src/tools2.c:	if (term->x >= term->ws_x)
+src/tools2.c:	if ((term->x + (term->mlen - term->pos)) < term->ws_x &&\
+src/tools2.c:		((term->mlen + term->prompt) % term->ws_x) != 0)
+src/tools2.c:		if (term->y == term->ws_y)
+src/tools2.c:			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_y - 1), 1, ft_putchar);
+src/tools_cmd2.c:	ft_strdel(&(term->line));
+src/tools_cmd2.c:		r = creat_fd_or_file(term->quot, exe, r);
+src/tools_cmd2.c:	ft_strdel(&(term->quot));
+src/tools_cmd2.c:	ft_strdel(&(term->line));
+src/tools_cmd2.c:	term->prompt = 9;
+src/tools_cmd2.c:	term->hty = ft_get_command(term, term->hty);
+src/tools_mask.c:				term->flash++;
+src/tools_mask.c:				term->flash++;
+src/tools_mask.c:				term->flash++;
+src/utils_termcaps.c:	if (!ft_strncmp(term->line, "\0", 1))
+src/utils_termcaps.c:		if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
+src/utils_termcaps.c:		if (term->x == term->ws_x && term->pos != term->mlen)
+src/utils_termcaps.c:		if (term->pos != term->mlen)
+src/utils_termcaps.c:		term->pos++;
+src/utils_termcaps.c:		term->mlen++;

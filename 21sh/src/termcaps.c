@@ -136,12 +136,13 @@ t_hty	*ft_get_command(t_term *term, t_hty *hty)
 			hty = check_buff_twentyseven(term, hty, buff);
 		else
 		{
-			get_char(term, buff, &pull);
 			if (buff[0] == '\n')
 				break ;
+			get_char(term, buff, &pull);
 		}
 	}
 	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
 		return (hty);
+	ft_putchar('\n');
 	return (hty);
 }
