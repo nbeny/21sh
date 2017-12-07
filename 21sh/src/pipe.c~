@@ -86,11 +86,7 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		toto = ft_close_fd(toto);
 		close(pipefd[1]);
 		if ((status = execve(s, toto->cmd, env)) == -1)
-		{
 			toto->error = ft_strdup("21sh: execve failed\n");
-			nb->sin = -42;
-			return (nb);
-		}
 		if (kill(pid1, SIGINT) == -1)
 			exit(status);
 		exit(status);
@@ -115,8 +111,6 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	env = ft_list_to_tab(e);
 //	term->flash++;
 	nb = ft_do_first_pipe(term, toto, nb, e);
-	if (nb->sin == -42)
-		return (toto);
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{

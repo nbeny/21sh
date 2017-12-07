@@ -120,7 +120,7 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 			else
 			{
 				e = make_pipe(term, s, e);
-//				term->flash = 1;
+				term->flash = 1;
 				s = term_flash_bcl(term, s);
 			}
 		}
