@@ -66,6 +66,7 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char	*s;
     char	**env;
 
+	ft_putendl("first");
 	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
 	env = ft_list_to_tab(e);
@@ -123,7 +124,6 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		else
 		{
 			s = ft_path_istrue(toto->cmd, e);
-			term->flash++;
 			pipe(pipefd2);
 			pid2 = fork();
 			if (pid2 == 0)
