@@ -19,13 +19,6 @@ t_exec	*tri_and(t_term *term, t_exec *e)
 		term->line[term->i + 2] != '>' && term->line[term->i + 2] != '<' &&\
 		term->line[term->i + 2] != ';')
 		e = ft_push_mask_v2(term, e, "&&");
-	else if (term->line[term->i] == '&' && term->line[term->i + 1] != '&' &&\
-		term->line[term->i + 1] != '|' && term->line[term->i + 1] != '<' &&\
-		term->line[term->i + 1] != '>' && term->line[term->i + 1] != ';')
-	{
-		term->i = 1;
-		e->wait = 1;
-	}
 	else
 		term->error = ft_strdup("21sh: parse error near `&`\n");
 	return (e);

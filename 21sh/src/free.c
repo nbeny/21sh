@@ -28,6 +28,7 @@ void	ft_free_exe(t_exec *exe)
 				ft_free_quot(s->quot);
 			if (s->red)
 				ft_free_red(s->red);
+			ft_strdel(&(s->mask));
 			s = s->next;
 			free(f);
 			exe = NULL;

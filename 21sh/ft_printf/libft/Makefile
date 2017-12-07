@@ -48,7 +48,7 @@ N_SRC	=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 		ft_putnstr_fd.c ft_split.c
 
 CC	=	gcc
-CC_FLAG	=	-g -Wall -Wextra -Werror
+CC_FLAG	=	-Wall -Wextra -Werror
 
 T_SRC	=	./src/
 T_INC	=	./include/

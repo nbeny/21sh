@@ -53,8 +53,8 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	close(nb->sin);
 	ft_free_tabstr(env);
 	ft_strdel(&s);
-	if (status != -1)
-		wait3(NULL, status, NULL);
+//	if (status != -1)
+//		wait3(NULL, status, NULL);
 	wait(NULL);
 	return (status);
 }
@@ -110,11 +110,11 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	env = ft_list_to_tab(e);
 //	term->flash++;
 	nb = ft_do_first_pipe(term, toto, nb, e);
+	ft_free_tabstr(env);
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
 		e = make_redirection_left(term, toto, e);
-		s = ft_path_istrue(toto->cmd, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)
 		{
@@ -123,6 +123,7 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		}
 		else
 		{
+			s = ft_path_istrue(toto->cmd, e);
 			term->flash++;
 			pipe(pipefd2);
 			pid2 = fork();
@@ -146,14 +147,13 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 					exit(status);
 				exit(status);
 			}
+			ft_strdel(&s);
 		}
-		ft_strdel(&s);
 		close(nb->sout);
 		close(nb->sin);
 		nb->sin = pipefd2[0];
 		nb->sout = pipefd2[1];
 		toto = toto->next;
 	}
-	ft_free_tabstr(env);
 	return (toto);
 }
