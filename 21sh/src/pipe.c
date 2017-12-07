@@ -30,7 +30,6 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char	*s;
     char	**env;
 
-//	term->flash++;
 	status = 0;
 	s = ft_path_istrue(toto->cmd, e);
     env = ft_list_to_tab(e);
@@ -67,7 +66,6 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char	*s;
     char	**env;
 
-//	term->flash++;
 	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
 	env = ft_list_to_tab(e);
@@ -114,6 +112,7 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
+		term->flash++;
 		e = make_redirection_left(term, toto, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)

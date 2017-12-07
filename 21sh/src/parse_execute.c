@@ -110,21 +110,24 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 	{
 		if (s->mask == NULL)
 			e = make_semicolon(term, s, e);
-		else if (s->mask[0] == '|')
+		else if (s->mask[0] == '|' ||\
+			(s->next != NULL && !ft_strncmp(s->next->mask, "|", 1)))
 		{
 			if (s->mask[1] == '|')
 			{
 				e = boucle_numeric_or(term, s, e);
 				s = term_flash_bcl(term, s);
 			}
-			else
+			else if (s->mask[1] == '\0' ||\
+				(s->next != NULL && !ft_strncmp(s->next->mask, "|\0", 2)))
 			{
 				e = make_pipe(term, s, e);
-				term->flash = 1;
+//				term->flash++;
 				s = term_flash_bcl(term, s);
 			}
 		}
-		else if (s->mask[0] == '&' && s->mask[1] == '&')
+		else if ((s->mask[0] == '&' && s->mask[1] == '&') ||\
+			(s->next != NULL && !ft_strncmp(s->next->mask, "&&\0", 3)))
 		{
 			e = boucle_numeric_and(term, s, e);
 			s = term_flash_bcl(term, s);
