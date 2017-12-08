@@ -47,6 +47,9 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	start_heredoc(term);
 	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 	{
+		ft_printf(2, "%p\n", &tmp);
+		ft_printf(2, "%p\n", &(term->line));
+		ft_printf(2, "%p\n", &(term->quot));
 		if (i == 0)
 			tmp = ft_strdup(term->line);
 		else

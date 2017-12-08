@@ -137,7 +137,7 @@ typedef struct	s_dopp
 	int				pipefd2[2];
 	char			*s;
 	char			**env;
-}				t_dopp;
+	}				t_dopp;
 /*
 **main
 */
@@ -467,6 +467,7 @@ t_red			*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
 */
 t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+t_nb			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 /*
 **ter_delete

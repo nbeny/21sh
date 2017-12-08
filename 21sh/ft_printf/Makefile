@@ -33,7 +33,7 @@ N_SRC	=	ft_printf.c		ft_check.c\
 		ft_printf2.c
 
 CC	=	gcc
-CC_FLAG	=	-g -Wall -Wextra -Werror -fsanitize=address -g3
+CC_FLAG	=	-Wall -Wextra -Werror #-fsanitize=address -g3
 
 T_SRC	=	./src/
 T_INC	=	./include/
@@ -73,10 +73,9 @@ N_OBJ	=	$(N_SRC:.c=.o)
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: mlib $(NAME)
 
 $(NAME): $(OBJ)
-		@make -C $(T_LFT)
 		@echo "\n>$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
 		@ar rc $(NAME) $(OBJ)
 		@echo ">$(CL_J)Ranlib booster..$(CL_N)"
@@ -97,5 +96,6 @@ fclean: clean
 		@make -C $(T_LFT) fclean
 		@echo ">$(CL_R)Delete: $(CL_B)$(NAME)$(CL_N)"
 		@rm -f $(NAME)
-
+mlib:
+	@make -C $(T_LFT)
 re: fclean all

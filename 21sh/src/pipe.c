@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
-
+#include <sys/wait.h>
 static t_exec	*ft_close_fd(t_exec *e)
 {
 	if (e->fd.ffd0)
@@ -82,6 +82,7 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		{
 			toto->error = ft_strdup("21sh: execve failed\n");
 		}
+		signal(SIGINT, sig_exe);
 		exit(status);
 	}
 	ft_strdel(&s);
@@ -91,7 +92,7 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	return (nb);
 }
 
-t_exec			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+t_nb			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
 	pid_t			pid2;
 	int				status;
@@ -99,6 +100,7 @@ t_exec			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	char			*s;
 	char			**env;
 
+	env = ft_list_to_tab(e);
 	s = ft_path_istrue(toto->cmd, e);
 	pipe(pipefd2);
 	pid2 = fork();
@@ -117,40 +119,38 @@ t_exec			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 			toto->error = ft_strdup("21sh: execve failed\n");
 		exit(status);
 	}
-	ft_strdel(&s);
 	close(nb->sout);
 	close(nb->sin);
 	nb->sin = pipefd2[0];
 	nb->sout = pipefd2[1];
-	return (toto);
+	ft_free_tabstr(env);
+	ft_strdel(&s);
+	return (nb);
 }
 
 t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	t_dopp	dop;
+	int		status;
 
-	dop.s = NULL;
-	dop.env = ft_list_to_tab(e);
 	nb = ft_do_first_pipe(term, toto, nb, e);
-	if (nb->sin == -42)
-		return (toto);
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
 	{
 		if (toto->error)
-			break;
+			break ;
 		term->flash++;
 		e = make_redirection_left(term, toto, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)
 		{
-			dop.status = ft_do_last_pipe(term, toto, nb, e);
+			status = ft_do_last_pipe(term, toto, nb, e);
+			wait(NULL);
 			return (toto);
 		}
 		else
-			toto = ft_do_mid_pipe(term, toto, nb, e);
+			nb = ft_do_mid_pipe(term, toto, nb, e);
 		toto = toto->next;
 	}
-	ft_free_tabstr(dop.env);
+	wait(NULL);
 	return (toto);
 }

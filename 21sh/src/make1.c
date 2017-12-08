@@ -34,7 +34,7 @@ t_env	*make_numeric_and(t_term *term, t_exec *exe, t_env *e)
 	else
 	{
 		ft_printf(2, "command not found: %s\n", exe->cmd[0]);
-		exe->error = ft_strdup("0");
+		exe->error = ft_strdup("\0");
 	}
 	if (exe->red != NULL)
 		reload_fd(exe);
@@ -49,9 +49,6 @@ t_env	*make_pipe(t_term *term, t_exec *exe, t_env *e)
 
 	str = NULL;
 	s = exe;
-//	save_fd(s);
-
 	s = ft_do_pipe(term, s, &nb, e);
-//	reload_fd(s);
 	return (e);
 }

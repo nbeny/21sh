@@ -34,7 +34,7 @@ N_SRC	=	main.c tools.c free.c\
 			termcaps1.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3
+CC_FLAG	=	-Wall -Wall -Werror #-fsanitize=address -g3
 CURSES	=	-ltermcap
 
 T_SRC	=	./src/
@@ -77,11 +77,10 @@ N_OBJ	=	$(N_SRC:.c=.o)
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: mprint $(NAME)
 
 $(NAME): $(OBJ)
 	@echo ">$(CL_V)Build: $(CL_VG)ft_printf$(CL_N)"
-	@make -C $(T_PTF)
 	@echo ">$(CL_V)Build: $(CL_VG)$(NAME)$(CL_N)"
 	@$(CC) $(CC_FLAG) -o $(NAME) $(OBJ) $(L_LFT) $(L_PTF) $(CURSES)
 
@@ -99,5 +98,6 @@ fclean: clean
 	@make -C $(T_PTF) fclean
 	@echo ">$(CL_R)Delete: $(CL_B)$(NAME)$(CL_N)"
 	@rm -f $(NAME)
-
+mprint:
+	@make -C $(T_PTF)
 re: fclean all
