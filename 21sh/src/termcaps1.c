@@ -44,3 +44,26 @@ void	edit_line_ml(t_term *term, t_del *del)
 		tputs(tgoto(tgetstr("ch", NULL), 0, term->x - 1), 1, ft_putchar);
 	}
 }
+
+int		continue_buffer(t_norm *n)
+{
+	ft_update_window(n->term);
+	ft_bzero(n->buff, 6);
+	if (read(0, n->buff, 6) == -1)
+		return (-1);
+	if (n->buff[0] == 127 && n->buff[1] == '\0')
+		ft_delete(n->term);
+	else if (block_ctrl(n->buff))
+		;
+	else if (n->buff[0] == 4 && n->buff[1] == '\0')
+		ft_make_ctrl_d(n->term);
+	else if (n->buff[0] == 27)
+		n->hty = check_buff_twentyseven(n->term, n->hty, n->buff);
+	else
+	{
+		if (n->buff[0] == '\n')
+			return (0);
+		get_char(n->term, n->buff, &(n->pull));
+	}
+	return (1);
+}

@@ -107,40 +107,31 @@ void	get_char(t_term *term, char *buff, int *pull)
 	}
 }
 
+/*
+**		ft_printf(0, "[%i, %i, %i, %i, %i, %i]",\
+**					buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
+*/
+
 t_hty	*ft_get_command(t_term *term, t_hty *hty)
 {
-	char	buff[6];
-	int		pull;
+	t_norm	n;
 
 	if (!ft_init_term(term))
 		return (hty);
 	ft_update_window(term);
 	init_tt(term);
-	pull = 0;
+	n.pull = 0;
 	hty = ft_rollback_history(term, hty);
 	while (42)
 	{
-//		ft_printf(0, "[%i, %i, %i, %i, %i, %i]", buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
-//		tputs(tgetstr("st", NULL), 1, ft_putchar);
-		ft_update_window(term);
-		ft_bzero(buff, 6);
-		if (read(0, buff, 6) == -1)
-			return (hty);
-		if (buff[0] == 127 && buff[1] == '\0')
-			ft_delete(term);
-		else if (block_ctrl(buff))
-			;
-		else if (buff[0] == 4 && buff[1] == '\0')
-			ft_make_ctrl_d(term);
-		else if (buff[0] == 27)
-			hty = check_buff_twentyseven(term, hty, buff);
-		else
-		{
-			if (buff[0] == '\n')
-				break ;
-			get_char(term, buff, &pull);
-		}
+		n.term = term;
+		n.hty = hty;
+		if (!continue_buffer(&n))
+			break ;
+		hty = n.hty;
+		term = n.term;
 	}
+	ft_move_end(term);
 	ft_putchar('\n');
 	if (tcsetattr(0, TCSANOW, &(term->term_clean)) == -1)
 		return (hty);

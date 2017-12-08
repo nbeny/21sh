@@ -49,6 +49,13 @@ typedef struct	s_term
 	char			*error;
 	int				flash;
 }				t_term;
+typedef struct	s_norm
+{
+	struct s_term	*term;
+	struct s_hty	*hty;
+	char			buff[6];
+	int				pull;
+}				t_norm;
 typedef struct	s_del
 {
 	int				i;
@@ -120,8 +127,8 @@ typedef struct	s_nb
 }				t_nb;
 typedef struct	s_group
 {
-	t_env			*e;
-	t_exec			*s;
+	struct s_env	*e;
+	struct s_exec	*s;
 }				t_group;
 /*
 **main
@@ -485,6 +492,6 @@ void			del_and_creat(t_env *s);
 **termcaps1
 */
 void			init_tt(t_term *term);
-//t_hty			*regroupe_parse_buffer(t_term *term, char *str, t_hty *hty);
 void			edit_line_ml(t_term *term, t_del *del);
+int				continue_buffer(t_norm *n);
 #endif
