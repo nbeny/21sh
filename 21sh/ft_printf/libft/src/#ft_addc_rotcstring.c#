@@ -1,0 +1,13 @@
+#include "libft.h"
+
+char	*ft_addc_rotcstring(int c, char *str)
+{
+	int		i;
+	char	*cpy;
+
+	i = 0;
+	if (str != NULL)
+	{
+		cpy = ft_strdup(str);
+		str
+}
