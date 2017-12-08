@@ -83,7 +83,7 @@ int		main(int ac, char **av, char **env)
 		{
 			signal(SIGINT, sig_init);
 			prompt_gestionn(&term);
-			hty = ft_get_command(&term, hty);
+			hty = ft_get_command_shell(&term, hty);
 			if (ft_multi_strchr(term.line))
 				hty = ft_mem_cmd(&term, hty);
 			term.hty = hty;

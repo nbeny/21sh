@@ -126,7 +126,7 @@ t_hty	*ft_get_command(t_term *term, t_hty *hty)
 	{
 		n.term = term;
 		n.hty = hty;
-		if (!continue_buffer(&n))
+		if (!continue_buffer_other(&n))
 			break ;
 		hty = n.hty;
 		term = n.term;

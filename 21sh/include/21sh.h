@@ -505,4 +505,6 @@ void			del_and_creat(t_env *s);
 void			init_tt(t_term *term);
 void			edit_line_ml(t_term *term, t_del *del);
 int				continue_buffer(t_norm *n);
+int				continue_buffer_other(t_norm *n);
+t_hty			*ft_get_command_shell(t_term *term, t_hty *hty);
 #endif

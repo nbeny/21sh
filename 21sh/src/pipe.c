@@ -79,9 +79,7 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		toto = ft_close_fd(toto);
 		close(pipefd[1]);
 		if ((status = execve(s, toto->cmd, env)) == -1)
-		{
 			toto->error = ft_strdup("21sh: execve failed\n");
-		}
 		signal(SIGINT, sig_exe);
 		exit(status);
 	}
