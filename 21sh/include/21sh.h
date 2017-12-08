@@ -118,6 +118,11 @@ typedef struct	s_nb
     int				sin;
     int				sout;
 }				t_nb;
+typedef struct	s_group
+{
+	t_env			*e;
+	t_exec			*s;
+}				t_group;
 /*
 **main
 */

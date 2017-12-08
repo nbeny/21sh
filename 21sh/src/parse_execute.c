@@ -98,8 +98,37 @@ t_env	*make_numeric_or(t_term *term, t_exec *exe, t_env *e)
 	return (e);
 }
 
+void	turn_mask_exec(t_group *g, t_term *term)
+{
+	if (g->s->mask == NULL)
+		g->e = make_semicolon(term, g->s, g->e);
+	else if (g->s->mask[0] == '|' ||\
+		(g->s->next && g->s->next->mask[0] == '|'))
+	{
+		g->s->mask[0] = '|';
+		if (g->s->mask[1] == '|')
+		{
+			g->e = boucle_numeric_or(term, g->s, g->e);
+			g->s = term_flash_bcl(term, g->s);
+		}
+		else
+		{
+			g->e = make_pipe(term, g->s, g->e);
+			g->s = term_flash_bcl(term, g->s);
+		}
+	}
+	else if (g->s->mask[0] == '&' && g->s->mask[1] == '&')
+	{
+		g->e = boucle_numeric_and(term, g->s, g->e);
+		g->s = term_flash_bcl(term, g->s);
+	}
+	else
+		g->e = make_semicolon(term, g->s, g->e);
+}
+
 t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 {
+	t_group	g;
 	t_exec	*s;
 
 	s = exe;
@@ -108,31 +137,11 @@ t_env	*ft_parse_mask(t_term *term, t_exec *exe, t_env *e)
 	term->flash = 0;
 	while (s != NULL && s->cmd[0] != NULL && s->error == NULL)
 	{
-		if (s->mask == NULL)
-			e = make_semicolon(term, s, e);
-		else if (s->mask[0] == '|' ||\
-				 (s->next && s->next->mask[0] == '|'))
-		{
-			s->mask[0] = '|';
-			if (s->mask[1] == '|')
-			{
-				e = boucle_numeric_or(term, s, e);
-				s = term_flash_bcl(term, s);
-			}
-			else
-			{
-				e = make_pipe(term, s, e);
-//				term->flash = 1;
-				s = term_flash_bcl(term, s);
-			}
-		}
-		else if (s->mask[0] == '&' && s->mask[1] == '&')
-		{
-			e = boucle_numeric_and(term, s, e);
-			s = term_flash_bcl(term, s);
-		}
-		else
-			e = make_semicolon(term, s, e);
+		g.s = s;
+		g.e = e;
+		turn_mask_exec(&g, term);
+		s = g.s;
+		e = g.e;
 		s = parse_mask_error(s);
 	}
 	return (e);
