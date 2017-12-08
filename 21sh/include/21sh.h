@@ -130,6 +130,14 @@ typedef struct	s_group
 	struct s_env	*e;
 	struct s_exec	*s;
 }				t_group;
+typedef struct	s_dopp
+{
+	pid_t			pid2;
+	int				status;
+	int				pipefd2[2];
+	char			*s;
+	char			**env;
+}				t_dopp;
 /*
 **main
 */

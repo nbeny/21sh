@@ -30,7 +30,6 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char	*s;
     char	**env;
 
-//	term->flash++;
 	status = 0;
 	s = ft_path_istrue(toto->cmd, e);
     env = ft_list_to_tab(e);
@@ -45,20 +44,12 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		close(nb->sin);
 		if ((status = execve(s, toto->cmd, env)) == -1)
 			toto->error = ft_strdup("21sh: execve failed\n");
-//		if (kill(pid3, SIGINT) == -1)
-//			exit(status);
-//		signal(SIGINT, ft_sigint_noprompt);
 		exit(status);
 	}
-//	ft_putnbr(nb->sout);
-//	ft_putnbr(nb->sin);
 	close(nb->sout);
 	close(nb->sin);
 	ft_free_tabstr(env);
 	ft_strdel(&s);
-//	if (status != -1)
-	//	wait3(NULL, status, NULL);
-//	wait(NULL);
 	waitpid(pid3, &status, WCONTINUED);
 	return (status);
 }
@@ -71,7 +62,6 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
     char	*s;
     char	**env;
 
-//	term->flash++;
 	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
 	env = ft_list_to_tab(e);
@@ -91,32 +81,56 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		if ((status = execve(s, toto->cmd, env)) == -1)
 		{
 			toto->error = ft_strdup("21sh: execve failed\n");
-//			nb->sin = -42;
-//			return (nb);
 		}
-//		if (kill(pid1, SIGINT) == -1)
-//			exit(status);
 		exit(status);
 	}
 	ft_strdel(&s);
 	ft_free_tabstr(env);
 	nb->sout = pipefd[1];
 	nb->sin = pipefd[0];
-//	wait(NULL);
 	return (nb);
+}
+
+t_exec			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+{
+	pid_t			pid2;
+	int				status;
+	int				pipefd2[2];
+	char			*s;
+	char			**env;
+
+	s = ft_path_istrue(toto->cmd, e);
+	pipe(pipefd2);
+	pid2 = fork();
+	if (pid2 == 0)
+	{
+		close(nb->sout);
+		reload_fd(toto);
+		dup2(nb->sin, 0);
+		close(nb->sin);
+		close(pipefd2[0]);
+		dup2(pipefd2[1], 1);
+		e = make_redirection_right(term, toto, e);
+		toto = ft_close_fd(toto);
+		close(pipefd2[1]);
+		if ((status = execve(s, toto->cmd, env)) == -1)
+			toto->error = ft_strdup("21sh: execve failed\n");
+		exit(status);
+	}
+	ft_strdel(&s);
+	close(nb->sout);
+	close(nb->sin);
+	nb->sin = pipefd2[0];
+	nb->sout = pipefd2[1];
+	return (toto);
 }
 
 t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	pid_t	pid2;
-	int		status;
-	int		pipefd2[2];
-	char	*s;
-	char	**env;
+	t_dopp	dop;
 
-	s = NULL;
-	env = ft_list_to_tab(e);
-//	term->flash++;
+	dop.s = NULL;
+	dop.env = ft_list_to_tab(e);
 	nb = ft_do_first_pipe(term, toto, nb, e);
 	if (nb->sin == -42)
 		return (toto);
@@ -127,47 +141,16 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 			break;
 		term->flash++;
 		e = make_redirection_left(term, toto, e);
-		s = ft_path_istrue(toto->cmd, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)
 		{
-			status = ft_do_last_pipe(term, toto, nb, e);
-			
+			dop.status = ft_do_last_pipe(term, toto, nb, e);
 			return (toto);
 		}
 		else
-		{
-//			term->flash++;
-			pipe(pipefd2);
-			pid2 = fork();
-			if (pid2 == 0)
-			{
-				close(nb->sout);
-				reload_fd(toto);
-				dup2(nb->sin, 0);
-				close(nb->sin);
-				close(pipefd2[0]);
-				dup2(pipefd2[1], 1);
-				e = make_redirection_right(term, toto, e);
-				toto = ft_close_fd(toto);
-				close(pipefd2[1]);
-				if ((status = execve(s, toto->cmd, env)) == -1)
-				{
-					toto->error = ft_strdup("21sh: execve failed\n");
-//					return (toto);
-				}
-//				if (kill(pid2, SIGINT) == -1)
-//					exit(status);
-				exit(status);
-			}
-		}
-		ft_strdel(&s);
-		close(nb->sout);
-		close(nb->sin);
-		nb->sin = pipefd2[0];
-		nb->sout = pipefd2[1];
+			toto = ft_do_mid_pipe(term, toto, nb, e);
 		toto = toto->next;
 	}
-	ft_free_tabstr(env);
+	ft_free_tabstr(dop.env);
 	return (toto);
 }
