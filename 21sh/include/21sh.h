@@ -124,6 +124,8 @@ typedef struct	s_nb
 {
     int				sin;
     int				sout;
+	pid_t			pid1;
+	int				status;
 }				t_nb;
 typedef struct	s_group
 {

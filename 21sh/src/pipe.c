@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include <sys/wait.h>
+
 static t_exec	*ft_close_fd(t_exec *e)
 {
 	if (e->fd.ffd0)
@@ -89,6 +89,8 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	ft_free_tabstr(env);
 	nb->sout = pipefd[1];
 	nb->sin = pipefd[0];
+	nb->pid1 = pid1;
+	nb->status = status;
 	return (nb);
 }
 
@@ -144,6 +146,7 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 			toto->pipe == 1)
 		{
 			status = ft_do_last_pipe(term, toto, nb, e);
+			waitpid(nb->pid1, &(nb->status), WCONTINUED);
 			wait(NULL);
 			return (toto);
 		}
