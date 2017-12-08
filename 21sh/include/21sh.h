@@ -279,6 +279,7 @@ char			*ft_multi_strchr(const char *line);
 void			ft_insert_char(t_term *term, int c);
 void			ft_multiligne_insert_char(t_term *term);
 void			ft_multiligne_insert(t_term *term, int c);
+void			ft_putendl_error(char *str);
 /*
 **history
 */

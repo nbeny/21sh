@@ -57,3 +57,13 @@ void	ft_multiligne_insert(t_term *term, int c)
 			tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_y - 1), 1, ft_putchar);
 	}
 }
+
+void	ft_putendl_error(char *str)
+{
+	char	*print;
+
+	print = NULL;
+	print = ft_strjoin("command not found: ", str);
+	ft_putendl_fd(print, 2);
+	ft_strdel(&print);
+}
