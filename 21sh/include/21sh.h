@@ -48,6 +48,7 @@ typedef struct	s_term
 	char			*mask;
 	char			*error;
 	int				flash;
+//	int				bbq;
 }				t_term;
 typedef struct	s_norm
 {
@@ -214,6 +215,7 @@ t_env			*ft_list_push_back(t_env *begin_list, char *name, char *value);
 /*
 **signal
 */
+void			*select_static(void);
 void			sig_exe(int sig);
 void			sig_init(int sig);
 /*

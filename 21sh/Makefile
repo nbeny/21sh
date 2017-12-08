@@ -34,7 +34,7 @@ N_SRC	=	main.c tools.c free.c\
 			termcaps1.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -Wall -Werror #-fsanitize=address -g3
+CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -g3
 CURSES	=	-ltermcap
 
 T_SRC	=	./src/

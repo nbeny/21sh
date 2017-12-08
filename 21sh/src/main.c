@@ -62,6 +62,7 @@ void	prompt_gestionn(t_term *term)
 {
 	term->error = NULL;
 	signal(SIGINT, sig_init);
+//	if (term->bbq != 1)
 	ft_printf(0, "\033[34;1m$> \033[0m");
 	term->prompt = 4;
 }
@@ -70,7 +71,6 @@ int		main(int ac, char **av, char **env)
 {
 	t_env	*e;
 	t_exec	*exec;
-	t_term	term;
 	t_hty	*hty;
 
 	(void)av;
@@ -81,19 +81,18 @@ int		main(int ac, char **av, char **env)
 		e = ft_shlvl(e);
 		while (42)
 		{
-			signal(SIGINT, sig_init);
-			prompt_gestionn(&term);
-			hty = ft_get_command_shell(&term, hty);
-			if (ft_multi_strchr(term.line))
-				hty = ft_mem_cmd(&term, hty);
-			term.hty = hty;
-			exec = ft_cmd_parcing(&term);
-			if (term.error == NULL)
-				e = ft_parse_mask(&term, exec, e);
+			prompt_gestionn(((t_term *)select_static()));
+			hty = ft_get_command_shell(((t_term *)select_static()), hty);
+			if (ft_multi_strchr(((t_term *)select_static())->line))
+				hty = ft_mem_cmd(((t_term *)select_static()), hty);
+			((t_term *)select_static())->hty = hty;
+			exec = ft_cmd_parcing(((t_term *)select_static()));
+			if (((t_term *)select_static())->error == NULL)
+				e = ft_parse_mask(((t_term *)select_static()), exec, e);
 			else
-				ft_strdel(&(term.error));
+				ft_strdel(&((t_term *)select_static())->error);
 			ft_free_exe(exec);
-			ft_strdel(&(term.line));
+			ft_strdel(&((t_term *)select_static())->line);
 		}
 	}
 	return (0);

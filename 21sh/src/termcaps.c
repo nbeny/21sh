@@ -107,11 +107,6 @@ void	get_char(t_term *term, char *buff, int *pull)
 	}
 }
 
-/*
-**		ft_printf(0, "[%i, %i, %i, %i, %i, %i]",\
-**					buff[0], buff[1], buff[2], buff[3], buff[4], buff[5]);
-*/
-
 t_hty	*ft_get_command(t_term *term, t_hty *hty)
 {
 	t_norm	n;

@@ -12,6 +12,16 @@
 
 #include "21sh.h"
 
+void	*select_static(void)
+{
+	static t_term	*term = NULL;
+
+	if (term == NULL)
+		if (!(term = (t_term *)malloc(sizeof(t_term))))
+			return (NULL);
+	return (term);
+}
+
 void	sig_exe(int sig)
 {
 	if (sig == SIGINT)
@@ -23,9 +33,15 @@ void	sig_exe(int sig)
 
 void	sig_init(int sig)
 {
+	t_term	*t;
+
 	if (sig == SIGINT)
 	{
+		t = (t_term *)select_static();
+		ft_move_end(t);
+		if (t->line != NULL)
+			ft_strdel(&(t->line));
+		t->line = ft_strdup("\0");
 		ft_putstr("\n\033[34;1m$> \033[0m");
-		signal(SIGINT, sig_init);
 	}
 }
