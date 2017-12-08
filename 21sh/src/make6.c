@@ -57,6 +57,8 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 			tmp = ft_strdup(term->quot);
 		ft_strdel(&(term->quot));
 		term->quot = tmp;
+		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
+			ft_strdel(&tmp);
 	}
 	r = end_here(term, exe, r);
 	return (r);
