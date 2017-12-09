@@ -51,7 +51,6 @@ char	**ft_cmd_building(t_term *term, t_exec *exe)
 	int			i;
 
 	s = exe->quot;
-	tstr = NULL;
 	if (s != NULL)
 	{
 		i = ft_listsize_quot(s);
@@ -60,8 +59,7 @@ char	**ft_cmd_building(t_term *term, t_exec *exe)
 		i = 0;
 		while (s != NULL)
 		{
-			tstr[i] = ft_strdup(s->arg);
-			i++;
+			tstr[i++] = ft_strdup(s->arg);
 			s = s->next;
 		}
 		tstr[i] = NULL;

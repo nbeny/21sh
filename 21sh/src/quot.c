@@ -12,6 +12,20 @@
 
 #include "21sh.h"
 
+void	else_dquot(char *tmp, t_term *term)
+{
+	while (tmp[term->i] != 34 && tmp[term->i] != 0)
+		term->i++;
+	if (tmp[term->i] == 0)
+		term->quot = ft_strjoin(tmp, "\n");
+	else
+	{
+		term->p[1] = term->i;
+		term->quot = ft_strdup(tmp);
+		term->line = ft_strdup(tmp);
+	}
+}
+
 void	ft_dquot(t_term *term, t_exec *exe)
 {
 	char	*tmp;
@@ -29,21 +43,24 @@ void	ft_dquot(t_term *term, t_exec *exe)
 		if (!ft_strchr(&tmp[term->i], 34))
 			term->quot = ft_strjoin(tmp, "\n");
 		else
-		{
-			while (tmp[term->i] != 34 && tmp[term->i] != 0)
-				term->i++;
-			if (tmp[term->i] == 0)
-				term->quot = ft_strjoin(tmp, "\n");
-			else
-			{
-				term->p[1] = term->i;
-				term->quot = ft_strdup(tmp);
-				term->line = ft_strdup(tmp);
-			}
-		}
+			else_dquot(tmp, term);
 		ft_strdel(&tmp);
 	}
 	ft_strdel(&(term->quot));
+}
+
+void	else_quot(char *tmp, t_term *term)
+{
+	while (tmp[term->i] != 39 && tmp[term->i] != 0)
+		term->i++;
+	if (tmp[term->i] == 0)
+		term->quot = ft_strjoin(tmp, "\n");
+	else
+	{
+		term->p[1] = term->i;
+		term->quot = ft_strdup(tmp);
+		term->line = ft_strdup(tmp);
+	}
 }
 
 void	ft_quot(t_term *term, t_exec *exe)
@@ -63,18 +80,7 @@ void	ft_quot(t_term *term, t_exec *exe)
 		if (!ft_strchr(&tmp[term->i], 39))
 			term->quot = ft_strjoin(tmp, "\n");
 		else
-		{
-			while (tmp[term->i] != 39 && tmp[term->i] != 0)
-				term->i++;
-			if (tmp[term->i] == 0)
-				term->quot = ft_strjoin(tmp, "\n");
-			else
-			{
-				term->p[1] = term->i;
-				term->quot = ft_strdup(tmp);
-				term->line = ft_strdup(tmp);
-			}
-		}
+			else_quot(tmp, term);
 		ft_strdel(&tmp);
 	}
 	ft_strdel(&(term->quot));
