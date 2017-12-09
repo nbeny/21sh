@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 t_red	*make_rightaddrless(t_exec *exe, t_red *r, t_env *e)
 {

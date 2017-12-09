@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 t_hty	*next_check_buff(t_term *term, t_hty *hty, char *buff)
 {

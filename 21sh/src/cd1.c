@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 t_env	*gestion_oldpwd(t_env *e, char *str, t_env *oldpwd)
 {

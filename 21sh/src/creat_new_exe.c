@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 t_exec	*ft_right_redirection(t_term *term, t_exec *exe)
 {

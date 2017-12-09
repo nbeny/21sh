@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 t_env	*ft_multi_setenv(t_exec *exe, char *str, t_env *e, t_env *s)
 {

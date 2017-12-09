@@ -12,7 +12,7 @@
 
 NAME	=	21sh
 
-N_INC	=	21sh.h
+N_INC	=	shell.h
 N_SRC	=	main.c tools.c free.c\
 			execute.c bultin.c\
 			cd.c env.c norme.c maj.c signal.c\
@@ -32,6 +32,7 @@ N_SRC	=	main.c tools.c free.c\
 			buff_term.c ter_delete.c ter1delete.c\
 			heredoc_norm.c cd1.c bultin1.c\
 			termcaps1.c init_main_shell.c\
+			pipe1.c
 
 CC	=	gcc
 CC_FLAG	=	-Wall -Wall -Werror #-fsanitize=address -g3

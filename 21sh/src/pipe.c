@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 static t_exec	*ft_close_fd(t_exec *e)
 {
@@ -25,16 +25,10 @@ static t_exec	*ft_close_fd(t_exec *e)
 
 int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	int		pid3;
-	int		status;
-	char	*s;
-	char	**env;
+	t_dopp	dop;
 
-	status = 0;
-	s = ft_path_istrue(toto->cmd, e);
-	env = ft_list_to_tab(e);
-	pid3 = fork();
-	if (pid3 == 0)
+	init_last_pipe(&dop, toto, e);
+	if (dop.pid2 == 0)
 	{
 		close(nb->sout);
 		reload_fd(toto);
@@ -42,89 +36,74 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
 		close(nb->sin);
-		status = execve(s, toto->cmd, env);
+		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);
-		exit(status);
+		exit(dop.status);
 	}
 	close(nb->sout);
 	close(nb->sin);
-	ft_free_tabstr(env);
-	ft_strdel(&s);
-	waitpid(pid3, &status, WCONTINUED);
-	return (status);
+	ft_free_tabstr(dop.env);
+	ft_strdel(&(dop.s));
+	waitpid(dop.pid2, &(dop.status), WCONTINUED);
+	return (dop.status);
 }
 
-t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
+t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto,\
+										t_nb *nb, t_env *e)
 {
-	int		status;
-	pid_t	pid1;
-	int		pipefd[2];
-	char	*s;
-	char	**env;
+	t_dopp	dop;
 
-	e = make_redirection_left(term, toto, e);
-	s = ft_path_istrue(toto->cmd, e);
-	env = ft_list_to_tab(e);
-	status = 0;
-	pipe(pipefd);
-	pid1 = fork();
+	init_first_pipe(&dop, term, toto, e);
 	nb->sin = 0;
 	nb->sout = 1;
-	if (pid1 == 0)
+	if (dop.pid2 == 0)
 	{
-		close(pipefd[0]);
+		close(dop.pipefd2[0]);
 		reload_fd(toto);
-		dup2(pipefd[1], 1);
+		dup2(dop.pipefd2[1], 1);
 		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
-		close(pipefd[1]);
-		status = execve(s, toto->cmd, env);
+		close(dop.pipefd2[1]);
+		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);
 		signal(SIGINT, sig_exe);
-		exit(status);
+		exit(dop.status);
 	}
-	ft_strdel(&s);
-	ft_free_tabstr(env);
-	nb->sout = pipefd[1];
-	nb->sin = pipefd[0];
-	nb->pid1 = pid1;
-	nb->status = status;
+	ft_strdel(&(dop.s));
+	ft_free_tabstr(dop.env);
+	nb->sout = dop.pipefd2[1];
+	nb->sin = dop.pipefd2[0];
+	nb->pid1 = dop.pid2;
+	nb->status = dop.status;
 	return (nb);
 }
 
 t_nb			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
-	pid_t			pid2;
-	int				status;
-	int				pipefd2[2];
-	char			*s;
-	char			**env;
+	t_dopp	dop;
 
-	env = ft_list_to_tab(e);
-	s = ft_path_istrue(toto->cmd, e);
-	pipe(pipefd2);
-	pid2 = fork();
-	if (pid2 == 0)
+	init_mid_pipe(&dop, toto, e);
+	if (dop.pid2 == 0)
 	{
 		close(nb->sout);
 		reload_fd(toto);
 		dup2(nb->sin, 0);
 		close(nb->sin);
-		close(pipefd2[0]);
-		dup2(pipefd2[1], 1);
+		close(dop.pipefd2[0]);
+		dup2(dop.pipefd2[1], 1);
 		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
-		close(pipefd2[1]);
-		status = execve(s, toto->cmd, env);
+		close(dop.pipefd2[1]);
+		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);
-		exit(status);
+		exit(dop.status);
 	}
 	close(nb->sout);
 	close(nb->sin);
-	nb->sin = pipefd2[0];
-	nb->sout = pipefd2[1];
-	ft_free_tabstr(env);
-	ft_strdel(&s);
+	nb->sin = dop.pipefd2[0];
+	nb->sout = dop.pipefd2[1];
+	ft_free_tabstr(dop.env);
+	ft_strdel(&(dop.s));
 	return (nb);
 }
 

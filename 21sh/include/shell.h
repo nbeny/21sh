@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef SHELL_H
+# define SHELL_H
 # include "../ft_printf/include/ft_printf.h"
 # include <unistd.h>
 # include <termios.h>
@@ -122,8 +122,8 @@ typedef struct	s_exec
 }				t_exec;
 typedef struct	s_nb
 {
-    int				sin;
-    int				sout;
+	int				sin;
+	int				sout;
 	pid_t			pid1;
 	int				status;
 }				t_nb;
@@ -139,7 +139,7 @@ typedef struct	s_dopp
 	int				pipefd2[2];
 	char			*s;
 	char			**env;
-	}				t_dopp;
+}				t_dopp;
 /*
 **main
 */
@@ -180,14 +180,6 @@ void			ft_execute(char **cmd, t_env *e);
 void			ft_exit(t_exec *exe, t_env *e);
 t_env			*ft_make_cmd(t_exec *exe, t_env *e);
 /*
-**execute2
-*/
-//void	   		ft_exe_red(t_exec *exe, t_env *e);
-//t_red			*ft_dup(t_red *red);
-//t_red			*ft_close_dup(t_red *red);
-//void    		ft_execute_fd(t_exec *cmd, t_env *e);
-//void    		ft_execute_path_fd(char *str, t_exec *cmd, t_env *e);
-/*
 **bultin
 */
 t_env			*ft_cd(t_exec *exe, t_env *e);
@@ -202,7 +194,8 @@ t_env			*ft_old(t_exec *exe, t_env *oldpwd, t_env *pwd, t_env *e);
 t_env			*ft_null(t_env *pwd, t_env *oldpwd, t_env *home, t_env *e);
 t_env			*ft_slash(t_exec *exe, t_env *pwd, t_env *oldpwd, t_env *e);
 void			ft_home(t_exec *exe, t_env *pwd, t_env *oldpwd, t_env *home);
-t_env			*ft_modif_path(t_exec *exe, t_env *pwd, t_env *oldpwd, t_env *e);
+t_env			*ft_modif_path(t_exec *exe, t_env *pwd, t_env *oldpwd,\
+								t_env *e);
 /*
 **env
 */
@@ -286,7 +279,7 @@ void			ft_putendl_error(char *str);
 */
 t_hty			*ft_add_history(t_term *term);
 t_hty			*ft_mem_cmd(t_term *term, t_hty *hty);
-t_hty			*ft_rollback_history(t_term *term,t_hty *hty);
+t_hty			*ft_rollback_history(t_term *term, t_hty *hty);
 t_hty			*ft_up_arrow(t_term *term, t_hty *hty);
 t_hty			*ft_down_arrow(t_term *term, t_hty *hty);
 /*
@@ -333,7 +326,7 @@ t_exec			*ft_push_red_file(t_term *term, t_exec *e, char *str);
 t_exec			*ft_push_red_fd12(t_term *term, t_exec *e, char *str);
 t_exec			*ft_push_red_fd1(t_term *term, t_exec *e, char *str);
 t_exec			*ft_push_red_error(t_term *term, t_exec *e, char *str);
-t_exec			*ft_push_red_fd1file(t_term *term, t_exec *e, char  *str);
+t_exec			*ft_push_red_fd1file(t_term *term, t_exec *e, char *str);
 /*
 **quot
 */
@@ -381,7 +374,7 @@ t_exec			*parse_mask_error(t_exec *s);
 **make1
 */
 t_env			*make_semicolon(t_term *term, t_exec *exe, t_env *e);
-t_env			*make_numeric_or(t_term *term, t_exec *exe,t_env *e);
+t_env			*make_numeric_or(t_term *term, t_exec *exe, t_env *e);
 t_env			*make_numeric_and(t_term *term, t_exec *exe, t_env *e);
 t_env			*make_pipe(t_term *term, t_exec *exe, t_env *e);
 /*
@@ -389,7 +382,7 @@ t_env			*make_pipe(t_term *term, t_exec *exe, t_env *e);
 */
 t_red			*make_right_red(t_exec *exe, t_red *r, t_env *e);
 t_red			*make_left_red(t_term *term, t_exec *exe, t_red *r, t_env *e);
-t_env			*make_redirection_right(t_term * term, t_exec *exe, t_env *e);
+t_env			*make_redirection_right(t_term *term, t_exec *exe, t_env *e);
 t_env			*make_redirection_left(t_term *term, t_exec *exe, t_env *e);
 t_red			*make_digit(t_exec *exe, t_red *r, t_env *e);
 t_env			*make_redirection(t_term *term, t_exec *exe, t_env *e);
@@ -405,7 +398,8 @@ t_red			*make_right(t_exec *exe, t_red *r, t_env *e);
 */
 t_red			*make_leftaddr(t_exec *exe, t_red *r, t_env *e);
 t_red			*make_trileft_redirection(t_exec *exe, t_red *r, t_env *e);
-t_red			*make_doubleleftless(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_red			*make_doubleleftless(t_term *term, t_exec *exe,\
+										t_red *r, t_env *e);
 t_red			*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
 t_red			*make_leftpipe(t_exec *exe, t_red *r, t_env *e);
 /*
@@ -421,7 +415,8 @@ t_red			*make_fdright(t_exec *exe, t_red *r, t_env *e);
 */
 t_red			*make_fdleftaddrfd(t_exec *exe, t_red *r, t_env *e);
 t_red			*make_fdleftaddrless(t_exec *exe, t_red *r, t_env *e);
-t_red			*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e);
+t_red			*make_fddoubleleft(t_term *term, t_exec *exe,\
+										t_red *r, t_env *e);
 t_red			*make_fdleft(t_exec *exe, t_red *r, t_env *e);
 t_red			*make_left(t_exec *exe, t_red *r, t_env *e);
 /*
@@ -469,8 +464,10 @@ t_red			*creat_fd_or_file(char *quot, t_exec *exe, t_red *r);
 /*
 **pipe
 */
-t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
-t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
+t_exec			*ft_do_pipe(t_term *term, t_exec *toto,\
+								t_nb *nb, t_env *e);
+t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto,\
+								t_nb *nb, t_env *e);
 t_nb			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e);
 /*
@@ -516,4 +513,11 @@ t_env			*init_env_shell(char **env);
 **make_norme
 */
 char			*check_creat_tmp(t_term *term, int *i);
+/*
+**pipe1
+*/
+void			init_last_pipe(t_dopp *dop, t_exec *toto, t_env *e);
+void			init_first_pipe(t_dopp *dop, t_term *term,\
+									t_exec *toto, t_env *e);
+void			init_mid_pipe(t_dopp *dop, t_exec *toto, t_env *e);
 #endif

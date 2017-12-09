@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 static t_exec	*tri_avav_right(t_term *term, t_exec *e)
 {

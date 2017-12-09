@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "shell.h"
 
 void	ft_error_cd(t_env *pwd, t_env *oldpwd, t_env *home, t_exec *exe)
 {
