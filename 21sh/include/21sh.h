@@ -48,7 +48,6 @@ typedef struct	s_term
 	char			*mask;
 	char			*error;
 	int				flash;
-//	int				bbq;
 }				t_term;
 typedef struct	s_norm
 {
@@ -491,9 +490,8 @@ void			ft_supp(t_term *term);
 /*
 **heredoc_norm
 */
-void			start_here(t_term *term);
-t_red			*end_here(t_term *term, t_exec *exe, t_red *r);
 t_red			*modfd_leftred(t_exec *exe, t_red *r, t_env *e);
+void			add_cmd_(t_exec *exe, char *path);
 /*
 **cd1
 */
@@ -510,4 +508,12 @@ void			edit_line_ml(t_term *term, t_del *del);
 int				continue_buffer(t_norm *n);
 int				continue_buffer_other(t_norm *n);
 t_hty			*ft_get_command_shell(t_term *term, t_hty *hty);
+/*
+**init_main_shell
+*/
+t_env			*init_env_shell(char **env);
+/*
+**make_norme
+*/
+char			*check_creat_tmp(t_term *term, int *i);
 #endif

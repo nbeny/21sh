@@ -49,8 +49,6 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	{
 		if (i == 0)
 			tmp = ft_strdup(term->line);
-		else
-			tmp = ft_strjoin(term->quot, term->line);
 		term->quot = ft_strjoin(tmp, "\n");
 		ft_strdel(&tmp);
 		ft_strdel(&(term->line));
@@ -63,8 +61,6 @@ t_red	*make_doubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 			tmp = ft_strdup(term->quot);
 		ft_strdel(&(term->quot));
 		term->quot = tmp;
-		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
-			ft_strdel(&tmp);
 	}
 	r = clear_creat(term, exe, r);
 	return (r);

@@ -27,19 +27,19 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
 	int		pid3;
 	int		status;
-    char	*s;
-    char	**env;
+	char	*s;
+	char	**env;
 
 	status = 0;
 	s = ft_path_istrue(toto->cmd, e);
-    env = ft_list_to_tab(e);
+	env = ft_list_to_tab(e);
 	pid3 = fork();
 	if (pid3 == 0)
 	{
 		close(nb->sout);
 		reload_fd(toto);
 		dup2(nb->sin, 0);
-        e = make_redirection_right(term, toto, e);
+		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
 		close(nb->sin);
 		status = execve(s, toto->cmd, env);
@@ -59,8 +59,8 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	int		status;
 	pid_t	pid1;
 	int		pipefd[2];
-    char	*s;
-    char	**env;
+	char	*s;
+	char	**env;
 
 	e = make_redirection_left(term, toto, e);
 	s = ft_path_istrue(toto->cmd, e);
@@ -132,6 +132,7 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 {
 	int		status;
 
+	e = make_redirection_left(term, toto, e);
 	nb = ft_do_first_pipe(term, toto, nb, e);
 	toto = toto->next;
 	while (toto && toto->mask != NULL && !ft_strncmp(toto->mask, "|\0", 2))
@@ -139,7 +140,6 @@ t_exec			*ft_do_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 		if (toto->error)
 			break ;
 		term->flash++;
-		e = make_redirection_left(term, toto, e);
 		if (!toto->next || ft_strncmp(toto->next->mask, "|\0", 2) ||\
 			toto->pipe == 1)
 		{

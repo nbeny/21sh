@@ -43,7 +43,6 @@ void	delete_caractere(t_term *term)
 	{
 		tputs(tgetstr("up", NULL), 1, ft_putchar);
 		tputs(tgoto(tgetstr("ch", NULL), 0, term->ws_x - 1), 1, ft_putchar);
-
 	}
 	else
 	{

@@ -38,13 +38,11 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 	int		i;
 
 	i = 0;
-	start_here(term);
+	start_heredoc(term);
 	while (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
 	{
 		if (i == 0)
 			tmp = ft_strdup(term->line);
-		else
-			tmp = ft_strjoin(term->quot, term->line);
 		term->quot = ft_strjoin(tmp, "\n");
 		ft_strdel(&tmp);
 		ft_strdel(&(term->line));
@@ -57,10 +55,8 @@ t_red	*make_fddoubleleft(t_term *term, t_exec *exe, t_red *r, t_env *e)
 			tmp = ft_strdup(term->quot);
 		ft_strdel(&(term->quot));
 		term->quot = tmp;
-		if (ft_strncmp(term->line, r->file, (ft_strlen(r->file) + 1)))
-			ft_strdel(&tmp);
 	}
-	r = end_here(term, exe, r);
+	r = clear_creat(term, exe, r);
 	return (r);
 }
 
@@ -70,7 +66,7 @@ t_red	*make_fdleft(t_exec *exe, t_red *r, t_env *e)
 	char	*path;
 
 	if (r->fd1 == 0)
-		return(r = make_left(exe, r, e));
+		return (r = make_left(exe, r, e));
 	if (r->file[0] == '/')
 	{
 		tmp = getcwd(NULL, 1024);
@@ -108,14 +104,7 @@ t_red	*make_left(t_exec *exe, t_red *r, t_env *e)
 		return (r);
 	}
 	else if (!ft_cmp_tabstr(exe->cmd))
-	{
-		exe->c = ft_tab_to_list_cmd(exe->cmd);
-		exe->c = add_cmd_str(exe->c, path);
-		free_cmd_str(exe->cmd);
-		exe->cmd = ft_list_to_tab_cmd(exe->c);
-		free_list_cmd_str(exe->c);
-		exe->c = NULL;
-	}
+		add_cmd_(exe, path);
 	ft_strdel(&path);
 	return (r);
 }

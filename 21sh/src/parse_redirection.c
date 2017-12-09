@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-t_exec	*ft_push_red_file(t_term *term, t_exec *e, char	*str)
+t_exec	*ft_push_red_file(t_term *term, t_exec *e, char *str)
 {
 	t_red	*r;
 
@@ -38,7 +38,7 @@ t_exec	*ft_push_red_file(t_term *term, t_exec *e, char	*str)
 	return (e);
 }
 
-t_exec	*ft_push_red_fd12(t_term *term, t_exec *e, char	*str)
+t_exec	*ft_push_red_fd12(t_term *term, t_exec *e, char *str)
 {
 	t_red	*r;
 
@@ -113,7 +113,7 @@ t_exec	*ft_push_red_error(t_term *term, t_exec *e, char *str)
 	return (e);
 }
 
-t_exec	*ft_push_red_fd1file(t_term *term, t_exec *e, char	*str)
+t_exec	*ft_push_red_fd1file(t_term *term, t_exec *e, char *str)
 {
 	t_red	*r;
 

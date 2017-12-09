@@ -41,11 +41,11 @@ t_exec			*ft_get_arg(t_term *term, t_exec *exe)
 {
 	term->p[0] = term->i;
 	while (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
-		   term->line[term->i] != 9 && term->line[term->i] != ';' &&\
-		   term->line[term->i] != '|' && term->line[term->i] != '&' &&\
-		   term->line[term->i] != '>' && term->line[term->i] != '<' &&\
-		   term->line[term->i] != 34 && term->line[term->i] != 39 &&\
-		   term->line[term->i] != 0)
+		term->line[term->i] != 9 && term->line[term->i] != ';' &&\
+		term->line[term->i] != '|' && term->line[term->i] != '&' &&\
+		term->line[term->i] != '>' && term->line[term->i] != '<' &&\
+		term->line[term->i] != 34 && term->line[term->i] != 39 &&\
+		term->line[term->i] != 0)
 	{
 		if (term->line[term->i] == '\\' && term->line[term->i + 1] != 0)
 			term->i++;
@@ -98,10 +98,10 @@ static t_exec	*turn_research(t_term *term, t_exec *s)
 	else if (term->line[term->i] == '<')
 		s = tri_left_redirection(term, s);
 	else if (ft_isdigit(term->line[term->i]) &&\
-			 (term->line[term->i + 1] == '<' || term->line[term->i + 1] == '>'))
+		(term->line[term->i + 1] == '<' || term->line[term->i + 1] == '>'))
 		s = tri_av_redirection(term, s);
 	else if (ft_isprint(term->line[term->i]) && term->line[term->i] != ' ' &&\
-			 term->line[term->i] != '\t')
+		term->line[term->i] != '\t')
 		s = ft_get_arg(term, s);
 	else
 		term->i++;
@@ -128,17 +128,5 @@ t_exec			*ft_parse_quot(t_term *term)
 		}
 	}
 	s->cmd = ft_cmd_building(term, s);
-	return (exe);
-}
-
-t_exec			*ft_cmd_parcing(t_term *term)
-{
-	t_exec  *exe;
-	char    **split;
-
-	exe = NULL;
-	split = NULL;
-	if (term->line != NULL && term->line[0] != '\0')
-		exe = ft_parse_quot(term);
 	return (exe);
 }

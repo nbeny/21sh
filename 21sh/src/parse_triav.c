@@ -63,7 +63,6 @@ static t_exec	*tri_avav_left(t_term *term, t_exec *e)
 	return (e);
 }
 
-
 static t_exec	*tri_av_right(t_term *term, t_exec *e)
 {
 	char	*s;

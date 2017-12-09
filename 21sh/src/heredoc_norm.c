@@ -12,23 +12,6 @@
 
 #include "21sh.h"
 
-void	start_here(t_term *term)
-{
-	ft_strdel(&(term->line));
-	term->prompt = 9;
-	ft_putstr("heredoc> ");
-	term->hty = ft_get_command(term, term->hty);
-}
-
-t_red	*end_here(t_term *term, t_exec *exe, t_red *r)
-{
-	ft_strdel(&(term->line));
-	if (ft_strncmp(exe->mask, "|\0", 2))
-		r = creat_fd_or_file(term->quot, exe, r);
-	ft_strdel(&(term->quot));
-	return (r);
-}
-
 t_red	*modfd_leftred(t_exec *exe, t_red *r, t_env *e)
 {
 	int		fd;
@@ -44,4 +27,26 @@ t_red	*modfd_leftred(t_exec *exe, t_red *r, t_env *e)
 	if (r->fd1 == 1)
 		exe->pipe = 1;
 	return (r);
+}
+
+void	add_cmd_(t_exec *exe, char *path)
+{
+	exe->c = ft_tab_to_list_cmd(exe->cmd);
+	exe->c = add_cmd_str(exe->c, path);
+	free_cmd_str(exe->cmd);
+	exe->cmd = ft_list_to_tab_cmd(exe->c);
+	free_list_cmd_str(exe->c);
+	exe->c = NULL;
+}
+
+t_exec	*ft_cmd_parcing(t_term *term)
+{
+	t_exec	*exe;
+	char	**split;
+
+	exe = NULL;
+	split = NULL;
+	if (term->line != NULL && term->line[0] != '\0')
+		exe = ft_parse_quot(term);
+	return (exe);
 }

@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-t_exec  *ft_push_mask(t_term *term, t_exec *exe, char *str)
+t_exec	*ft_push_mask(t_term *term, t_exec *exe, char *str)
 {
 	t_exec		*s;
 
@@ -27,7 +27,7 @@ t_exec  *ft_push_mask(t_term *term, t_exec *exe, char *str)
 	return (exe);
 }
 
-t_exec  *ft_push_mask_v1(t_term *term, t_exec *exe, char *str)
+t_exec	*ft_push_mask_v1(t_term *term, t_exec *exe, char *str)
 {
 	t_exec		*s;
 

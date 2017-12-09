@@ -56,7 +56,7 @@ t_red	*make_fddoubleright(t_exec *exe, t_red *r, t_env *e)
 				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
-		exe->error= (ft_strdup("21sh: open failed\n"));
+		exe->error = ft_strdup("21sh: open failed\n");
 		return (r);
 	}
 	dup2(fd, r->fd1);

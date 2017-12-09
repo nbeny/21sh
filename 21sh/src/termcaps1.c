@@ -91,7 +91,7 @@ int		continue_buffer_other(t_norm *n)
 	return (1);
 }
 
-t_hty   *ft_get_command_shell(t_term *term, t_hty *hty)
+t_hty	*ft_get_command_shell(t_term *term, t_hty *hty)
 {
 	t_norm	n;
 
