@@ -266,7 +266,7 @@ void			ft_make_ctrl_d(t_term *term);
 /*
 **line_tools
 */
-char			*ft_multi_strchr(const char *line);
+char			*ft_multi_strchr(t_term *term);
 /*
 **tools2
 */
@@ -509,6 +509,7 @@ t_hty			*ft_get_command_shell(t_term *term, t_hty *hty);
 **init_main_shell
 */
 t_env			*init_env_shell(char **env);
+void			check_sin(void);
 /*
 **make_norme
 */

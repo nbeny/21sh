@@ -74,14 +74,15 @@ int		main(int ac, char **av, char **env)
 
 	(void)av;
 	hty = NULL;
-	if (ac != 1)
+	if (ac != 1 || env[0] == NULL)
 		return (-1);
+	check_sin();
 	e = init_env_shell(env);
 	while (42)
 	{
 		prompt_gestionn(((t_term *)select_static()));
 		hty = ft_get_command_shell(((t_term *)select_static()), hty);
-		if (ft_multi_strchr(((t_term *)select_static())->line))
+		if (ft_multi_strchr(((t_term *)select_static())))
 			hty = ft_mem_cmd(((t_term *)select_static()), hty);
 		((t_term *)select_static())->hty = hty;
 		exec = ft_cmd_parcing(((t_term *)select_static()));

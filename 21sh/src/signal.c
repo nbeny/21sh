@@ -14,12 +14,9 @@
 
 void	*select_static(void)
 {
-	static t_term	*term = NULL;
+	static t_term	term;
 
-	if (term == NULL)
-		if (!(term = (t_term *)malloc(sizeof(t_term))))
-			return (NULL);
-	return (term);
+	return (&term);
 }
 
 void	sig_exe(int sig)

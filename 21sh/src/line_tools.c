@@ -12,10 +12,18 @@
 
 #include "shell.h"
 
-char	*ft_multi_strchr(const char *line)
+char	*ft_multi_strchr(t_term *term)
 {
+	char	*line;
+
+	line = term->line;
+	if (line == NULL)
+		return (NULL);
 	while (!ft_isalnum(*line) && *line != '\0')
+	{
+		ft_putchar('a');
 		line++;
+	}
 	if (ft_isalnum(*line))
 		return ((char *)line);
 	return (NULL);

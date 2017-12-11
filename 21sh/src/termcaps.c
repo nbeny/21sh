@@ -42,7 +42,8 @@ void	ft_update_window(t_term *term)
 		return ;
 	if ((buff = ft_strnew(50)) == NULL)
 		return ;
-	ioctl(0, TIOCGWINSZ, &ws);
+	if (ioctl(0, TIOCGWINSZ, &ws) == -1)
+		return ;
 	term->ws_y = ws.ws_row;
 	term->ws_x = ws.ws_col;
 	ft_printf(0, "\E[6n");
@@ -80,11 +81,9 @@ void	ft_edit_line(t_term *term)
 
 void	get_char(t_term *term, char *buff, int *pull)
 {
-	ft_update_window(term);
 	if (buff[0] != '\t')
 	{
 		ft_edit_line(term);
-		ft_update_window(term);
 		if (term->x == term->ws_x && term->pos != term->mlen)
 			*pull = 1;
 		write(0, buff, 6);
@@ -113,7 +112,6 @@ t_hty	*ft_get_command(t_term *term, t_hty *hty)
 
 	if (!ft_init_term(term))
 		return (hty);
-	ft_update_window(term);
 	init_tt(term);
 	n.pull = 0;
 	hty = ft_rollback_history(term, hty);

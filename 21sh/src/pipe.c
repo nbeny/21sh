@@ -32,9 +32,9 @@ int				ft_do_last_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	{
 		close(nb->sout);
 		reload_fd(toto);
-		dup2(nb->sin, 0);
 		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
+		dup2(nb->sin, 0);
 		close(nb->sin);
 		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);
@@ -60,9 +60,9 @@ t_nb			*ft_do_first_pipe(t_term *term, t_exec *toto,\
 	{
 		close(dop.pipefd2[0]);
 		reload_fd(toto);
-		dup2(dop.pipefd2[1], 1);
 		e = make_redirection_right(term, toto, e);
 		toto = ft_close_fd(toto);
+		dup2(dop.pipefd2[1], 1);
 		close(dop.pipefd2[1]);
 		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);
@@ -87,12 +87,12 @@ t_nb			*ft_do_mid_pipe(t_term *term, t_exec *toto, t_nb *nb, t_env *e)
 	{
 		close(nb->sout);
 		reload_fd(toto);
+		e = make_redirection_right(term, toto, e);
+		toto = ft_close_fd(toto);
 		dup2(nb->sin, 0);
 		close(nb->sin);
 		close(dop.pipefd2[0]);
 		dup2(dop.pipefd2[1], 1);
-		e = make_redirection_right(term, toto, e);
-		toto = ft_close_fd(toto);
 		close(dop.pipefd2[1]);
 		dop.status = execve(dop.s, toto->cmd, dop.env);
 		ft_putendl_error(toto->cmd[0]);

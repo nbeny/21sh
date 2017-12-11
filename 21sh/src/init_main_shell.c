@@ -12,6 +12,22 @@
 
 #include "shell.h"
 
+void	check_sin()
+{
+	struct termios	def;
+	char			*term;
+	char			buf[1024];
+
+	term = getenv("TERM");
+	if (!isatty(0) || term == NULL ||\
+		tcgetattr(0, &def) == -1 ||\
+		tgetent(buf, term) != 1)
+	{
+		ft_printf(2, "This shell needs a stdin terminal connected.\n");
+		exit(EXIT_SUCCESS);
+	}
+}
+
 t_env	*init_env_shell(char **env)
 {
 	t_env		*e;

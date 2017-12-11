@@ -47,7 +47,6 @@ void	edit_line_ml(t_term *term, t_del *del)
 
 int		continue_buffer(t_norm *n)
 {
-	ft_update_window(n->term);
 	ft_bzero(n->buff, 6);
 	if (read(0, n->buff, 6) == -1)
 		return (-1);
@@ -70,7 +69,6 @@ int		continue_buffer(t_norm *n)
 
 int		continue_buffer_other(t_norm *n)
 {
-	ft_update_window(n->term);
 	ft_bzero(n->buff, 6);
 	if (read(0, n->buff, 6) == -1)
 		return (-1);
@@ -97,7 +95,6 @@ t_hty	*ft_get_command_shell(t_term *term, t_hty *hty)
 
 	if (!ft_init_term(term))
 		return (hty);
-	ft_update_window(term);
 	init_tt(term);
 	n.pull = 0;
 	hty = ft_rollback_history(term, hty);
