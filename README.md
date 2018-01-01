@@ -1,5 +1,26 @@
-# 21sh
-termcaps ref:
+# Project 21sh
+>>>> ##### exploration project.
+`september 2017`
+##### Grade ``(99/100)`` ``(99/125)*``
+--------  -----------------------
+
+Basic:
+- [X] Créer un shell et afficher un prompt a l'aide des termcaps
+- [X] securite: bloquage des touches [ctrl + ∂]
+- [X] Créer un environnement modifiable [env / setenv / unsetenv]
+- [X] Utilisation des paths commandes de l environnement
+- [X] recoder les fonctions utilisant l environnment modifiable [cd / echo / pwd / exit]
+- [X] augmentation du path SHLVL a l appel d un nouveau shell
+- [X] gestions des signaux [ctrl + C] [ctrl + D]
+- [X] gestions des multicommandes avec le caractère ';' '|' '&&' '||'
+- [X] gestions des redirections avancees
+- [X] gestions des cotes ''' et '"'
+- [X] securite: lancement du shell uniquement dans un tty
+
+
+##Reference:
+```
+termcaps:
 
 - http://loiclefloch.fr/877-les-termcaps/
 
@@ -9,34 +30,13 @@ termcaps ref:
 
 - https://openclassrooms.com/forum/sujet/termcaps-comment-se-mouvoir-dans-le-terminal
 
-redirection ref:
+redirection:
 
 - https://www.tutorialspoint.com/unix/unix-io-redirections.html
 
 - http://www.gnu.org/software/bash/manual/bashref.html#Redirections
 
-shell ref:
+shell:
 
 - http://www.gnu.org/software/bash/manual/bashref.html
-
-
-
-gestion couper copier coller:
-
-```
-else if (buff[0] == -62 && buff[1] == -96 && buff[2] == '\0')
-
-    ft_printf(2, "select\n");//option + space
-    
- else if (buff[0] == -30 && buff[1] == -119 && buff[2] == -120 && buff[3] == '\0')
-
-    ft_printf(2, "couper\n");//option + x
-
- else if (buff[0] == -61 && buff[1] == -89 && buff[2] == '\0')
-
-    ft_printf(2, "copier\n");//option + c
-
- else if (buff[0] == -30 && buff[1] == -120 && buff[2] == -102 && buff[3] == '\0')
-
-    ft_printf(2, "coller\n");//option + v
 ```
