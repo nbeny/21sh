@@ -35,7 +35,7 @@ N_SRC	=	main.c tools.c free.c\
 			pipe1.c
 
 CC	=	gcc
-CC_FLAG	=	-Wall -Wall -Werror -fsanitize=address -O0 -g3
+CC_FLAG	=	-Wall -Wall -Werror #-fsanitize=address -O0 -g3
 CURSES	=	-ltermcap
 
 T_SRC	=	./src/
