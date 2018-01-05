@@ -8,8 +8,7 @@
 - [X] securite: bloquage des touches [ctrl + ∂]
 - [X] Créer un environnement modifiable [env / setenv / unsetenv]
 - [X] Utilisation des paths commandes de l environnement
-- [X] recoder les fonctions utilisant l environnment modifiable [cd / echo / pwd / exit]
-- [X] augmentation du path SHLVL a l appel d un nouveau shell
+- [X] recoder les bultins [cd / echo / pwd / exit]
 - [X] gestions des signaux [ctrl + C] [ctrl + D]
 - [X] gestions des multicommandes avec le caractère ';' '|' '&&' '||'
 - [X] gestions des redirections avancees
