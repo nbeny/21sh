@@ -4,7 +4,6 @@
 ##### Grade ``(99/100)`` ``(99/125)*``
 --------  -----------------------
 
-Basic:
 - [X] Créer un shell et afficher un prompt a l'aide des termcaps
 - [X] securite: bloquage des touches [ctrl + ∂]
 - [X] Créer un environnement modifiable [env / setenv / unsetenv]
