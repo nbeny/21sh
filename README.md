@@ -4,10 +4,10 @@
 ##### Grade ``(99/100)`` ``(99/125)*``
 --------  -----------------------
 
-- [X] Créer un shell et afficher un prompt a l'aide des termcaps
+- [X] créer un shell et afficher un prompt a l'aide des termcaps
 - [X] securite: bloquage des touches [ctrl + ∂]
-- [X] Créer un environnement modifiable [env / setenv / unsetenv]
-- [X] Utilisation des paths commandes de l environnement
+- [X] créer un environnement modifiable [env / setenv / unsetenv]
+- [X] utilisation des paths commandes de l environnement
 - [X] recoder les bultins [cd / echo / pwd / exit]
 - [X] gestions des signaux [ctrl + C] [ctrl + D]
 - [X] gestions des multicommandes avec le caractère ';' '|' '&&' '||'
